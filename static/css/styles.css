@@ -1,2 +1,11 @@
 * {
 }
+.nav-link {
+  color: white !important;
+  font-size: 2vh;
+  margin-right: 1vh;
+}
+.navbar-brand {
+  color: white !important;
+  font-size: 2vh !important;
+}
