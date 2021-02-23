@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 import email_validator
 
-# This python file will generate a form in HTML based on the given attributes/ validators written in python.
+# These classes will generate a form in HTML based on the given attributes/ validators written in python.
 
 
 # Registration Form class. Each attribute represents an input field. Validation included.
