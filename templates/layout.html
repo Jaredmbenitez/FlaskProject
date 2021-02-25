@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    
-    
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <!-- Optional theme -->
@@ -14,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styles.css')}}" >
     
     {% if title %}
-      <title> Flask App - {{ title }}</title>
+      <title> Flask App - {{ title }}</title> 
     {% else %}
       <title> Flask App </title>
     {% endif %}
@@ -71,10 +69,10 @@
       
       </nav>
 
-      {% with messages = get_flashed_messages(with_categories = true) %}
+      {% with messages = get_flashed_messages(with_categories = true) %} 
         {% if messages %}
           {% for category, message in messages %}
-            <div class="alert alert-{{category}}">
+            <div class="alert alert-{{category}}">   
               {{ message }}
             </div>
           {% endfor %}
@@ -83,13 +81,11 @@
       {% endwith %}
       {%block content%}
  
-      
-
       {%endblock%} 
 
 
 
-         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
