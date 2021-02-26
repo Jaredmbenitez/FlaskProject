@@ -9,3 +9,7 @@
   color: white !important;
   font-size: 2vh !important;
 }
+.remember-me-label {
+  margin-left: 2vh;
+  margin-top: 0.25vh;
+}

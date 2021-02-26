@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    
-    
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <!-- Optional theme -->
@@ -14,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styles.css')}}" >
     
     {% if title %}
-      <title> Flask App - {{ title }}</title>
+      <title> Flask App - {{ title }}</title> 
     {% else %}
       <title> Flask App </title>
     {% endif %}
@@ -58,9 +56,19 @@
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li> -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('account')}}">Account</a>
-      </li>
+      {% if session.logged_in %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('account')}}">Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+        </li>
+      {% else %}
+        <li class ="nav-item">
+          <a class="nav-link" href="{{url_for('login')}}">Login</a>
+        </li>
+      {% endif %}
+      
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -70,11 +78,12 @@
 </nav>
       
       </nav>
+      
 
-      {% with messages = get_flashed_messages(with_categories = true) %}
+      {% with messages = get_flashed_messages(with_categories = true) %} 
         {% if messages %}
           {% for category, message in messages %}
-            <div class="alert alert-{{category}}">
+            <div class="alert alert-{{category}}">   
               {{ message }}
             </div>
           {% endfor %}
@@ -83,13 +92,11 @@
       {% endwith %}
       {%block content%}
  
-      
-
       {%endblock%} 
 
 
 
-         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
