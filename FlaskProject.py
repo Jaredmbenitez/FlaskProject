@@ -12,10 +12,12 @@ from classes.forms import RegistrationForm, LoginForm
 import pymysql
 import secrets
 from models.User import *
+from encrypt import *
 
 # Create string to connect to database.
 conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(
     secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Fk3yN9vnSECRETdUKlE6'       # Cookie Secret Key
@@ -60,10 +62,10 @@ def login():
 
             givenPass = loginForm.password.data
             givenUser = loginForm.username.data
-            DBUserObject = User.find_user_by_username(loginForm.username.data)
+            DBUserObject = User.find_user_by_username(givenUser)
 
             # Check given password against Database Password
-            if DBUserObject.password == givenPass:
+            if check_encrypted_password(givenPass, DBUserObject.password):
                 # Declare Session Variables
                 loggedInUser = User.find_user_by_username(
                     loginForm.username.data)
@@ -85,7 +87,7 @@ def register():
     registerForm = RegistrationForm()
     if registerForm.validate_on_submit():
         newUser = User(username=registerForm.username.data,
-                       password=registerForm.password.data, email=registerForm.email.data)
+                       password=encrypt_password(registerForm.password.data), email=registerForm.email.data)
         db.session.add(newUser)
         db.session.commit()
         # Flash a message.
