@@ -14,14 +14,15 @@ import secrets
 from models.User import *
 from encrypt import *
 
-# Create string to connect to database.
+# Create string to connect to database with app.config (line 24)
 conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(
     secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'Fk3yN9vnSECRETdUKlE6'       # Cookie Secret Key
-app.config['SQLALCHEMY_DATABASE_URI'] = conn
+# Cookie Secret Key
+app.config['SECRET_KEY'] = 'Fk3yN9vnSECRETdUKlE6INSBDY80n14SECRETKEY1n1k'
+app.config['SQLALCHEMY_DATABASE_URI'] = conn            # DB Connection
 db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 
 
@@ -54,6 +55,8 @@ def shop():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+
+    # Create new Form from LoginForm Class
     loginForm = LoginForm()
     # Check for validation errors.
     if loginForm.validate_on_submit():
@@ -84,10 +87,14 @@ def login():
 # Register Page, Accepts POST and GET requests. --------------------------
 @ app.route("/register", methods=['GET', 'POST'])
 def register():
+    # Create new Form from RegistrationForm Class
     registerForm = RegistrationForm()
+    # Check if any validation errors occured.
     if registerForm.validate_on_submit():
+        # Create new user object from form information
         newUser = User(username=registerForm.username.data,
                        password=encrypt_password(registerForm.password.data), email=registerForm.email.data)
+        # Add and commit the object to our database
         db.session.add(newUser)
         db.session.commit()
         # Flash a message.

@@ -5,8 +5,9 @@ db = SQLAlchemy()
 
 
 class User(db.Model):
-    __tablename__ = 'user'
+    __tablename__ = 'user'  # User table in our Database
 
+    # Each column is an attribute of our User Object.
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50))
     password = db.Column(db.String(50))
@@ -48,7 +49,7 @@ class User(db.Model):
     def set_email(self, email):
         self.email = email
 
-    # Create an object from a row in our User Table.
+    # Create an object from a row in our User Table. Returns a User Object.
     def new_UserObject(id):
         db = Database()
         db.connect()
@@ -62,7 +63,7 @@ class User(db.Model):
         newUser.set_email(row['email'])
         return newUser
 
-    def find_user_by_username(username):
+    def find_user_by_username(username):        # Returns a User Object.
         db = Database()
         db.connect()
         sql = "SELECT * from user where username = '{0}'".format(username)
