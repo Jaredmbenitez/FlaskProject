@@ -13,3 +13,21 @@
   margin-left: 2vh;
   margin-top: 0.25vh;
 }
+.item_page{
+  margin-left: 2%;
+  margin-right:2%;
+}
+.picture {
+  border-style: dotted;
+}
+.author{
+  border-style:solid;
+}
+.pic_and_author {
+  height: 70vh;
+}
+.profile{
+  border: 5px solid black;
+  height: 200px;
+  width: 200px;
+}
