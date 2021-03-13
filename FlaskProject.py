@@ -1,12 +1,27 @@
 # On windows: To start flask server WITH DEBUGGER
-# 1) $env:FLASK_APP= "FlaskProject.py"
+# 1) $env:FLASK_APP="FlaskProject.py"
 # 2) $env:FLASK_DEBUG=1
 # 3) flask run
+# FOR MAC USERS
+# 1) set FLASK_APP="FlaskProject.py"
+# 2) export FLASK_APP="FlaskProject.py"
+# 3) set FLASK_DEBUG=1
+# 4) export FLASK_DEBUG=1
+# 5) flask run
 
 # Notes:
+### This project serves as an example on how to use and maintain a Project using the Flask MicroFramework. ###
+
 # The static folder holds all static files. You can use {{url_for('static','')}} to reference a static file on the file server.
 # {{url_for('')}} this can be used to find the path of a given route, based off our routes in our main application 'FlaskProject.py'
-### This project serves as an example on how to use and maintain a Project using the Flask MicroFramework. ###
+
+# Tools used for the creation:
+# Python (Flask, SQLAlchemy, Pymysql,Flask-wtf, Email_Validators )
+# html
+# css
+# SQL
+
+
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from classes.forms import RegistrationForm, LoginForm
 import pymysql
@@ -14,7 +29,7 @@ import secrets
 from models.User import *
 from encrypt import *
 
-# Create string to connect to database with app.config (line 24)
+# Create string to connect to database with app.config['SQLALCHEMY_DATABASE_URI']
 conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(
     secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
 
@@ -29,7 +44,7 @@ db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 @app.route("/home")
 @app.route("/")  # Root Page.           --------------------------
 def home():
-    return render_template('home.html', title="Home", session=session,)
+    return render_template('home.html', title=conn, session=session,)
 
 
 @app.route("/about")  # About Page      --------------------------
@@ -50,9 +65,8 @@ def account():
 def shop():
     return render_template('shop.html', title="Shop")
 
+
 # Login Page, Accepts POST and GET requests --------------------------
-
-
 @app.route("/login", methods=['GET', 'POST'])
 def login():
 
