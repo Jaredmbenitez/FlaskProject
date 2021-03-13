@@ -44,7 +44,8 @@ db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 @app.route("/home")
 @app.route("/")  # Root Page.           --------------------------
 def home():
-    return render_template('home.html', title=conn, session=session,)
+
+    return render_template('home.html', title=conn,)
 
 
 @app.route("/about")  # About Page      --------------------------

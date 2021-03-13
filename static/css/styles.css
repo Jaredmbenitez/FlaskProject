@@ -13,3 +13,15 @@
   margin-left: 2vh;
   margin-top: 0.25vh;
 }
+
+.home-wrapper {
+  height: 100vh;
+  border: 1px solid blue;
+}
+.top-container {
+  height: 20vh;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+.bottom-container {
+}
