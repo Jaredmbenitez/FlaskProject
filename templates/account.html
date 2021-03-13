@@ -1,6 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% if user %}
-  <h1> {{ user }}</h1>
-    {% endif %}
+    <div class = "row">
+      <div class= "container col-sm-6 col-lg-8" style = "border: 1px solid black">
+
+        Container Large <br> 
+        Hello <br>
+        Hello2 
+
+      </div>
+      <div class = "container col-sm-6 col-lg-4">
+        Container Small
+      </div>
+    </div>
 {% endblock content %}
