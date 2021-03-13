@@ -48,7 +48,7 @@ def account():
 @app.route("/shop")  # Shop Page        --------------------------
 def shop():
     return render_template('shop.html', title="Shop")
-
+    # adding stuff to shop branch
 # Login Page, Accepts POST and GET requests --------------------------
 
 
