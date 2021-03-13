@@ -7,6 +7,7 @@
 # The static folder holds all static files. You can use {{url_for('static','')}} to reference a static file on the file server.
 # {{url_for('')}} this can be used to find the path of a given route, based off our routes in our main application 'FlaskProject.py'
 ### This project serves as an example on how to use and maintain a Project using the Flask MicroFramework. ###
+##blah##
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from classes.forms import RegistrationForm, LoginForm
 import pymysql
