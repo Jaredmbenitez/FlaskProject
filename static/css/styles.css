@@ -15,19 +15,58 @@
 }
 .item_page{
   margin-left: 2%;
-  margin-right:2%;
+  margin-right: 2%;
+  padding-left: 3%;
 }
 .picture {
   border-style: dotted;
+  margin-right: 2%;
 }
-.author{
+.seller{
   border-style:solid;
+  padding: 1% 1% 1% 1%;
+  margin-left: 2%;
 }
 .pic_and_author {
   height: 70vh;
+  margin-bottom: 2%;
 }
+
 .profile{
-  border: 5px solid black;
+  border: 3px solid black;
   height: 200px;
   width: 200px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.about_seller{
+  border: 3px solid black;
+  height: 30vh;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.about_picture_and_buy{
+  height: 40vh;
+  padding: 0% 0% 0% 0%;
+}
+.about_picture{
+  border: 3px solid black;
+  margin-right: 2%;
+  padding: 0% 0% 0% 0%;
+}
+.title{
+  border: 2px solid black;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  height: 20%;
+}
+.about{
+  border: 2px solid black;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  height:70%;
+}
+.buy{
+  border: 3px solid black;
+  margin-left: 2%;
 }
