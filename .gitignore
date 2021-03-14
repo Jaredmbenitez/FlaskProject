@@ -138,5 +138,3 @@ dmypy.json
 cython_debug/
 
 #CSC131 Project
-
-secrets.py
