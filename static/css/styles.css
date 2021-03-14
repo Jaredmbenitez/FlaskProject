@@ -50,7 +50,7 @@
   padding: 0% 0% 0% 0%;
 }
 .about_picture{
-  border: 3px solid black;
+  border: 3px dotted black;
   margin-right: 2%;
   padding: 0% 0% 0% 0%;
 }
@@ -69,4 +69,5 @@
 .buy{
   border: 3px solid black;
   margin-left: 2%;
+  padding: 1% 1% 1% 1%;
 }
