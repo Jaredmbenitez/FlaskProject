@@ -29,15 +29,11 @@ import secrets
 from models.User import *
 from encrypt import *
 
-# Create string to connect to database with app.config['SQLALCHEMY_DATABASE_URI']
-conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(
-    secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
-
 
 app = Flask(__name__)
 # Cookie Secret Key
 app.config['SECRET_KEY'] = 'Fk3yN9vnSECRETdUKlE6INSBDY80n14SECRETKEY1n1k'
-app.config['SQLALCHEMY_DATABASE_URI'] = conn            # DB Connection
+app.config['SQLALCHEMY_DATABASE_URI'] = secrets.conn            # DB Connection
 db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 
 
@@ -45,7 +41,7 @@ db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 @app.route("/")  # Root Page.           --------------------------
 def home():
 
-    return render_template('home.html', title=conn,)
+    return render_template('home.html', title="home",)
 
 
 @app.route("/about")  # About Page      --------------------------
