@@ -5,7 +5,7 @@
   margin-left: 2vh;
   margin-top: 0.25vh;
 }
-
+ 
 
 /* Styling for the navbar */
 .nav-link {
@@ -44,6 +44,7 @@
   border-radius:1vh;
   margin-top: 3vh;
 }
+/* Thumnail images */
 .home-thumb{
   background-size:cover;
   background-repeat: no-repeat;
@@ -52,6 +53,14 @@
   width:100%;
   height:100%;
 
+}
+
+/**************************/
+
+
+/* Styling for the Login page */
+.login-form, .register-form{
+  margin-top:1em;
 }
 
 /**************************/
