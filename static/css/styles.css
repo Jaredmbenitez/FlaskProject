@@ -18,6 +18,12 @@
   margin-right: 2%;
   padding-left: 3%;
 }
+.item_left{
+  margin-right: 2%;
+}
+.item_right{
+  margin-left:2%;
+}
 .item_picture {
   border-style: dotted;
   margin-right: 2%;
