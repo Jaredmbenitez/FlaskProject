@@ -66,6 +66,10 @@ def shop():
     return render_template('shop.html', title="Shop")
 # adding stuff to shop branch
 
+@app.route("/cart")  # cart Page        --------------------------
+def cart():
+    return render_template('cart.html', title="Cart")
+# adding stuff to cart branch=
 
 # Login Page, Accepts POST and GET requests --------------------------
 @app.route("/login", methods=['GET', 'POST'])
