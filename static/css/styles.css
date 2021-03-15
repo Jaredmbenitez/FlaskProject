@@ -25,7 +25,6 @@
   margin-left:2%;
 }
 .item_picture {
-  border-style: dotted;
   margin-right: 2%;
   margin-bottom: 2%;
 }
@@ -49,7 +48,7 @@
 }
 .about_seller{
   border: 2px solid black;
-  height: 35vh;
+  min-height: 15vh;
   margin-top: 2%;
   margin-bottom: 2%;
 }
@@ -60,21 +59,19 @@
 }
 .about_picture{
   height: 43.5vh;
-  border: 3px dotted black;
   margin-right: 2%;
   padding: 0% 0% 0% 0%;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
 }
 .title{
-  border: 2px solid black;
+  border: 3px solid black;
   margin-top: 1%;
   margin-bottom: 1%;
   height: 20%;
 }
 .about{
-  border: 2px solid black;
+  border: 3px solid black;
   margin-top: 1%;
-  margin-bottom: 1%;
   height:70%;
 }
 .buy{
@@ -104,7 +101,7 @@
   height: 60vh;
 }
 .review{
-  border: 3px solid black;
+  border: 2px solid black;
   margin-top: 2%;
   height: 40%;
 }
