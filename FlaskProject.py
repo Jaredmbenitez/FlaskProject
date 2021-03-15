@@ -57,6 +57,9 @@ def account():
 
     return render_template('account.html',  title="Account")
 
+@app.route("/item")  # Item Page        --------------------------
+def item():
+    return render_template('item.html', title="item")
 
 @app.route("/shop")  # Shop Page        --------------------------
 def shop():

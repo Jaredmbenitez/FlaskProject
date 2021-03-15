@@ -5,17 +5,23 @@
   margin-left: 2vh;
   margin-top: 0.25vh;
 }
-
+ 
 
 /* Styling for the navbar */
 .nav-link {
   color: white !important;
-  font-size: 2vh;
+  font-size: 2.5vh;
   margin-right: 1vh;
 }
 .navbar-brand {
   color: white !important;
-  font-size: 2vh !important;
+  font-size: 3vh !important;
+}
+.cart-logo{
+  font-size:1.5em;
+  line-height:.5em;
+  margin-right:.5em;
+  
 }
 
 /**************************/
@@ -38,6 +44,7 @@
   border-radius:1vh;
   margin-top: 3vh;
 }
+/* Thumnail images */
 .home-thumb{
   background-size:cover;
   background-repeat: no-repeat;
@@ -46,6 +53,116 @@
   width:100%;
   height:100%;
 
+}
+
+/**************************/
+
+
+/* Styling for the Login page */
+.login-form, .register-form{
+  margin-top:1em;
+}
+.item_page{
+  margin-left: 2%;
+  margin-right: 2%;
+  padding-left: 3%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.item_left{
+  margin-right: 2%;
+}
+.item_right{
+  margin-left:2%;
+}
+.item_picture {
+  margin-right: 2%;
+  margin-bottom: 2%;
+}
+.item_seller{
+  border-style:solid;
+  padding: 1% 1% 1% 1%;
+  margin-left: 2%;
+  margin-bottom: 4%;
+}
+.pic_and_author {
+  height: 70vh;
+  margin-bottom: 2%;
+}
+
+.profile{
+  border: 2px solid black;
+  height: 200px;
+  width: 200px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.about_seller{
+  border: 2px solid black;
+  min-height: 15vh;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.about_picture_and_buy{
+  height: 43.5vh;
+  margin-bottom: 2%;
+  padding: 0% 0% 0% 0%;
+}
+.about_picture{
+  height: 43.5vh;
+  margin-right: 2%;
+  padding: 0% 0% 0% 0%;
+  margin-bottom: 1%;
+}
+.title{
+  border: 3px solid black;
+  padding-left: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  height: 25%;
+}
+.about{
+  border: 3px solid black;
+  margin-top: 1%;
+  padding-left: 1%;
+  height:70%;
+}
+.buy{
+  border: 3px solid black;
+  margin-left: 2%;
+  padding: 1% 1% 1% 1%;
+  margin-bottom: 4%;
+}
+.item_options{
+  border: 2px solid black;
+  height:30vh;
+  margin-top: 5%;
+  margin-bottom:2%;
+}
+.item_option{
+  margin-top:1vh;
+}
+.reviews_and_ad{
+  height: 60vh;
+  margin-bottom: 2%;
+}
+.reviews{
+  border: 3px solid black;
+  padding: 1% 1% 1% 1%;
+  margin-right: 2%;
+  margin-bottom: 2%;
+  height: 60vh;
+}
+.review{
+  border: 2px solid black;
+  margin-top: 2%;
+  padding-left: 1%;
+  padding-right: 1%;
+  height: 40%;
+}
+.ad{
+  margin-left:2%;
+  margin-bottom: 2%;
 }
 
 /**************************/
