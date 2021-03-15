@@ -1,0 +1,151 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class = "flex-container item_page">
+        <div class="row item_everything">
+            <div class="col-8 item_left">
+                <div class="flex-container item_picture">
+                    <img src="static/flower.jpg" class="img-fluid" alt="Responsive image">
+                </div>
+                <div class="flex-container about_picture">
+                    <div class="flex-container title">
+                        <h1>Title</h1>
+                        <h2><i>~Author</i></h2>
+                    </div>
+                    <div class="flex-container about">
+                        About this piece:
+                    </div>
+                </div>
+                <div class="flex-container reviews">
+                    <h2>Average Item Rating: &#11088&#11088&#11088&#11088&#11088</h2>
+                    <div class="flex-container review">
+                        <h3>Review 1:</h3>
+                        <div class="flex-container">
+                            <p style="text-align: left">"General Response."</p>
+                            <p style="text-align: right"><i>~username</i></p>
+                        </div>
+                    </div>
+                    <div class="flex-container review">
+                        <h3>Review 2:</h3>
+                        <div class="flex-container">
+                            <p style="text-align: left">"General Response."</p>
+                            <p style="text-align: right"><i>~username</i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 item_right">
+                <div class="container item_seller">
+                    <h2 class="seller_header">Seller Name | Seller Rating:&#11088&#11088&#11088&#11088&#11088</h2>
+                    <div class="flex-container profile">
+                        <img src="static/profile.jpg" alt="profile" class="img-thumbnail">
+                    </div>
+                    <div class="flex-container about_seller">
+                        Information about the seller here.
+                    </div>
+                    <a href="{{url_for('account')}}" class="btn btn-primary btn-lg active" role="button" aria-disabled="true">See More From This Seller</a>
+              </div>
+              <div class="container buy">
+                <h3>Item Rating: &#11088&#11088&#11088&#11088&#11088 | # of Sales:  ####</h3>
+                <div class="container item_options">
+                    <div class="form-check item_option">
+                        <input class="form-check-input-lg" type="radio" name="options" id="digital" value="option1" checked>
+                        <label class="form-check-label" for="digital">
+                        <h4>Digital ($49.99)</h4>
+                        </label>
+                    </div>
+                    <div class="form-check item_option">
+                        <input class="form-check-input-lg" type="radio" name="options" id="digital_and_copyright" value="option2">
+                        <label class="form-check-label" for="digital_and_copyright">
+                            <h4>Digital and Copyright ($129.99)</h4>
+                        </label>
+                    </div>
+                    <div class="form-check item_option">
+                        <input class="form-check-input-lg" type="radio" name="options" id="print" value="option3">
+                        <label class="form-check-label" for="print">
+                            <h4>Print ($59.99)</h4>
+                        </label>
+                    </div>
+                </div>
+                <a class="btn btn-primary btn-lg active" role="button" aria-disabled="true">Add to Cart</a>
+              </div>
+              <div class="flex-container" ad>
+                <img src="static/mtndew.jpg" class="img-fluid" alt="Responsive image">
+              </div>
+            </div>
+        </div>
+        <!--<div class = "row pic_and_author">
+            <div class = "col-8 picture">
+                <div class="flex-container">
+                    <img src="static/flower.jpg" class="img-fluid" alt="Responsive image">
+                </div>
+            </div>
+            <div class = "col-3 seller">
+                <h2 class="seller_header">Seller Name | Seller Rating: &#11088 &#11088 &#11088 &#11088 &#11088</h2>
+                <div class="flex-container profile">
+                    <img src="static/profile.jpg" alt="profile" class="img-thumbnail">
+                </div>
+                <div class="flex-container about_seller">
+                    Information about the seller here.
+                </div>
+                <a href="{{url_for('account')}}" class="btn btn-primary btn-lg active" role="button" aria-disabled="true">See More From This Seller</a>
+            </div>
+        </div>
+        <div class="row about_picture_and_buy">
+            <div class="col-8 about_picture">
+                <div class="flex-container title">
+                    <h1>Title</h1>
+                    <h2><i>~Author</i></h2>
+                </div>
+                <div class="flex-container about">
+                    About this piece:
+                </div>
+            </div>
+            <div class="col-3 buy">
+                <h3>Item Rating: &#11088&#11088&#11088&#11088&#11088 | # of Sales:  ####</h3>
+                <div class="container item_options">
+                    <div class="form-check item_option">
+                        <input class="form-check-input-lg" type="radio" name="options" id="digital" value="option1" checked>
+                        <label class="form-check-label" for="digital">
+                        <h4>Digital ($49.99)</h4>
+                        </label>
+                    </div>
+                    <div class="form-check item_option">
+                        <input class="form-check-input-lg" type="radio" name="options" id="digital_and_copyright" value="option2">
+                        <label class="form-check-label" for="digital_and_copyright">
+                            <h4>Digital and Copyright ($129.99)</h4>
+                        </label>
+                    </div>
+                    <div class="form-check item_option">
+                        <input class="form-check-input-lg" type="radio" name="options" id="print" value="option3">
+                        <label class="form-check-label" for="print">
+                            <h4>Print ($59.99)</h4>
+                        </label>
+                    </div>
+                </div>
+                <a class="btn btn-primary btn-lg active" role="button" aria-disabled="true">Add to Cart</a>
+            </div>
+        </div>
+        <div class="row reviews_and_ad">
+            <div class="col-8 reviews">
+                <h2>Average Item Rating: &#11088&#11088&#11088&#11088&#11088</h2>
+                <div class="flex-container review">
+                    <h3>Review 1:</h3>
+                    <div class="flex-container">
+                        <p style="text-align: left">"General Response."</p>
+                        <p style="text-align: right"><i>~username</i></p>
+                    </div>
+                </div>
+                <div class="flex-container review">
+                    <h3>Review 2:</h3>
+                    <div class="flex-container">
+                        <p style="text-align: left">"General Response."</p>
+                        <p style="text-align: right"><i>~username</i></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 ad">
+                <img src="static/mtndew.jpg" class="img-fluid" alt="Responsive image">
+            </div> 
+        </div> -->
+    </div>
+{% endblock content %}
