@@ -18,14 +18,16 @@
   margin-right: 2%;
   padding-left: 3%;
 }
-.picture {
+.item_picture {
   border-style: dotted;
   margin-right: 2%;
+  margin-bottom: 2%;
 }
-.seller{
+.item_seller{
   border-style:solid;
   padding: 1% 1% 1% 1%;
   margin-left: 2%;
+  margin-bottom: 4%;
 }
 .pic_and_author {
   height: 70vh;
@@ -33,26 +35,29 @@
 }
 
 .profile{
-  border: 3px solid black;
+  border: 2px solid black;
   height: 200px;
   width: 200px;
   margin-top: 2%;
   margin-bottom: 2%;
 }
 .about_seller{
-  border: 3px solid black;
-  height: 30vh;
+  border: 2px solid black;
+  height: 35vh;
   margin-top: 2%;
   margin-bottom: 2%;
 }
 .about_picture_and_buy{
-  height: 40vh;
+  height: 43.5vh;
+  margin-bottom: 2%;
   padding: 0% 0% 0% 0%;
 }
 .about_picture{
+  height: 43.5vh;
   border: 3px dotted black;
   margin-right: 2%;
   padding: 0% 0% 0% 0%;
+  margin-bottom: 2%;
 }
 .title{
   border: 2px solid black;
@@ -70,4 +75,34 @@
   border: 3px solid black;
   margin-left: 2%;
   padding: 1% 1% 1% 1%;
+  margin-bottom: 4%;
+}
+.item_options{
+  border: 2px solid black;
+  height:30vh;
+  margin-top: 5%;
+  margin-bottom:2%;
+}
+.item_option{
+  margin-top:1vh;
+}
+.reviews_and_ad{
+  height: 60vh;
+  margin-bottom: 2%;
+}
+.reviews{
+  border: 3px solid black;
+  padding: 1% 1% 1% 1%;
+  margin-right: 2%;
+  margin-bottom: 2%;
+  height: 60vh;
+}
+.review{
+  border: 3px solid black;
+  margin-top: 2%;
+  height: 40%;
+}
+.ad{
+  margin-left:2%;
+  margin-bottom: 2%;
 }
