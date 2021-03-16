@@ -2,11 +2,26 @@
 # 1) $env:FLASK_APP="FlaskProject.py"
 # 2) $env:FLASK_DEBUG=1
 # 3) flask run
+# FOR MAC USERS
+# 1) set FLASK_APP="FlaskProject.py"
+# 2) export FLASK_APP="FlaskProject.py"
+# 3) set FLASK_DEBUG=1
+# 4) export FLASK_DEBUG=1
+# 5) flask run
 
 # Notes:
+### This project serves as an example on how to use and maintain a Project using the Flask MicroFramework. ###
+
 # The static folder holds all static files. You can use {{url_for('static','')}} to reference a static file on the file server.
 # {{url_for('')}} this can be used to find the path of a given route, based off our routes in our main application 'FlaskProject.py'
-### This project serves as an example on how to use and maintain a Project using the Flask MicroFramework. ###
+
+# Tools used for the creation:
+# Python (Flask, SQLAlchemy, Pymysql,Flask-wtf, Email_Validators )
+# html
+# css
+# SQL
+
+
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from classes.forms import RegistrationForm, LoginForm
 import pymysql
@@ -14,15 +29,11 @@ import secrets
 from models.User import *
 from encrypt import *
 
-# Create string to connect to database with app.config (line 24)
-conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(
-    secrets.dbuser, secrets.dbpass, secrets.dbhost, secrets.dbname)
-
 
 app = Flask(__name__)
 # Cookie Secret Key
 app.config['SECRET_KEY'] = 'Fk3yN9vnSECRETdUKlE6INSBDY80n14SECRETKEY1n1k'
-app.config['SQLALCHEMY_DATABASE_URI'] = conn            # DB Connection
+app.config['SQLALCHEMY_DATABASE_URI'] = secrets.conn            # DB Connection
 db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 
 
@@ -45,14 +56,21 @@ def account():
 
     return render_template('account.html',  title="Account")
 
+@app.route("/item")  # Item Page        --------------------------
+def item():
+    return render_template('item.html', title="item")
 
 @app.route("/shop")  # Shop Page        --------------------------
 def shop():
     return render_template('shop.html', title="Shop")
+# adding stuff to shop branch
+
+@app.route("/cart")  # cart Page        --------------------------
+def cart():
+    return render_template('cart.html', title="Cart")
+# adding stuff to cart branch=
 
 # Login Page, Accepts POST and GET requests --------------------------
-
-
 @app.route("/login", methods=['GET', 'POST'])
 def login():
 
