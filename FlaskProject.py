@@ -1,5 +1,5 @@
 # On windows: To start flask server WITH DEBUGGER
-# 1) $env:FLASK_APP= "FlaskProject.py"
+# 1) $env:FLASK_APP="FlaskProject.py"
 # 2) $env:FLASK_DEBUG=1
 # 3) flask run
 
@@ -29,7 +29,7 @@ db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 @app.route("/home")
 @app.route("/")  # Root Page.           --------------------------
 def home():
-    return render_template('home.html', title="Home", session=session,)
+    return render_template('home.html', title="Home")
 
 
 @app.route("/about")  # About Page      --------------------------
@@ -112,6 +112,11 @@ def logout():
     flash(f'You have been logged out!', 'success')
     # Redirect to login page
     return redirect(url_for('home'))
+
+@app.route("/test")  # test --------------------------
+def test():
+   
+    return render_template("test.html")
 
 
 if __name__ == '__main__':
