@@ -39,11 +39,11 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
-      {% if session["logged_in"] %}
+      <!-- {% if session["logged_in"] %}
         <li class="nav-item active">
           <a class="nav-link"> {{session["username"]}} </a>
         </li>
-      {% endif %}
+      {% endif %} -->
       <li class="nav-item active">
         <a class="nav-link" href="{{url_for('cart')}}"> <i class="bi bi-cart cart-logo"></i> </a>
       </li>
@@ -69,9 +69,9 @@
         </div>
       </li> -->
       {% if session.logged_in %}
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="#">{{ session["username"]}}</a>
-      </li>
+      </li> -->
         <li class="nav-item">
           <a class="nav-link" href="{{url_for('account')}}">Account</a>
         </li>
