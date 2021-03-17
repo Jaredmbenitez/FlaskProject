@@ -40,8 +40,7 @@ db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 @app.route("/home")
 @app.route("/")  # Root Page.           --------------------------
 def home():
-
-    return render_template('home.html', title="home",)
+    return render_template('home.html', title="Home")
 
 
 @app.route("/about")  # About Page      --------------------------
@@ -58,13 +57,25 @@ def account():
     return render_template('account.html',  title="Account")
 
 
+@app.route("/item")  # Item Page        --------------------------
+def item():
+    return render_template('item.html', title="item")
+
+
 @app.route("/shop")  # Shop Page        --------------------------
 def shop():
     return render_template('shop.html', title="Shop")
 # adding stuff to shop branch
 
 
+@app.route("/cart")  # cart Page        --------------------------
+def cart():
+    return render_template('cart.html', title="Cart")
+# adding stuff to cart branch=
+
 # Login Page, Accepts POST and GET requests --------------------------
+
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
 
@@ -124,6 +135,12 @@ def logout():
     flash(f'You have been logged out!', 'success')
     # Redirect to login page
     return redirect(url_for('home'))
+
+
+@app.route("/test")  # test --------------------------
+def test():
+
+    return render_template("test.html")
 
 
 if __name__ == '__main__':
