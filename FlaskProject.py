@@ -7,6 +7,9 @@
 # 2) export FLASK_APP="FlaskProject.py"
 # 3) set FLASK_DEBUG=1
 # 4) export FLASK_DEBUG=1
+#   git fetch
+#   git pull origin dev:dev
+#
 # 5) flask run
 
 # Notes:
@@ -57,19 +60,12 @@ def account():
 
     return render_template('account.html',  title="Account")
 
-@app.route("/item")  # Item Page        --------------------------
-def item():
-    return render_template('item.html', title="item")
 
 @app.route("/shop")  # Shop Page        --------------------------
 def shop():
     return render_template('shop.html', title="Shop")
 # adding stuff to shop branch
 
-@app.route("/cart")  # cart Page        --------------------------
-def cart():
-    return render_template('cart.html', title="Cart")
-# adding stuff to cart branch=
 
 # Login Page, Accepts POST and GET requests --------------------------
 @app.route("/login", methods=['GET', 'POST'])
