@@ -24,6 +24,7 @@
   
 }
 
+
 /**************************/
 
 /* Styling for the Home page  - Jared Benitez*/
@@ -165,6 +166,8 @@
   margin-bottom: 2%;
 }
 
+
+
 /**************************/
 
 .account-card{
@@ -172,3 +175,22 @@
   margin-left: 3%;
   margin-top: 1%;
 } 
+
+.shop-col{
+  margin-left: 100 em !important;
+  margin-right: 100 em !important;
+}
+
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+

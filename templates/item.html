@@ -4,7 +4,7 @@
         <div class="row item_everything">
             <div class="col-8 item_left">
                 <div class="flex-container item_picture">
-                    <img src="static/flower.jpg" class="img-fluid" alt="Responsive image">
+                    <img src="{{url_for('static',filename  = 'images/flower.jpg')}}" class="img-fluid" alt="Responsive image">
                 </div>
                 <div class="flex-container about_picture">
                     <div class="flex-container title">
@@ -37,7 +37,7 @@
                 <div class="container item_seller">
                     <h2 class="seller_header">Seller Name | Seller Rating:&#11088&#11088&#11088&#11088&#11088</h2>
                     <div class="flex-container profile">
-                        <img src="static/profile.jpg" alt="profile" class="img-thumbnail">
+                        <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail">
                     </div>
                     <div class="flex-container about_seller">
                         Information about the seller here.
@@ -69,7 +69,7 @@
                 <a class="btn btn-primary btn-lg active" role="button" aria-disabled="true">Add to Cart</a>
               </div>
               <div class="flex-container" ad>
-                <img src="static/mtndew.jpg" class="img-fluid" alt="Responsive image">
+                <img src="{{url_for('static',filename  = 'images/mtndew.jpg')}}" class="img-fluid" alt="Responsive image">
               </div>
             </div>
         </div>
