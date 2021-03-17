@@ -7,6 +7,9 @@
 # 2) export FLASK_APP="FlaskProject.py"
 # 3) set FLASK_DEBUG=1
 # 4) export FLASK_DEBUG=1
+#   git fetch
+#   git pull origin dev:dev
+#
 # 5) flask run
 
 # Notes:
