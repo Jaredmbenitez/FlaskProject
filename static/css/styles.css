@@ -5,17 +5,23 @@
   margin-left: 2vh;
   margin-top: 0.25vh;
 }
-
+ 
 
 /* Styling for the navbar */
 .nav-link {
   color: white !important;
-  font-size: 2vh;
+  font-size: 2.5vh;
   margin-right: 1vh;
 }
 .navbar-brand {
   color: white !important;
-  font-size: 2vh !important;
+  font-size: 3vh !important;
+}
+.cart-logo{
+  font-size:1.5em;
+  line-height:.5em;
+  margin-right:.5em;
+  
 }
 
 /**************************/
@@ -38,6 +44,7 @@
   border-radius:1vh;
   margin-top: 3vh;
 }
+/* Thumnail images */
 .home-thumb{
   background-size:cover;
   background-repeat: no-repeat;
@@ -49,10 +56,18 @@
 }
 
 /**************************/
+
+
+/* Styling for the Login page */
+.login-form, .register-form{
+  margin-top:1em;
+}
 .item_page{
   margin-left: 2%;
   margin-right: 2%;
   padding-left: 3%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 .item_left{
   margin-right: 2%;
@@ -101,13 +116,15 @@
 }
 .title{
   border: 3px solid black;
+  padding-left: 1%;
   margin-top: 1%;
   margin-bottom: 1%;
-  height: 20%;
+  height: 25%;
 }
 .about{
   border: 3px solid black;
   margin-top: 1%;
+  padding-left: 1%;
   height:70%;
 }
 .buy{
@@ -139,9 +156,19 @@
 .review{
   border: 2px solid black;
   margin-top: 2%;
+  padding-left: 1%;
+  padding-right: 1%;
   height: 40%;
 }
 .ad{
   margin-left:2%;
   margin-bottom: 2%;
 }
+
+/**************************/
+
+.account-card{
+  float:left;
+  margin-left: 3%;
+  margin-top: 1%;
+} 
