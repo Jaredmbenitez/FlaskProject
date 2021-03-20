@@ -2,7 +2,7 @@
 {% block content %}
     <div class = "flex-container item_page">
         <div class="row item_everything">
-            <div class="col-8 item_left">
+            <div class="col-7 item_left">
                 <div class="flex-container item_picture">
                     <img src="{{url_for('static',filename  = 'images/flower.jpg')}}" class="img-fluid" alt="Responsive image">
                 </div>
@@ -73,6 +73,7 @@
               </div>
             </div>
         </div>
+        
         <!--<div class = "row pic_and_author">
             <div class = "col-8 picture">
                 <div class="flex-container">
@@ -147,5 +148,8 @@
                 <img src="static/mtndew.jpg" class="img-fluid" alt="Responsive image">
             </div> 
         </div> -->
+    </div>
+    <div class="container item_ad">
+        <img src="{{url_for('static',filename  = 'images/candy.png')}}" class="img-fluid candy" alt="Responsive image">
     </div>
 {% endblock content %}
