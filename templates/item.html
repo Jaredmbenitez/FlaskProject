@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
+    <script>
+        function clickHelp() {
+            document.getElementById("p2").style.display="block";
+        }
+    </script>
     <div class = "flex-container item_page">
         <div class="row item_everything">
             <div class="col-7 item_left">
@@ -42,7 +47,7 @@
                     <div class="flex-container about_seller">
                         Information about the seller here.
                     </div>
-                    <a href="{{url_for('account')}}" class="btn btn-primary btn-lg active" role="button" aria-disabled="true">See More From This Seller</a>
+                    <a href="{{url_for('account')}}" class="btn btn-primary btn-block active" role="button" aria-disabled="true">See More From This Seller</a>
               </div>
               <div class="container buy">
                 <h3>Item Rating: &#11088&#11088&#11088&#11088&#11088 | # of Sales:  ####</h3>
@@ -66,7 +71,7 @@
                         </label>
                     </div>
                 </div>
-                <a class="btn btn-primary btn-lg active" role="button" aria-disabled="true">Add to Cart</a>
+                <a class="btn btn-primary btn-block active" role="button" aria-disabled="true">Add to Cart</a>
               </div>
               <div class="flex-container" ad>
                 <img src="{{url_for('static',filename  = 'images/mtndew.jpg')}}" class="img-fluid" alt="Responsive image">
@@ -152,4 +157,11 @@
     <div class="container item_ad">
         <img src="{{url_for('static',filename  = 'images/candy.png')}}" class="img-fluid candy" alt="Responsive image">
     </div>
+    <a href="" class="help_button"><p class="material-icons md-48 icon">help_outline</p></a>
+    <a href="" class="report_button"><p class="material-icons md-24 icon">report_problem</p></a>
+    <a href="" class="contact_button"><p class="material-icons md-24 icon">contact_page</p></a>
+    <a href="" class="faq_button"><p class="material-icons md-24 icon">help_center</p></a>
+    <script>
+        {document.getElementById("p2").style.display="none";}
+    </script>
 {% endblock content %}
