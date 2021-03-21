@@ -2,10 +2,30 @@
 {% block content %}
     <script>
         function clickHelp() {
-            document.getElementById("p2").style.display="block";
+            document.getElementById("report_button").style.display="block";
+            document.getElementById("contact_button").style.display="block";
+            document.getElementById("faq_button").style.display="block";
+            document.getElementById("esc_button").style.display="block";
+            document.getElementById("item_page").style.filter = "blur(5px)";
+            document.getElementById("nav_bar").style.filter = "blur(5px)";
+            document.getElementById("item_ad").style.filter = "blur(5px)";
+            document.getElementById('seller_button').disabled=true;
+            document.getElementById('cart_button').disabled=true;
+
+        }
+        function offHelp() {
+            document.getElementById("report_button").style.display="none";
+            document.getElementById("contact_button").style.display="none";
+            document.getElementById("faq_button").style.display="none";
+            document.getElementById("esc_button").style.display="none";
+            document.getElementById("item_page").style.filter = "none";
+            document.getElementById("nav_bar").style.filter = "none";
+            document.getElementById("item_ad").style.filter = "none";
+            document.getElementById('seller_button').disabled=false;
+            document.getElementById('cart_button').disabled=false;
         }
     </script>
-    <div class = "flex-container item_page">
+    <div class = "flex-container item_page" id="item_page">
         <div class="row item_everything">
             <div class="col-7 item_left">
                 <div class="flex-container item_picture">
@@ -47,7 +67,7 @@
                     <div class="flex-container about_seller">
                         Information about the seller here.
                     </div>
-                    <a href="{{url_for('account')}}" class="btn btn-primary btn-block active" role="button" aria-disabled="true">See More From This Seller</a>
+                    <button id="seller_button" class="btn btn-primary btn-block active" role="button" onclick="location.href='{{url_for('account')}}';" aria-disabled="true">See More From This Seller</button>
               </div>
               <div class="container buy">
                 <h3>Item Rating: &#11088&#11088&#11088&#11088&#11088 | # of Sales:  ####</h3>
@@ -71,9 +91,9 @@
                         </label>
                     </div>
                 </div>
-                <a class="btn btn-primary btn-block active" role="button" aria-disabled="true">Add to Cart</a>
+                <button class="btn btn-primary btn-block active" id="cart_button" role="button" aria-disabled="true">Add to Cart</button>
               </div>
-              <div class="flex-container" ad>
+              <div class="flex-container ad" >
                 <img src="{{url_for('static',filename  = 'images/mtndew.jpg')}}" class="img-fluid" alt="Responsive image">
               </div>
             </div>
@@ -154,14 +174,32 @@
             </div> 
         </div> -->
     </div>
-    <div class="container item_ad">
+    <div class="container item_ad" id="item_ad">
         <img src="{{url_for('static',filename  = 'images/candy.png')}}" class="img-fluid candy" alt="Responsive image">
     </div>
-    <a href="" class="help_button"><p class="material-icons md-48 icon">help_outline</p></a>
-    <a href="" class="report_button"><p class="material-icons md-24 icon">report_problem</p></a>
-    <a href="" class="contact_button"><p class="material-icons md-24 icon">contact_page</p></a>
-    <a href="" class="faq_button"><p class="material-icons md-24 icon">help_center</p></a>
+    <input type="button" class="help_button material-icons md-48 icon" onclick="clickHelp();" value="help_outline" />
+    <!--<a href="" class="help_button"><p class="material-icons md-48 icon">help_outline</p></a> -->
+    <input type="button" id="esc_button" class="esc_button material-icons md-24 icon" onclick="offHelp();" onmouseenter="document.getElementById('esc_tag').style.display='block';" onmouseleave="document.getElementById('esc_tag').style.display='none';" value="highlight_off" />
+    <div class="flex-container esc_tag" id="esc_tag">Exit Help</div>
+    <input type="button" id="report_button" class="report_button material-icons md-24 icon" onclick="offHelp();" onmouseenter="document.getElementById('report_tag').style.display='block';" onmouseleave="document.getElementById('report_tag').style.display='none';" value="report_problem" />
+    <div class="flex-container report_tag" id="report_tag">Report</div>
+    <input type="button" id="contact_button" class="contact_button material-icons md-24 icon" onclick="offHelp();" onmouseenter="document.getElementById('contact_tag').style.display='block';" onmouseleave="document.getElementById('contact_tag').style.display='none';" value="contact_page" />
+    <div class="flex-container contact_tag" id="contact_tag">Contact This Seller</div>
+    <input type="button" id="faq_button" class="faq_button material-icons md-24 icon" onclick="offHelp();" onmouseenter="document.getElementById('faq_tag').style.display='block';" onmouseleave="document.getElementById('faq_tag').style.display='none';" value="help_center" />
+    <div class="flex-container faq_tag" id="faq_tag">FAQ</div>
+    <!--<a href="" id="report_button" class="report_button"><p class="material-icons md-24 icon">report_problem</p></a>
+    <a href="" id="contact_button" class="contact_button"><p class="material-icons md-24 icon">contact_page</p></a>
+    <a href="" id="faq_button" class="faq_button"><p class="material-icons md-24 icon">help_center</p></a> -->
     <script>
-        {document.getElementById("p2").style.display="none";}
+        {
+            document.getElementById("report_button").style.display="none";
+            document.getElementById("report_tag").style.display="none";
+            document.getElementById("contact_button").style.display="none";
+            document.getElementById("contact_tag").style.display="none";
+            document.getElementById("faq_button").style.display="none";
+            document.getElementById("faq_tag").style.display="none";
+            document.getElementById("esc_button").style.display="none";
+            document.getElementById("esc_tag").style.display="none";
+        }
     </script>
 {% endblock content %}
