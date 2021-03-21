@@ -177,7 +177,8 @@
     <div class="container item_ad" id="item_ad">
         <img src="{{url_for('static',filename  = 'images/candy.png')}}" class="img-fluid candy" alt="Responsive image">
     </div>
-    <input type="button" class="help_button material-icons md-48 icon" onclick="clickHelp();" value="help_outline" />
+    <input type="button" class="help_button material-icons md-48 icon" onclick="clickHelp();" onmouseenter="document.getElementById('help_tag').style.display='block';" onmouseleave="document.getElementById('help_tag').style.display='none';" value="help_outline" />
+    <div class="flex-container help_tag" id="help_tag">Help</div>
     <!--<a href="" class="help_button"><p class="material-icons md-48 icon">help_outline</p></a> -->
     <input type="button" id="esc_button" class="esc_button material-icons md-24 icon" onclick="offHelp();" onmouseenter="document.getElementById('esc_tag').style.display='block';" onmouseleave="document.getElementById('esc_tag').style.display='none';" value="highlight_off" />
     <div class="flex-container esc_tag" id="esc_tag">Exit Help</div>
@@ -192,6 +193,7 @@
     <a href="" id="faq_button" class="faq_button"><p class="material-icons md-24 icon">help_center</p></a> -->
     <script>
         {
+            document.getElementById("help_tag").style.display="none";
             document.getElementById("report_button").style.display="none";
             document.getElementById("report_tag").style.display="none";
             document.getElementById("contact_button").style.display="none";

@@ -287,11 +287,21 @@
   margin:auto;
 }
 
+.help_tag{
+  border: 1px solid black;
+  background-color:#ffffff;
+  position: fixed;
+  bottom: 2vh;
+  left: 85vw;
+  padding-left:2px;
+  padding-right:2px;
+}
+
 .report_tag{
   border: 1px solid black;
   background-color:#ffffff;
   position: fixed;
-  bottom: 15vh;
+  bottom: 16vh;
   left: 76.25vw;
   padding-left:2px;
   padding-right:2px;
@@ -301,7 +311,7 @@
   border: 1px solid black;
   background-color:#ffffff;
   position: fixed;
-  bottom: 17vh;
+  bottom: 18vh;
   left: 79.25vw;
   padding-left:2px;
   padding-right:2px;
@@ -311,7 +321,7 @@
   border: 1px solid black;
   background-color:#ffffff;
   position: fixed;
-  bottom: 17vh;
+  bottom: 18vh;
   left: 82.25vw;
   padding-left:2px;
   padding-right:2px;
@@ -321,7 +331,7 @@
   border: 1px solid black;
   background-color:#ffffff;
   position: fixed;
-  bottom: 15vh;
+  bottom: 16vh;
   left: 85.25vw;
   padding-left:2px;
   padding-right:2px;
