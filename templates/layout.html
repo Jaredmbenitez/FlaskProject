@@ -47,17 +47,17 @@
         </li>
       {% endif %} -->
       <li class="nav-item active">
-        <a class="nav-link" href="{{url_for('cart')}}"> <i class="bi bi-cart cart-logo"></i> </a>
+        <a id="cart_link" class="nav-link" href="{{url_for('cart')}}"> <i class="bi bi-cart cart-logo"></i> </a>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="{{url_for('home')}}">Home <span class="sr-only">(current)</span></a>
+        <a id="home_link" class="nav-link" href="{{url_for('home')}}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{url_for('shop')}}">Shop</a>
+        <a id="shop_link" class="nav-link" href="{{url_for('shop')}}">Shop</a>
       </li>
       <li class = "nav-item"> <!-- Remove from final code -->
-        <a class="nav-link" href="{{url_for('item')}}">Item</a>
+        <a id="item_link" class="nav-link" href="{{url_for('item')}}">Item</a>
       </li>
       <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -75,17 +75,17 @@
         <a class="nav-link" href="#">{{ session["username"]}}</a>
       </li> -->
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('account')}}">Account</a>
+          <a id="account_link" class="nav-link" href="{{url_for('account')}}">Account</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('cart')}}">Cart</a>
+          <a id="cart_link" class="nav-link" href="{{url_for('cart')}}">Cart</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+          <a id="logout_link" class="nav-link" href="{{url_for('logout')}}">Logout</a>
         </li>
       {% else %}
         <li class ="nav-item">
-          <a class="nav-link" href="{{url_for('login')}}">Login</a>
+          <a id="login_link" class="nav-link" href="{{url_for('login')}}">Login</a>
         </li>
       {% endif %}
       
