@@ -11,6 +11,9 @@
             document.getElementById("item_ad").style.filter = "blur(5px)";
             document.getElementById('seller_button').disabled=true;
             document.getElementById('cart_button').disabled=true;
+            document.getElementById('item_option1').disabled=true;
+            document.getElementById('item_option2').disabled=true;
+            document.getElementById('item_option3').disabled=true;
             document.getElementById('cart_link').href="#";
             document.getElementById('home_link').href="#";
             document.getElementById('shop_link').href="#";
@@ -62,6 +65,9 @@
             document.getElementById("faq_sheet").style.display="none";
             document.getElementById('seller_button').disabled=false;
             document.getElementById('cart_button').disabled=false;
+            document.getElementById('item_option1').disabled=false;
+            document.getElementById('item_option2').disabled=false;
+            document.getElementById('item_option3').disabled=false;
             document.getElementById('cart_link').href="{{url_for('cart')}}";
             document.getElementById('home_link').href="{{url_for('home')}}";
             document.getElementById('shop_link').href="{{url_for('shop')}}";
@@ -119,19 +125,19 @@
                 <h3>Item Rating: &#11088&#11088&#11088&#11088&#11088 | # of Sales:  ####</h3>
                 <div class="container item_options">
                     <div class="form-check item_option">
-                        <input class="form-check-input-lg" type="radio" name="options" id="digital" value="option1" checked>
+                        <input id="item_option1" class="form-check-input-lg" type="radio" name="options" id="digital" value="option1" checked>
                         <label class="form-check-label" for="digital">
                         <h4>Digital ($49.99)</h4>
                         </label>
                     </div>
                     <div class="form-check item_option">
-                        <input class="form-check-input-lg" type="radio" name="options" id="digital_and_copyright" value="option2">
+                        <input id="item_option2" class="form-check-input-lg" type="radio" name="options" id="digital_and_copyright" value="option2">
                         <label class="form-check-label" for="digital_and_copyright">
                             <h4>Digital and Copyright ($129.99)</h4>
                         </label>
                     </div>
                     <div class="form-check item_option">
-                        <input class="form-check-input-lg" type="radio" name="options" id="print" value="option3">
+                        <input id="item_option3" class="form-check-input-lg" type="radio" name="options" id="print" value="option3">
                         <label class="form-check-label" for="print">
                             <h4>Print ($59.99)</h4>
                         </label>
