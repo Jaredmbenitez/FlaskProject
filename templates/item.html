@@ -11,8 +11,38 @@
             document.getElementById("item_ad").style.filter = "blur(5px)";
             document.getElementById('seller_button').disabled=true;
             document.getElementById('cart_button').disabled=true;
-
         }
+
+        function clickReport() {
+            document.getElementById("report_button").style.display="none";
+            document.getElementById("contact_button").style.display="none";
+            document.getElementById("faq_button").style.display="none";
+            document.getElementById("esc_button").style.display="none";
+            document.getElementById("faq_sheet").style.display="none";
+            document.getElementById("report_form").style.display="block";
+            document.getElementById("contact_form").style.display="none";
+        }
+
+        function clickContact() {
+            document.getElementById("report_button").style.display="none";
+            document.getElementById("contact_button").style.display="none";
+            document.getElementById("faq_button").style.display="none";
+            document.getElementById("esc_button").style.display="none";
+            document.getElementById("report_form").style.display="none";
+            document.getElementById("contact_form").style.display="block";
+            document.getElementById("faq_sheet").style.display="none";
+        }
+
+        function clickFAQ() {
+            document.getElementById("report_button").style.display="none";
+            document.getElementById("contact_button").style.display="none";
+            document.getElementById("faq_button").style.display="none";
+            document.getElementById("esc_button").style.display="none";
+            document.getElementById("faq_sheet").style.display="block";
+            document.getElementById("report_form").style.display="none";
+            document.getElementById("contact_form").style.display="none";
+        }
+
         function offHelp() {
             document.getElementById("report_button").style.display="none";
             document.getElementById("contact_button").style.display="none";
@@ -21,6 +51,8 @@
             document.getElementById("item_page").style.filter = "none";
             document.getElementById("nav_bar").style.filter = "none";
             document.getElementById("item_ad").style.filter = "none";
+            document.getElementById("report_form").style.display="none";
+            document.getElementById("faq_sheet").style.display="none";
             document.getElementById('seller_button').disabled=false;
             document.getElementById('cart_button').disabled=false;
         }
@@ -182,15 +214,65 @@
     <!--<a href="" class="help_button"><p class="material-icons md-48 icon">help_outline</p></a> -->
     <input type="button" id="esc_button" class="esc_button material-icons md-24 icon" onclick="offHelp();" onmouseenter="document.getElementById('esc_tag').style.display='block';" onmouseleave="document.getElementById('esc_tag').style.display='none';" value="highlight_off" />
     <div class="flex-container esc_tag" id="esc_tag">Exit Help</div>
-    <input type="button" id="report_button" class="report_button material-icons md-24 icon" onclick="offHelp();" onmouseenter="document.getElementById('report_tag').style.display='block';" onmouseleave="document.getElementById('report_tag').style.display='none';" value="report_problem" />
+    <input type="button" id="report_button" class="report_button material-icons md-24 icon" onclick="clickReport();" onmouseenter="document.getElementById('report_tag').style.display='block';" onmouseleave="document.getElementById('report_tag').style.display='none';" value="report_problem" />
     <div class="flex-container report_tag" id="report_tag">Report</div>
-    <input type="button" id="contact_button" class="contact_button material-icons md-24 icon" onclick="offHelp();" onmouseenter="document.getElementById('contact_tag').style.display='block';" onmouseleave="document.getElementById('contact_tag').style.display='none';" value="contact_page" />
+    <input type="button" id="contact_button" class="contact_button material-icons md-24 icon" onclick="location.href='{{url_for('account')}}';" onmouseenter="document.getElementById('contact_tag').style.display='block';" onmouseleave="document.getElementById('contact_tag').style.display='none';" value="contact_page" />
     <div class="flex-container contact_tag" id="contact_tag">Contact This Seller</div>
-    <input type="button" id="faq_button" class="faq_button material-icons md-24 icon" onclick="offHelp();" onmouseenter="document.getElementById('faq_tag').style.display='block';" onmouseleave="document.getElementById('faq_tag').style.display='none';" value="help_center" />
+    <input type="button" id="faq_button" class="faq_button material-icons md-24 icon" onclick="clickFAQ();" onmouseenter="document.getElementById('faq_tag').style.display='block';" onmouseleave="document.getElementById('faq_tag').style.display='none';" value="help_center" />
     <div class="flex-container faq_tag" id="faq_tag">FAQ</div>
     <!--<a href="" id="report_button" class="report_button"><p class="material-icons md-24 icon">report_problem</p></a>
     <a href="" id="contact_button" class="contact_button"><p class="material-icons md-24 icon">contact_page</p></a>
     <a href="" id="faq_button" class="faq_button"><p class="material-icons md-24 icon">help_center</p></a> -->
+    <div class="flex-container report_form" id="report_form">
+        <input type="button" class="report_cancel material-icons md-24" id="report_cancel" onclick="offHelp();" value="highlight_off"/>
+        <h1 class="center">Report Form</h1>
+        <form>
+            <label for="reason">Select a reason for this report: </label><br>
+            <select name="reason" id="reason">
+                <option value="wrongTags">Wrong Tags</option>
+                <option value="nsfw">NSFW (not labeled)</option>
+                <option value="copyright">Copyright</option>
+                <option value="other">Other</option>
+              </select> <br>
+            <label for="extra">Enter any additional info: </label><br>
+            <textarea id="extra" class="extra" name="extra" rows="5" cols="66"></textarea>
+            <input type="button" class="report_submit" id="report_submit" onclick="offHelp();" value="submit"/>
+        </form>
+    </div>
+    <div class="flex-container faq_sheet" id="faq_sheet">
+        <input type="button" class="faq_cancel material-icons md-24" id="faq_cancel" onclick="offHelp();" value="highlight_off"/>
+        <h1 class="center faq_head">Frequently Asked Questions</h1>
+        <div class="flex-container faqs">
+            faq1:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq2:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq3:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq4:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq5:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq6:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq7:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+        </div> 
+    </div>
     <script>
         {
             document.getElementById("help_tag").style.display="none";
@@ -202,6 +284,8 @@
             document.getElementById("faq_tag").style.display="none";
             document.getElementById("esc_button").style.display="none";
             document.getElementById("esc_tag").style.display="none";
+            document.getElementById("report_form").style.display="none";
+            document.getElementById("faq_sheet").style.display="none";
         }
     </script>
 {% endblock content %}
