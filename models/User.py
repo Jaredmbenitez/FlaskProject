@@ -14,6 +14,7 @@ class User(db.Model):
     email = db.Column(db.String(100))
 
     # This method is how the object is printed out.
+
     def __repr__(self):
         return f"User: ('{self.id}', '{self.username}', '{self.email}')"
 

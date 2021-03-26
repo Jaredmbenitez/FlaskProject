@@ -1,4 +1,4 @@
-dbhost = "127.0.0.1:8889"
+dbhost = "127.0.0.1"
 dbuser = "root"
 dbpass = ""
 dbname = "precious"
