@@ -31,14 +31,12 @@
   font-size: 2vh;
   text-align:center;
   height: 100vh;
+  margin-top:15vh;
 }
-.top-container {
-  line-height:6vh;
-  margin-top:18vh;
-  border-radius: 1vh;
-  background-color: lightgrey;
-  height: 30vh;
+.alert-msgs{
+  margin-top:7vh;
 }
+
 .bottom-container {
   height: 40vh;
   border-radius:1vh;
@@ -63,10 +61,12 @@
   margin-top:1em;
 }
 .item_page{
+  
   margin-left: 2%;
   margin-right: 2%;
   padding-left: 3%;
   margin-top: 2%;
+  margin-top:10vh; /* Changed by Jared for navbar fix */ 
   margin-bottom: 2%;
 }
 .item_left{
@@ -394,16 +394,21 @@
 
 
 /**************************/
-
+.account-wrapper{
+  margin-top:10vh;
+}
 .account-card{
   float:left;
-  margin-left: 3%;
+  margin-left: 1%;
   margin-top: 1%;
 } 
 
 .shop-col{
   margin-left: 100 em !important;
   margin-right: 100 em !important;
+}
+.shop-wrapper{
+  margin-top:9vh;
 }
 
 .button {
@@ -419,3 +424,6 @@
 }
 
 
+.cart-wrapper,.login-wrapper,.reg-wrapper{
+  margin-top:10vh;
+}

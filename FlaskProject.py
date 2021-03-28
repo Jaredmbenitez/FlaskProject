@@ -40,9 +40,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = secrets.conn            # DB Connection
 db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 
 
-@app.route("/home")
-@app.route("/")  # Root Page.           --------------------------
+@app.route("/home", methods=['GET', 'POST'],)
+# Root Page.           --------------------------
+@app.route("/", methods=['GET', 'POST'],)
 def home():
+    # Check if image was posted
+    if request.method == 'POST':
+        # create new photo object and add to database.
+        # Flash a message.
+        flash(f'Image Posted', 'success')
     return render_template('home.html', title="Home")
 
 
