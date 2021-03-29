@@ -26,10 +26,11 @@
 
 
 from flask import Flask, render_template, url_for, flash, request, redirect, session
-from classes.forms import RegistrationForm, LoginForm
+from classes.forms import RegistrationForm, LoginForm, ReportForm
 import pymysql
 import secrets
 from models.User import *
+from models.Report import Report
 from encrypt import *
 
 
@@ -60,9 +61,20 @@ def account():
     return render_template('account.html',  title="Account")
 
 
-@app.route("/item")  # Item Page        --------------------------
+@app.route("/item", methods=['GET', 'POST'])  # Item Page        --------------------------
 def item():
-    return render_template('item.html', title="item")
+    reportForm = ReportForm()
+    if request.method == "POST": # When a form gets submitted
+        if reportForm.validate_on_submit(): # Check for form's validity
+            reason = request.form.get("reason") # Store data from the form
+            extra_info = request.form.get("extra_info")
+            #data = [reason, extra_info] # was used for early stage testing
+            newReport = Report(report_tags=reason, report_description=extra_info) # Put the data into a new Report object 
+            db.session.add(newReport) #add to the database and commit 
+            db.session.commit()
+            flash('Report Submitted', 'success') # tell the user the report was submitted
+        #return render_template('item.html', title="item", form=reportForm, data=data)
+    return render_template('item.html', title="item", form=reportForm)
 
 
 @app.route("/shop")  # Shop Page        --------------------------
@@ -106,7 +118,7 @@ def login():
                 # Redirect User back to homepage on login.
                 return redirect(url_for('home'))
             else:
-                ('Login Unsuccessful. Please check username and password', 'danger')
+                flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title="Login", form=loginForm)
 
 
