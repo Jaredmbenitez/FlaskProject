@@ -17,7 +17,7 @@
           {% endif %}
         </div>
       </div>
-      <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Featured Posts:</h1>
+      <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Featured Posts: </h1>
 
         <!-- Carousel wrapper -->
       <div
@@ -247,32 +247,43 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
+          <h5 class="modal-title">Post an image!</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="" method="POST" id="postImageForm">
+          <form action="" method="POST" id="postImageForm" enctype="multipart/form-data">
             <div class="form-group">
-              <label for="exampleFormControlTextarea1">Describe this image</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <label for="inputFile">Upload image</label>
+              <input name="inputFile" id="inputFile" type="file" class="form-control-file" id="uploadImage">
             </div>
-      
+            <div class="form-group">
+              <label for="description">Describe this image</label>
+              <textarea name = "description" id= "description"class="form-control"  rows="3"></textarea>
+            </div>
             
             <div class="form-group">
-              <label for="exampleFormControlTextarea1">Add tags to this image</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <label for="tags">Add tags to this image</label>
+              <textarea name="tags" id="tags" class="form-control"  rows="3"></textarea>
             </div>
-            <form>
-              <div class="form-group">
-                <label for="exampleFormControlFile1">Upload image</label>
-                <input type="file" class="form-control-file" id="uploadImage">
-              </div>
-            </form>
+
+            <div class="form-group">
+              <label for="price">Price this image</label>
+              <input id = "price" name = "price" class="form-control"  />
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="nsfwCheck" name="nsfwCheck" >
+              <label class="form-check-label" for="defaultCheck1">
+                is this image NSFW?
+              </label>
+            
+              
+            
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" form="postImageForm">Post Photo</button>
+          <button name = "closeModal" id ="closeModal"type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button name="submitPhoto" id="submitPhoto" type="submit" class="btn btn-primary" form="postImageForm">Post Photo</button>
         </div>
       </div>
     </div>

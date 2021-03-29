@@ -23,14 +23,21 @@
 # html
 # css
 # SQL
-
-
-from flask import Flask, render_template, url_for, flash, request, redirect, session
-from classes.forms import RegistrationForm, LoginForm
-import pymysql
-import secrets
-from models.User import *
+from models.Photos import Photo
 from encrypt import *
+from models.User import *
+import secrets
+import pymysql
+from classes.forms import RegistrationForm, LoginForm
+from flask import Flask, render_template, url_for, flash, request, redirect, session
+from werkzeug.utils import secure_filename
+
+
+def convertToBinaryData(filename):
+    # Convert digital data to binary format
+    with open(filename, 'rb') as file:
+        blobData = file.read()
+    return blobData
 
 
 app = Flask(__name__)
@@ -46,9 +53,30 @@ db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 def home():
     # Check if image was posted
     if request.method == 'POST':
-        # create new photo object and add to database.
+
+        # Grab form data
+        nsfw = 0
+        tags = request.form.get("tags")
+        description = request.form.get("description")
+        price = request.form.get("price")
+        if request.form.get("nsfwCheck"):
+            nsfw = 1
+        # Process image into binary data
+        image = request.files["inputFile"]
+        image.save(secure_filename(image.filename))
+        url = image.filename
+        url = convertToBinaryData(url)
+
+        # Create new photo object and add to database.
+        newPhoto = Photo(image=url, tags=tags, price=price, nsfw=nsfw)
+        # Add and commit to database
+        db.session.add(newPhoto)
+        db.session.commit()
+
         # Flash a message.
         flash(f'Image Posted', 'success')
+
+        return render_template('home.html', title="Home", data=price)
     return render_template('home.html', title="Home")
 
 

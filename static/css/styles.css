@@ -44,7 +44,7 @@
 }
 /* Thumnail images */
 .home-thumb{
-  background-size:cover;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 .home-thumb > a > img{
