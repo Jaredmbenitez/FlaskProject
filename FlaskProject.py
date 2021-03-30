@@ -55,12 +55,16 @@ def home():
     if request.method == 'POST':
 
         # Grab form data
-        nsfw = 0
+        nsfw = 0  # nsfw is false by default
+        times_purchased = 0  # Initialize as 0
+        if request.form.get("nsfwCheck"):
+            nsfw = 1
+
         tags = request.form.get("tags")
         description = request.form.get("description")
         price = request.form.get("price")
-        if request.form.get("nsfwCheck"):
-            nsfw = 1
+        posted_by = session['username']
+
         # Process image into binary data
         image = request.files["inputFile"]
         image.save(secure_filename(image.filename))
@@ -68,7 +72,8 @@ def home():
         url = convertToBinaryData(url)
 
         # Create new photo object and add to database.
-        newPhoto = Photo(image=url, tags=tags, price=price, nsfw=nsfw)
+        newPhoto = Photo(image=url, tags=tags, price=price,
+                         nsfw=nsfw, posted_by=posted_by, times_purchased=times_purchased)
         # Add and commit to database
         db.session.add(newPhoto)
         db.session.commit()
@@ -76,7 +81,6 @@ def home():
         # Flash a message.
         flash(f'Image Posted', 'success')
 
-        return render_template('home.html', title="Home", data=price)
     return render_template('home.html', title="Home")
 
 
