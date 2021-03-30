@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="reg-wrapper">
     <div class="content-section container">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -86,4 +87,5 @@
             </fieldset>
         </form>
     </div>
+</div>
 {% endblock content %}

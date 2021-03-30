@@ -23,15 +23,25 @@
 # html
 # css
 # SQL
-
-
-from flask import Flask, render_template, url_for, flash, request, redirect, session
-from classes.forms import RegistrationForm, LoginForm, ReportForm
-import pymysql
-import secrets
-from models.User import *
+# Import Models
 from models.Report import Report
+from models.Photos import Photo
+from models.User import *
+##
 from encrypt import *
+import secrets
+import pymysql
+from classes.forms import RegistrationForm, LoginForm, ReportForm
+from flask import Flask, render_template, url_for, flash, request, redirect, session
+from werkzeug.utils import secure_filename
+from models.Report import Report
+
+
+def convertToBinaryData(filename):
+    # Convert digital data to binary format
+    with open(filename, 'rb') as file:
+        blobData = file.read()
+    return blobData
 
 
 app = Flask(__name__)
@@ -41,9 +51,40 @@ app.config['SQLALCHEMY_DATABASE_URI'] = secrets.conn            # DB Connection
 db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 
 
-@app.route("/home")
-@app.route("/")  # Root Page.           --------------------------
+@app.route("/home", methods=['GET', 'POST'],)
+# Root Page.           --------------------------
+@app.route("/", methods=['GET', 'POST'],)
 def home():
+    # Check if image was posted
+    if request.method == 'POST':
+
+        # Grab form data
+        nsfw = 0  # nsfw is false by default
+        times_purchased = 0  # Initialize as 0
+        if request.form.get("nsfwCheck"):
+            nsfw = 1
+
+        tags = request.form.get("tags")
+        description = request.form.get("description")
+        price = request.form.get("price")
+        posted_by = session['username']
+
+        # Process image into binary data
+        image = request.files["inputFile"]
+        image.save(secure_filename(image.filename))
+        url = image.filename
+        url = convertToBinaryData(url)
+
+        # Create new photo object and add to database.
+        newPhoto = Photo(image=url, tags=tags, price=price,
+                         nsfw=nsfw, posted_by=posted_by, times_purchased=times_purchased)
+        # Add and commit to database
+        db.session.add(newPhoto)
+        db.session.commit()
+
+        # Flash a message.
+        flash(f'Image Posted', 'success')
+
     return render_template('home.html', title="Home")
 
 
@@ -61,19 +102,23 @@ def account():
     return render_template('account.html',  title="Account")
 
 
-@app.route("/item", methods=['GET', 'POST'])  # Item Page        --------------------------
+# Item Page        --------------------------
+@app.route("/item", methods=['GET', 'POST'])
 def item():
     reportForm = ReportForm()
-    if request.method == "POST": # When a form gets submitted
-        if reportForm.validate_on_submit(): # Check for form's validity
-            reason = request.form.get("reason") # Store data from the form
+    if request.method == "POST":  # When a form gets submitted
+        if reportForm.validate_on_submit():  # Check for form's validity
+            reason = request.form.get("reason")  # Store data from the form
             extra_info = request.form.get("extra_info")
-            #data = [reason, extra_info] # was used for early stage testing
-            newReport = Report(report_tags=reason, report_description=extra_info) # Put the data into a new Report object 
-            db.session.add(newReport) #add to the database and commit 
+            # data = [reason, extra_info] # was used for early stage testing
+            # Put the data into a new Report object
+            newReport = Report(report_tags=reason,
+                               report_description=extra_info)
+            db.session.add(newReport)  # add to the database and commit
             db.session.commit()
-            flash('Report Submitted', 'success') # tell the user the report was submitted
-        #return render_template('item.html', title="item", form=reportForm, data=data)
+            # tell the user the report was submitted
+            flash('Report Submitted', 'success')
+        # return render_template('item.html', title="item", form=reportForm, data=data)
     return render_template('item.html', title="item", form=reportForm)
 
 

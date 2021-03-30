@@ -1,39 +1,299 @@
 {% extends "layout.html" %}
 {% block content %}
 
-  <div class="container-flex home-wrapper"> 
+
+  <div class="container-flex home-wrapper h-100"> 
     <div class ="container top-container" >
-      <div class = "home-quote">
-        Precious <br>
-        Search through thousands of photos. <br>
-        Post photos for potential buyers! <br> 
+      <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+          <h1 class="display-4 font-italic">Precious</h1>
+          <p class="lead my-3">Search through thousands of photos. <br> Post photos for potential buyers! <br> </p>
+          {% if session["logged_in"]%}
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+            Post a photo
+          </button>
+          {%else%}
+          <a class="btn btn-primary" href="{{url_for('register')}}"> Sign Up Now!</a>  
+          {% endif %}
+        </div>
       </div>
-        <a class="btn btn-primary" href="{{url_for('register')}}"> Sign Up Now!</a> 
+      <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Featured Posts: </h1>
+
+        <!-- Carousel wrapper -->
+      <div
+      id="carouselMultiItemExample"
+      class="carousel slide carousel-dark text-center"
+      data-mdb-ride="carousel"
+      >
+        <!-- Controls -->
+        <div class="d-flex justify-content-center mb-4">
+        <button
+          class="carousel-control-prev position-relative"
+          type="button"
+          data-mdb-target="#carouselMultiItemExample"
+          data-mdb-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true" onclick="$('#carouselMultiItemExample').carousel('prev')"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next position-relative"
+          type="button"
+          data-mdb-target="#carouselMultiItemExample"
+          data-mdb-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true" onclick="$('#carouselMultiItemExample').carousel('next')"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <!-- Inner -->
+      <div class="carousel-inner py-4">
+        <!-- Single item -->
+        <div class="carousel-item active">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="card">
+                  <img
+                    src="https://mdbootstrap.com/img/new/standard/nature/181.jpg"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">
+                      Some 
+                    </p>
+                    <a href="#!" class="btn btn-primary">Button</a>
+                  </div>
+                </div>
+              </div>
+
+          <div class="col-lg-4 d-none d-lg-block">
+            <div class="card">
+              <img
+                src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up the bulk
+                  of the card's content.
+                </p>
+                <a href="#!" class="btn btn-primary">Button</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 d-none d-lg-block">
+            <div class="card">
+              <img
+                src="https://mdbootstrap.com/img/new/standard/nature/183.jpg"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up the bulk
+                  of the card's content.
+                </p>
+                <a href="#!" class="btn btn-primary">Button</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+
+        <!-- Single item -->
+        <div class="carousel-item">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 col-md-12">
+                <div class="card">
+                  <img
+                    src="https://mdbootstrap.com/img/new/standard/nature/184.jpg"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and make up the bulk
+                      of the card's content.
+                    </p>
+                    <a href="#!" class="btn btn-primary">Button</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 d-none d-lg-block">
+                <div class="card">
+                  <img
+                    src="https://mdbootstrap.com/img/new/standard/nature/185.jpg"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and make up the bulk
+                      of the card's content.
+                    </p>
+                    <a href="#!" class="btn btn-primary">Button</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 d-none d-lg-block">
+                <div class="card">
+                  <img
+                    src="https://mdbootstrap.com/img/new/standard/nature/186.jpg"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and make up the bulk
+                      of the card's content.
+                    </p>
+                    <a href="#!" class="btn btn-primary">Button</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single item -->
+        <div class="carousel-item">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                <div class="card">
+                  <img
+                    src="https://mdbootstrap.com/img/new/standard/nature/187.jpg"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and make up the bulk
+                      of the card's content.
+                    </p>
+                    <a href="#!" class="btn btn-primary">Button</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
+                <div class="card">
+                  <img
+                    src="https://mdbootstrap.com/img/new/standard/nature/188.jpg"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and make up the bulk
+                      of the card's content.
+                    </p>
+                    <a href="#!" class="btn btn-primary">Button</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
+                <div class="card">
+                  <img
+                    src="https://mdbootstrap.com/img/new/standard/nature/189.jpg"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the card title and make up the bulk
+                      of the card's content.
+                    </p>
+                    <a href="#!" class="btn btn-primary">Button</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Inner -->
+      </div>
+
+      <script language="JavaScript" type="text/javascript">
+        $(document).ready(function(){
+          $('#carouselMultiItemExample').carousel({
+            interval: 5000
+          })
+        });    
+      </script> 
+      <!-- Carousel wrapper -->
+
+  <!-- Modal Content -->
+  <div class="modal" id="exampleModalCenter" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Post an image!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST" id="postImageForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="inputFile">Upload image</label>
+              <input name="inputFile" id="inputFile" type="file" class="form-control-file" id="uploadImage">
+            </div>
+            <div class="form-group">
+              <label for="description">Describe this image</label>
+              <textarea name = "description" id= "description"class="form-control"  rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="tags">Add tags to this image</label>
+              <textarea name="tags" id="tags" class="form-control"  rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="price">Price this image</label>
+              <input id = "price" name = "price" class="form-control"  />
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="nsfwCheck" name="nsfwCheck" >
+              <label class="form-check-label" for="defaultCheck1">
+                is this image NSFW?
+              </label>
+            
+              
+            
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button name = "closeModal" id ="closeModal"type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button name="submitPhoto" id="submitPhoto" type="submit" class="btn btn-primary" form="postImageForm">Post Photo</button>
+        </div>
+      </div>
     </div>
-    <div class ="container bottom-container">
-
-
-<div class="row" >
-
-  
-  <div class="col-lg-4 col-md-4 col-xs-4 thumb home-thumb">
-      <a class="thumbnail" href="#">
-          <img class="img-responsive" src="{{url_for('static',filename='images/image1.jpeg')}}" alt="">
-      </a>
   </div>
-
-  <div class="col-lg-4 col-md-4 col-xs-4 thumb home-thumb">
-      <a class="thumbnail" href="#">
-          <img class="img-responsive" src="{{url_for('static',filename='images/image2.jpeg')}}" alt="">
-      </a>
-  </div>
-
-  <div class="col-lg-4 col-md-4 col-xs-4 thumb home-thumb">
-      <a class="thumbnail" href="#">
-          <img class="img-responsive" src="{{url_for('static',filename='images/image3.jpeg')}}" alt="">
-      </a>
-  </div>
+  <!-- End Modal Content -->
 
   </div> 
+
+
+  
+  
   
 {% endblock content %}
