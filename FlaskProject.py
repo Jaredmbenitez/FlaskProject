@@ -29,6 +29,8 @@ from models.Photos import Photo
 from models.User import *
 ##
 from encrypt import *
+from base64 import b64encode
+import random
 import secrets
 import pymysql
 from classes.forms import RegistrationForm, LoginForm, ReportForm
@@ -199,9 +201,21 @@ def logout():
 
 @app.route("/test")  # test --------------------------
 def test():
-
-    return render_template("test.html")
+    randImage = generateRandomImage()
+    return render_template("test.html", image=randImage)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+def generateRandomImage():
+    # Query photo table for all entries
+    obj = Photo.query.all()
+    # Choose a random entry from the table
+    randomNumber = random.randint(0, len(obj) - 1)
+    # Decode the image
+    image = b64encode(obj[randomNumber].image).decode("utf-8")
+    # image can be caught in html pages by the following:
+    # <img src="data:;base64,{{ image }}"/>
+    return image
