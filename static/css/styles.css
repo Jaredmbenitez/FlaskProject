@@ -185,3 +185,10 @@
   margin: 4px 2px;
   cursor: pointer;
 }
+
+.shopitem
+{
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
