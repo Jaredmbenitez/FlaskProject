@@ -87,7 +87,8 @@ def home():
         # Flash a message.
         flash(f'Image Posted', 'success')
 
-    return render_template('home.html', title="Home")
+    photos = generateXRandomPhotoObjects(3)
+    return render_template('home.html', title="Home", photos=photos)
 
 
 @app.route("/about")  # About Page      --------------------------
@@ -201,21 +202,51 @@ def logout():
 
 @app.route("/test")  # test --------------------------
 def test():
-    randImage = generateRandomImage()
-    return render_template("test.html", image=randImage)
+    data = generateXRandomPhotoObjects(3)
+    return render_template("test.html",  data=data)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
 
 
+##### Extra Functions ######
+# Returns a random photo decoded ready to be caught.
 def generateRandomImage():
     # Query photo table for all entries
     obj = Photo.query.all()
     # Choose a random entry from the table
     randomNumber = random.randint(0, len(obj) - 1)
     # Decode the image
-    image = b64encode(obj[randomNumber].image).decode("utf-8")
+    randomImage = b64encode(obj[randomNumber].image).decode("utf-8")
     # image can be caught in html pages by the following:
     # <img src="data:;base64,{{ image }}"/>
-    return image
+    return randomImage
+
+# Returns a random Photo Object. Image has been decoded.
+
+
+def generateRandomPhotoObject():
+
+    # Query photo table for all entries
+    obj = Photo.query.all()
+    # Choose a random entry from the table
+    randomNumber = random.randint(0, len(obj) - 1)
+    randomPhotoObject = obj[randomNumber]
+    tempImage = randomPhotoObject.image
+    # Fix String Error
+    if type(tempImage) == str:
+        return generateRandomPhotoObject()
+    tempImage = b64encode(tempImage).decode("utf-8")
+    randomPhotoObject.image = tempImage
+    return randomPhotoObject
+
+    # Generate a number of random Photo Objects
+
+
+def generateXRandomPhotoObjects(x):
+    objectsList = []
+    for key in range(x):
+        tempObj = generateRandomPhotoObject()
+        objectsList.append(tempObj)
+    return objectsList

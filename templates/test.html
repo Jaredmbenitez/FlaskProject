@@ -3,8 +3,37 @@
 <div class = "container">
 
     <div class="myBox" style="max-width:250px;max-height:250px;border:1px solid black; margin-top:15vh;">
-            <img style="width:100%; height:100%;" src="data:;base64,{{ image }}"/>
-    </div>
+            <img style="width:100%; height:100%;" src="data:;base64,{{ data[0].image}}"/>
+    
+        </div>
+        <div> 
+            {{data[0].price}}<br>
+            {{ data[0].tags }}<br>
+            {{data[0].posted_by}}
+
+        </div>
+
+        <div class="myBox" style="max-width:250px;max-height:250px;border:1px solid black; margin-top:15vh;">
+            <img style="width:100%; height:100%;" src="data:;base64,{{ data[1].image}}"/>
+    
+        </div>
+        <div> 
+            {{data[1].price}}<br>
+            {{ data[1].tags }}<br>
+            {{data[1].posted_by}}
+
+        </div>
+
+        <div class="myBox" style="max-width:250px;max-height:250px;border:1px solid black; margin-top:15vh;">
+            <img style="width:100%; height:100%;" src="data:;base64,{{ data[2].image}}"/>
+    
+        </div>
+        <div> 
+            {{data[2].price}}<br>
+            {{ data[2].tags }}<br>
+            {{data[2].posted_by}}
+
+        </div>
 
   
 </div>
