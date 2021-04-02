@@ -25,7 +25,7 @@
 # SQL
 # Import Models
 from models.Report import Report
-from models.Photos import Photo
+from models.Photo import Photo
 from models.User import *
 ##
 from encrypt import *
@@ -241,7 +241,7 @@ def generateRandomPhotoObject():
     randomPhotoObject.image = tempImage
     return randomPhotoObject
 
-    # Generate a number of random Photo Objects
+# Generate a number of random Photo Objects
 
 
 def generateXRandomPhotoObjects(x):
