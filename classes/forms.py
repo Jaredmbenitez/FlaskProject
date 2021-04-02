@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 import email_validator
 
@@ -47,3 +47,12 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
 
     submit = SubmitField('Login')
+
+
+class ReportForm(FlaskForm):
+
+    reason = SelectField(u'Reason', choices=[('wrongTags', 'Wrong Tags'), ('nsfw', 'NSFW (not labeled)'), ('copyright', 'Copyright'), ('other', 'Other')])
+
+    extra_info = TextAreaField('Additional Information (max characters:255)', validators=[Length(min=1, max=255)])
+
+    submit = SubmitField('Submit')

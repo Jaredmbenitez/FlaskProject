@@ -23,14 +23,27 @@
 # html
 # css
 # SQL
-
-
-from flask import Flask, render_template, url_for, flash, request, redirect, session
-from classes.forms import RegistrationForm, LoginForm
-import pymysql
-import secrets
+# Import Models
+from models.Report import Report
+from models.Photo import Photo
 from models.User import *
+##
 from encrypt import *
+from base64 import b64encode
+import random
+import secrets
+import pymysql
+from classes.forms import RegistrationForm, LoginForm, ReportForm
+from flask import Flask, render_template, url_for, flash, request, redirect, session
+from werkzeug.utils import secure_filename
+from models.Report import Report
+
+
+def convertToBinaryData(filename):
+    # Convert digital data to binary format
+    with open(filename, 'rb') as file:
+        blobData = file.read()
+    return blobData
 
 
 app = Flask(__name__)
@@ -40,10 +53,42 @@ app.config['SQLALCHEMY_DATABASE_URI'] = secrets.conn            # DB Connection
 db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 
 
-@app.route("/home")
-@app.route("/")  # Root Page.           --------------------------
+@app.route("/home", methods=['GET', 'POST'],)
+# Root Page.           --------------------------
+@app.route("/", methods=['GET', 'POST'],)
 def home():
-    return render_template('home.html', title="Home")
+    # Check if image was posted
+    if request.method == 'POST':
+
+        # Grab form data
+        nsfw = 0  # nsfw is false by default
+        times_purchased = 0  # Initialize as 0
+        if request.form.get("nsfwCheck"):
+            nsfw = 1
+
+        tags = request.form.get("tags")
+        description = request.form.get("description")
+        price = request.form.get("price")
+        posted_by = session['username']
+
+        # Process image into binary data
+        image = request.files["inputFile"]
+        image.save(secure_filename(image.filename))
+        url = image.filename
+        url = convertToBinaryData(url)
+
+        # Create new photo object and add to database.
+        newPhoto = Photo(image=url, tags=tags, price=price,
+                         nsfw=nsfw, posted_by=posted_by, times_purchased=times_purchased)
+        # Add and commit to database
+        db.session.add(newPhoto)
+        db.session.commit()
+
+        # Flash a message.
+        flash(f'Image Posted', 'success')
+
+    photos = generateXRandomPhotoObjects(3)
+    return render_template('home.html', title="Home", photos=photos)
 
 
 @app.route("/about")  # About Page      --------------------------
@@ -60,9 +105,26 @@ def account():
     return render_template('account.html',  title="Account")
 
 
-@app.route("/item")  # Item Page        --------------------------
+# Item Page        --------------------------
+@app.route("/item", methods=['GET', 'POST'])
 def item():
-    return render_template('item.html', title="item")
+    reportForm = ReportForm()
+    if request.method == "POST":  # When a form gets submitted
+        if reportForm.validate_on_submit():  # Check for form's validity
+            reason = request.form.get("reason")  # Store data from the form
+            extra_info = request.form.get("extra_info")
+            userId = getUserIdbyUsername('root')
+            # data = [reason, extra_info] # was used for early stage testing
+            # Put the data into a new Report object
+            newReport = Report(report_tags=reason,
+                               report_description=extra_info,
+                               reported_user_id=userId)
+            db.session.add(newReport)  # add to the database and commit
+            db.session.commit()
+            # tell the user the report was submitted
+            flash('Report Submitted', 'success')
+        # return render_template('item.html', title="item", form=reportForm, data=data)
+    return render_template('item.html', title="item", form=reportForm)
 
 
 @app.route("/shop")  # Shop Page        --------------------------
@@ -106,7 +168,7 @@ def login():
                 # Redirect User back to homepage on login.
                 return redirect(url_for('home'))
             else:
-                ('Login Unsuccessful. Please check username and password', 'danger')
+                flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title="Login", form=loginForm)
 
 
@@ -140,11 +202,94 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route("/item/<id>")
+def item(id):
+
+
 @app.route("/test")  # test --------------------------
 def test():
+    data = getUserIdbyUsername('root')
 
-    return render_template("test.html")
+    return render_template("test.html",  data=data)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+##### Extra Functions ######
+# Returns a random photo decoded ready to be caught.
+def generateRandomImage():
+    # Query photo table for all entries
+    obj = Photo.query.all()
+    # Choose a random entry from the table
+    randomNumber = random.randint(0, len(obj) - 1)
+    # Decode the image
+    randomImage = b64encode(obj[randomNumber].image).decode("utf-8")
+    # image can be caught in html pages by the following:
+    # <img src="data:;base64,{{ image }}"/>
+    return randomImage
+
+# Returns a random Photo Object. Image has been decoded.
+
+
+def generateRandomPhotoObject():
+
+    # Query photo table for all entries
+    obj = Photo.query.all()
+    # Choose a random entry from the table
+    randomNumber = random.randint(0, len(obj) - 1)
+    randomPhotoObject = obj[randomNumber]
+    tempImage = randomPhotoObject.image
+    # Fix String Error
+    if type(tempImage) == str:
+        return generateRandomPhotoObject()
+    tempImage = b64encode(tempImage).decode("utf-8")
+    randomPhotoObject.image = tempImage
+    return randomPhotoObject
+
+# Generate a number of random Photo Object
+
+
+def generateXRandomPhotoObjects(x):
+    objectsList = []
+    for key in range(x):
+        tempObj = generateRandomPhotoObject()
+        objectsList.append(tempObj)
+    return objectsList
+
+
+# FINISHED
+def getUserIdbyUsername(user):
+    # Query to find user ID
+    queryObject = User.query.filter_by(username=user).first()
+    return queryObject.id
+
+# Item Page Wyatt
+
+
+def getPhotoIdBy_____():
+    return 0
+
+# Account page - Alec
+
+
+def getPhotoObjectsByUsername():
+    return 0
+
+# Cart page - Matthew
+
+
+def getCartDatabyUserID():
+    return 0
+
+
+
+# Item Page Wyatt
+def getPhotoObjectByPhotoID():
+    return 0
+    
+
+
+def getUserInfoByPhotoID():
+    return 0

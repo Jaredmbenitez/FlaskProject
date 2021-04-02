@@ -1,6 +1,6 @@
 from classes.database import Database
 from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={"autoflush": False})
 #  user Class represents user table in MYSQL database 'precious'
 
 
