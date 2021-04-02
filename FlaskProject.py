@@ -113,10 +113,12 @@ def item():
         if reportForm.validate_on_submit():  # Check for form's validity
             reason = request.form.get("reason")  # Store data from the form
             extra_info = request.form.get("extra_info")
+            userId = getUserIdbyUsername('root')
             # data = [reason, extra_info] # was used for early stage testing
             # Put the data into a new Report object
             newReport = Report(report_tags=reason,
-                               report_description=extra_info)
+                               report_description=extra_info,
+                               reported_user_id=userId)
             db.session.add(newReport)  # add to the database and commit
             db.session.commit()
             # tell the user the report was submitted
@@ -200,9 +202,14 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route("/item/<id>")
+def item(id):
+
+
 @app.route("/test")  # test --------------------------
 def test():
-    data = generateXRandomPhotoObjects(3)
+    data = getUserIdbyUsername('root')
+
     return render_template("test.html",  data=data)
 
 
@@ -241,7 +248,7 @@ def generateRandomPhotoObject():
     randomPhotoObject.image = tempImage
     return randomPhotoObject
 
-# Generate a number of random Photo Objects
+# Generate a number of random Photo Object
 
 
 def generateXRandomPhotoObjects(x):
@@ -250,3 +257,39 @@ def generateXRandomPhotoObjects(x):
         tempObj = generateRandomPhotoObject()
         objectsList.append(tempObj)
     return objectsList
+
+
+# FINISHED
+def getUserIdbyUsername(user):
+    # Query to find user ID
+    queryObject = User.query.filter_by(username=user).first()
+    return queryObject.id
+
+# Item Page Wyatt
+
+
+def getPhotoIdBy_____():
+    return 0
+
+# Account page - Alec
+
+
+def getPhotoObjectsByUsername():
+    return 0
+
+# Cart page - Matthew
+
+
+def getCartDatabyUserID():
+    return 0
+
+
+
+
+def getPhotoObjectByPhotoID():
+    return 0
+    
+
+
+def getUserInfoByPhotoID():
+    return 0
