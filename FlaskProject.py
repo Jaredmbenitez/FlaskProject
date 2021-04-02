@@ -203,12 +203,13 @@ def logout():
 
 
 @app.route("/item/<id>")
-def item(id):
+def itemModular(id):
+    return(0)
 
 
 @app.route("/test")  # test --------------------------
 def test():
-    data = getUserIdbyUsername('root')
+    data = getPhotoObjectsByUsername('root')
 
     return render_template("test.html",  data=data)
 
@@ -274,8 +275,14 @@ def getPhotoIdBy_____():
 # Account page - Alec
 
 
-def getPhotoObjectsByUsername():
-    return 0
+def getPhotoObjectsByUsername(user):
+    queryObjects = Photo.query.filter_by(posted_by=user).all()
+
+    for obj in queryObjects:
+        tempImage = obj.image
+        tempImage = b64encode(tempImage).decode("utf-8")
+        obj.image = tempImage
+    return queryObjects
 
 # Cart page - Matthew
 
@@ -284,11 +291,8 @@ def getCartDatabyUserID():
     return 0
 
 
-
-
 def getPhotoObjectByPhotoID():
     return 0
-    
 
 
 def getUserInfoByPhotoID():
