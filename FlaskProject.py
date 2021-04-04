@@ -105,6 +105,18 @@ def account():
     return render_template('account.html',  title="Account")
 
 
+@app.route("/account/<username>")
+def accountDynamic(username):
+    userObj = getUserInfoByUsername(username)
+    allPhotoObjects = getPhotoObjectsByUsername(username)
+
+    if "username" in session:
+        user = session["username"]
+        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects)
+
+    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects)
+
+
 # Item Page        --------------------------
 @app.route("/item", methods=['GET', 'POST'])
 def item():
@@ -125,6 +137,31 @@ def item():
             flash('Report Submitted', 'success')
         # return render_template('item.html', title="item", form=reportForm, data=data)
     return render_template('item.html', title="item", form=reportForm)
+
+
+@app.route("/item/<id>")
+def itemDynamic(id):
+
+    photoObject = getPhotoObjectByPhotoID(id)
+    userObject = getUserInfoByUsername(photoObject.posted_by)
+
+    reportForm = ReportForm()
+    if request.method == "POST":  # When a form gets submitted
+        if reportForm.validate_on_submit():  # Check for form's validity
+            reason = request.form.get("reason")  # Store data from the form
+            extra_info = request.form.get("extra_info")
+            userId = getUserIdbyUsername('root')
+            # data = [reason, extra_info] # was used for early stage testing
+            # Put the data into a new Report object
+            newReport = Report(report_tags=reason,
+                               report_description=extra_info,
+                               reported_user_id=userId)
+            db.session.add(newReport)  # add to the database and commit
+            db.session.commit()
+            # tell the user the report was submitted
+            flash('Report Submitted', 'success')
+        # return render_template('item.html', title="item", form=reportForm, data=data)
+    return render_template('dynamicitem.html', title="item", form=reportForm, userObject=userObject, photoObject=photoObject)
 
 
 @app.route("/shop")  # Shop Page        --------------------------
@@ -202,11 +239,6 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/item/<id>")
-def itemModular(id):
-    return(0)
-
-
 @app.route("/test")  # test --------------------------
 def test():
     data = getPhotoObjectsByUsername('root')
@@ -277,7 +309,6 @@ def getPhotoIdBy_____():
 
 def getPhotoObjectsByUsername(user):
     queryObjects = Photo.query.filter_by(posted_by=user).all()
-
     for obj in queryObjects:
         tempImage = obj.image
         tempImage = b64encode(tempImage).decode("utf-8")
@@ -291,9 +322,20 @@ def getCartDatabyUserID():
     return 0
 
 
-def getPhotoObjectByPhotoID():
-    return 0
+def getPhotoObjectByPhotoID(id):
+    queryObject = Photo.query.filter_by(photo_id=id).first()
+    tempImage = queryObject.image
+    tempImage = b64encode(tempImage).decode("utf-8")
+    queryObject.image = tempImage
+    return queryObject
 
 
 def getUserInfoByPhotoID():
     return 0
+
+# Returns a User object given the username
+
+
+def getUserInfoByUsername(user):
+    userObject = User.query.filter_by(username=user).first()
+    return userObject

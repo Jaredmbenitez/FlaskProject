@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<div class="container-flex account-wrapper" >
+  <div class= "top">
+  <div class="account-card card" style="width: 18rem;">
+    <img class="card-img-top" src="{{url_for('static',filename='images/blank-user.jpeg')}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{userObj.username}}</h5>
+      <p class="card-text"> Quick about me blurp with the account holder. </p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Account Type:</li>
+      <li class="list-group-item">Reputation Level:</li>
+      
+    </ul>
+    <div class="card-body">
+      <a href= "#" class="card-link">Subscribe</a>
+      <a href="#" class="card-link">Contact</a>
+      <a href="#" class="card-link">Report</a>
+    </div>
+  </div>
+
+<!-- this will be another container that holds the available sales options -->
+<div class="availablesales-container container">
+
+  <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Available Sales</h1>
+
+  <hr class="mt-2 mb-5">
+
+  <div class="row text-center text-lg-left">
+
+    {% for obj in allPhotoObjects %}
+      <div class="col-lg-3 col-md-4 col-6">
+        <a href = "{{url_for('itemDynamic', id=obj.photo_id)}}" class="d-block mb-4 h-100">
+              <img class="img-fluid img-thumbnail" src="data:;base64,{{obj.image}}" alt="" data-id="{{obj.photo_id}}">
+              <p class="container-text"> {{obj.tags}} {{obj.price}} </p>
+            </a>
+      </div>
+    {% endfor %}
+
+    
+    
+
+  </div> 
+</div>
+
+</div>
+
+<!-- this will be the best sellers container-->
+<div class="bestsales-container container">
+
+  <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Best Sellers</h1>
+
+  <hr class="mt-2 mb-5">
+
+  <div class="row text-center text-lg-left">
+
+    <div class="col-lg-3 col-md-4 col-6">
+      <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/pWkk7iiCoDM/400x300" alt="">
+            <p class="container-text"> Item name and price </p>
+          </a>
+    </div>
+    <div class="col-lg-3 col-md-4 col-6">
+      <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/aob0ukAYfuI/400x300" alt="">
+            <p class="container-text"> Item name and price </p>
+          </a>
+    </div>
+    <div class="col-lg-3 col-md-4 col-6">
+      <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/EUfxH-pze7s/400x300" alt="">
+            <p class="container-text"> Item name and price </p>
+          </a>
+    </div>
+    <div class="col-lg-3 col-md-4 col-6">
+      <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/M185_qYH8vg/400x300" alt="">
+            <p class="container-text"> Item name and price </p>
+          </a>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+{% endblock content %}
