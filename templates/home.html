@@ -59,17 +59,21 @@
               {% for obj in range(0,3) %}
               <div class="col-lg-4 d-none d-lg-block">
                 <div class="card">
+                  <a href = "{{url_for('itemDynamic',id=photos[obj].photo_id)}}">
                   <img
                     src="data:;base64,{{photos[obj].image}}"
                     class="card-img-top"
                     alt="..."
+                    data-id={{photos[obj].photo_id}}
                   />
+                </a>
                   <div class="card-body">
                     <h5 class="card-title">{{photos[obj].posted_by}}</h5>
                     <p class="card-text">
-                      {{photos[obj].tags}}
+                      {{photos[obj].tags}} <br>
+                      Price:{{photos[obj].price}}
                     </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
+                    <a href="#!" class="btn btn-warning">View Item!</a>
                   </div>
                 </div>
               </div>
@@ -87,17 +91,21 @@
               {% for obj in range(3,6) %}
               <div class="col-lg-4 d-none d-lg-block">
                 <div class="card">
+                  <a href = "{{url_for('itemDynamic',id=photos[obj].photo_id)}}">
                   <img
                     src="data:;base64,{{photos[obj].image}}"
                     class="card-img-top"
                     alt="..."
+                    data-id="{{photos[obj].photo_id}}"
                   />
+                </a>
                   <div class="card-body">
                     <h5 class="card-title">{{photos[obj].posted_by}}</h5>
                     <p class="card-text">
-                      {{photos[obj].tags}}
+                      {{photos[obj].tags}} <br>
+                      Price:{{photos[obj].price}}
                     </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
+                    <a href="#!" class="btn btn-warning">Button</a>
                   </div>
                 </div>
               </div>
@@ -114,17 +122,21 @@
               {% for obj in range(6,9) %}
               <div class="col-lg-4 d-none d-lg-block">
                 <div class="card">
+                  <a href = "{{url_for('itemDynamic',id=photos[obj].photo_id)}}">
                   <img
                     src="data:;base64,{{photos[obj].image}}"
                     class="card-img-top"
                     alt="..."
+                    data-id="{{photos[obj].photo_id}}"
                   />
+                </a>
                   <div class="card-body">
                     <h5 class="card-title">{{photos[obj].posted_by}}</h5>
                     <p class="card-text">
-                      {{photos[obj].tags}}
+                      {{photos[obj].tags}} <br>
+                      Price:{{photos[obj].price}}
                     </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
+                    <a href="#!" class="btn btn-warning">Button</a>
                   </div>
                 </div>
               </div>

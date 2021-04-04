@@ -288,12 +288,11 @@ def generateRandomPhotoObject():
 
 
 # Generate a number of random Photo Object
-
-
 def generateXRandomPhotoObjects(x):
     objectsList = []
     for key in range(x):
         tempObj = generateRandomPhotoObject()
+        #Somehow we need to check here for duplicates
         objectsList.append(tempObj)
     return objectsList
 
