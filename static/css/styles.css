@@ -52,6 +52,10 @@
   height:100%;
 
 }
+.home-card-img{
+  height: 15rem;
+  object-fit: cover;
+}
 
 /**************************/
 
