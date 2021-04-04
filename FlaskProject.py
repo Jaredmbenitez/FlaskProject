@@ -87,7 +87,7 @@ def home():
         # Flash a message.
         flash(f'Image Posted', 'success')
 
-    photos = generateXRandomPhotoObjects(3)
+    photos = generateXRandomPhotoObjects(10)
     return render_template('home.html', title="Home", photos=photos)
 
 
@@ -241,8 +241,9 @@ def logout():
 
 @app.route("/test")  # test --------------------------
 def test():
-    data = getPhotoObjectsByUsername('root')
-
+    data = generateRandomPhotoObject()
+    data2 = generateRandomPhotoObject()
+    data3 = generateRandomPhotoObject()
     return render_template("test.html",  data=data)
 
 
@@ -255,6 +256,8 @@ if __name__ == '__main__':
 def generateRandomImage():
     # Query photo table for all entries
     obj = Photo.query.all()
+    if len(obj) == 0:
+        return 0
     # Choose a random entry from the table
     randomNumber = random.randint(0, len(obj) - 1)
     # Decode the image
@@ -270,16 +273,19 @@ def generateRandomPhotoObject():
 
     # Query photo table for all entries
     obj = Photo.query.all()
+    if len(obj) == 0:
+        return
     # Choose a random entry from the table
     randomNumber = random.randint(0, len(obj) - 1)
     randomPhotoObject = obj[randomNumber]
-    tempImage = randomPhotoObject.image
-    # Fix String Error
-    if type(tempImage) == str:
-        return generateRandomPhotoObject()
-    tempImage = b64encode(tempImage).decode("utf-8")
+    if type(randomPhotoObject.image) == str:
+        tempImage = bytes(randomPhotoObject.image, encoding='utf-8')
+    else:
+        tempImage = b64encode(randomPhotoObject.image)
+    tempImage = tempImage.decode("utf-8")
     randomPhotoObject.image = tempImage
     return randomPhotoObject
+
 
 # Generate a number of random Photo Object
 
