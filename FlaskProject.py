@@ -37,6 +37,7 @@ from classes.forms import RegistrationForm, LoginForm, ReportForm
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from werkzeug.utils import secure_filename
 from models.Report import Report
+from classes.database import Database
 
 
 def convertToBinaryData(filename):
@@ -143,6 +144,7 @@ def item():
 def itemDynamic(id):
 
     photoObject = getPhotoObjectByPhotoID(id)
+    incrementView(id)
     userObject = getUserInfoByUsername(photoObject.posted_by)
 
     reportForm = ReportForm()
@@ -292,7 +294,7 @@ def generateXRandomPhotoObjects(x):
     objectsList = []
     for key in range(x):
         tempObj = generateRandomPhotoObject()
-        #Somehow we need to check here for duplicates
+        # Somehow we need to check here for duplicates
         objectsList.append(tempObj)
     return objectsList
 
@@ -344,3 +346,13 @@ def getUserInfoByPhotoID():
 def getUserInfoByUsername(user):
     userObject = User.query.filter_by(username=user).first()
     return userObject
+
+
+def incrementView(id):
+
+    db = Database()
+    photoObject = Photo.query.filter_by(photo_id=id).first()
+    newVal = str(photoObject.num_views + 1)
+    sql = ("UPDATE photos SET num_views = " +
+           newVal + " WHERE `photo_id`= " + str(id))
+    db.execute(sql)

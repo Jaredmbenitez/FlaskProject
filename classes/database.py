@@ -37,4 +37,5 @@ class Database:
     def execute(self, sql):
         self.connect()
         self.cur.execute(sql)
+        self.con.commit()
         self.disconnect()
