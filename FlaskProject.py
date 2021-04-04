@@ -87,7 +87,7 @@ def home():
         # Flash a message.
         flash(f'Image Posted', 'success')
 
-    photos = generateXRandomPhotoObjects(10)
+    photos = generateXRandomPhotoObjects(9)
     return render_template('home.html', title="Home", photos=photos)
 
 
