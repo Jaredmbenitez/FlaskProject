@@ -143,7 +143,7 @@ def item():
 @app.route("/item/<id>")
 def itemDynamic(id):
 
-    options=['print'] #test info
+    options=['digital','copyright','print'] #test info: must be in order that appears below for testing
     length=len(options)
 
     photoObject = getPhotoObjectByPhotoID(id)
