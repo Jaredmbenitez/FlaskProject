@@ -33,10 +33,11 @@ from base64 import b64encode
 import random
 import secrets
 import pymysql
-from classes.forms import RegistrationForm, LoginForm, ReportForm
+from classes.forms import RegistrationForm, LoginForm, ReportForm, FullAddToCartForm, DigitalAddToCartForm, CopyrightAddToCartForm, PrintAddToCartForm, DigitalAndCopyrightAddToCartForm, DigitalAndPrintAddToCartForm, CopyrightAndPrintAddToCartForm 
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from werkzeug.utils import secure_filename
 from models.Report import Report
+from classes.database import Database
 
 
 def convertToBinaryData(filename):
@@ -87,7 +88,7 @@ def home():
         # Flash a message.
         flash(f'Image Posted', 'success')
 
-    photos = generateXRandomPhotoObjects(3)
+    photos = generateXRandomPhotoObjects(9)
     return render_template('home.html', title="Home", photos=photos)
 
 
@@ -103,6 +104,18 @@ def account():
         return render_template('account.html', title="Account", user=user)
 
     return render_template('account.html',  title="Account")
+
+
+@app.route("/account/<username>")
+def accountDynamic(username):
+    userObj = getUserInfoByUsername(username)
+    allPhotoObjects = getPhotoObjectsByUsername(username)
+
+    if "username" in session:
+        user = session["username"]
+        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects)
+
+    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects)
 
 
 # Item Page        --------------------------
@@ -127,9 +140,67 @@ def item():
     return render_template('item.html', title="item", form=reportForm)
 
 
+@app.route("/item/<id>")
+def itemDynamic(id):
+
+    options=['print'] #test info
+    length=len(options)
+
+    photoObject = getPhotoObjectByPhotoID(id)
+    incrementView(id)
+    userObject = getUserInfoByUsername(photoObject.posted_by)
+
+    if options == ['digital', 'copyright', 'print']:
+        cartForm = FullAddToCartForm()
+    elif options == ['digital', 'copyright']:
+        cartForm = DigitalAndCopyrightAddToCartForm()
+    elif options == ['digital', 'print']:
+        cartForm = DigitalAndPrintAddToCartForm()
+    elif options == ['copyright', 'print']:
+        cartForm = CopyrightAndPrintAddToCartForm()
+    elif options == ['digital']:
+        cartForm = DigitalAddToCartForm()
+    elif options == ['copyright']:
+        cartForm = CopyrightAddToCartForm()
+    elif options == ['print']:
+        cartForm = PrintAddToCartForm()
+
+    
+    #if request.method == "POST":  # When a form gets submitted
+        #if cartForm.validate_on_submit():  # Check for form's validity
+            #cartOption = request.form.get("option")  # Store data from the form
+            # data = [reason, extra_info] # was used for early stage testing
+            # Put the data into a new Report object
+            #newCartItem=newCart(option=cartOption)
+            #db.session.add(newCartItem)  # add to the database and commit
+            #db.session.commit()
+            # tell the user the report was submitted
+            #flash('Item Added to Cart', 'success')
+    
+
+    reportForm = ReportForm()
+    if request.method == "POST":  # When a form gets submitted
+        if reportForm.validate_on_submit():  # Check for form's validity
+            reason = request.form.get("reason")  # Store data from the form
+            extra_info = request.form.get("extra_info")
+            userId = getUserIdbyUsername('root')
+            # data = [reason, extra_info] # was used for early stage testing
+            # Put the data into a new Report object
+            newReport = Report(report_tags=reason,
+                               report_description=extra_info,
+                               reported_user_id=userId)
+            db.session.add(newReport)  # add to the database and commit
+            db.session.commit()
+            # tell the user the report was submitted
+            flash('Report Submitted', 'success')
+        # return render_template('item.html', title="item", form=reportForm, data=data)
+    return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, options=options, length=length)
+
+
 @app.route("/shop")  # Shop Page        --------------------------
 def shop():
-    return render_template('shop.html', title="Shop")
+    imageList = generateXRandomPhotoObjects(3)
+    return render_template('shop.html', title="Shop", imageList=imageList)
 # adding stuff to shop branch
 
 
@@ -202,15 +273,11 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/item/<id>")
-def itemModular(id):
-    return(0)
-
-
 @app.route("/test")  # test --------------------------
 def test():
-    data = getPhotoObjectsByUsername('root')
-
+    data = generateRandomPhotoObject()
+    data2 = generateRandomPhotoObject()
+    data3 = generateRandomPhotoObject()
     return render_template("test.html",  data=data)
 
 
@@ -223,6 +290,8 @@ if __name__ == '__main__':
 def generateRandomImage():
     # Query photo table for all entries
     obj = Photo.query.all()
+    if len(obj) == 0:
+        return 0
     # Choose a random entry from the table
     randomNumber = random.randint(0, len(obj) - 1)
     # Decode the image
@@ -238,24 +307,26 @@ def generateRandomPhotoObject():
 
     # Query photo table for all entries
     obj = Photo.query.all()
+    if len(obj) == 0:
+        return
     # Choose a random entry from the table
     randomNumber = random.randint(0, len(obj) - 1)
     randomPhotoObject = obj[randomNumber]
-    tempImage = randomPhotoObject.image
-    # Fix String Error
-    if type(tempImage) == str:
-        return generateRandomPhotoObject()
-    tempImage = b64encode(tempImage).decode("utf-8")
+    if type(randomPhotoObject.image) == str:
+        tempImage = bytes(randomPhotoObject.image, encoding='utf-8')
+    else:
+        tempImage = b64encode(randomPhotoObject.image)
+    tempImage = tempImage.decode("utf-8")
     randomPhotoObject.image = tempImage
     return randomPhotoObject
 
+
 # Generate a number of random Photo Object
-
-
 def generateXRandomPhotoObjects(x):
     objectsList = []
     for key in range(x):
         tempObj = generateRandomPhotoObject()
+        # Somehow we need to check here for duplicates
         objectsList.append(tempObj)
     return objectsList
 
@@ -277,7 +348,6 @@ def getPhotoIdBy_____():
 
 def getPhotoObjectsByUsername(user):
     queryObjects = Photo.query.filter_by(posted_by=user).all()
-
     for obj in queryObjects:
         tempImage = obj.image
         tempImage = b64encode(tempImage).decode("utf-8")
@@ -291,11 +361,30 @@ def getCartDatabyUserID():
     return 0
 
 
-
-# Item Page Wyatt
-def getPhotoObjectByPhotoID():
-    return 0
+def getPhotoObjectByPhotoID(id):
+    queryObject = Photo.query.filter_by(photo_id=id).first()
+    tempImage = queryObject.image
+    tempImage = b64encode(tempImage).decode("utf-8")
+    queryObject.image = tempImage
+    return queryObject
 
 
 def getUserInfoByPhotoID():
     return 0
+
+# Returns a User object given the username
+
+
+def getUserInfoByUsername(user):
+    userObject = User.query.filter_by(username=user).first()
+    return userObject
+
+
+def incrementView(id):
+
+    db = Database()
+    photoObject = Photo.query.filter_by(photo_id=id).first()
+    newVal = str(photoObject.num_views + 1)
+    sql = ("UPDATE photos SET num_views = " +
+           newVal + " WHERE `photo_id`= " + str(id))
+    db.execute(sql)

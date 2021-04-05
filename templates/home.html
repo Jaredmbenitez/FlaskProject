@@ -18,7 +18,11 @@
         </div>
       </div>
       <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Featured Posts: </h1>
+      {% if not photos[0] %}
 
+      <p> No photos present in database. </p>
+
+      {% else %}
         <!-- Carousel wrapper -->
       <div
       id="carouselMultiItemExample"
@@ -52,58 +56,30 @@
         <div class="carousel-item active">
           <div class="container">
             <div class="row">
-              <div class="col-lg-4">
+              {% for obj in range(0,3) %}
+              <div class="col-lg-4 d-none d-lg-block">
                 <div class="card">
-                  <div>  </div>
+                  <a href = "{{url_for('itemDynamic',id=photos[obj].photo_id)}}">
                   <img
-                    src="data:;base64,{{photos[1].image}}"
-                    class="card-img-top"
+                    src="data:;base64,{{photos[obj].image}}"
+                    class="card-img-top home-card-img"
                     alt="..."
+                    data-id={{photos[obj].photo_id}}
                   />
+                </a>
                   <div class="card-body">
-                    <h5 class="card-title">{{photos[1].posted_by}}</h5>
+                    <h5 class="card-title">{{photos[obj].posted_by}}</h5>
                     <p class="card-text">
-                      {{photos[1].tags}}
+                      {{photos[obj].tags}} <br>
+                      Price:{{photos[obj].price}}
                     </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
+                    <a href="#!" class="btn btn-warning">View Item!</a>
                   </div>
                 </div>
               </div>
+              {% endfor %}
 
-          <div class="col-lg-4 d-none d-lg-block">
-            <div class="card">
-              <img
-                src="data:;base64,{{photos[0].image}}"
-                class="card-img-top"
-                alt="..."
-              />
-              <div class="card-body">
-                <h5 class="card-title">{{photos[0].posted_by}}</h5>
-                <p class="card-text">
-                  {{photos[0].tags}}
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 d-none d-lg-block">
-            <div class="card">
-              <img
-                src="https://mdbootstrap.com/img/new/standard/nature/183.jpg"
-                class="card-img-top"
-                alt="..."
-              />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk
-                  of the card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
         </div>
@@ -112,59 +88,29 @@
         <div class="carousel-item">
           <div class="container">
             <div class="row">
-              <div class="col-lg-4 col-md-12">
-                <div class="card">
-                  <img
-                    src="https://mdbootstrap.com/img/new/standard/nature/184.jpg"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk
-                      of the card's content.
-                    </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
-                  </div>
-                </div>
-              </div>
-
+              {% for obj in range(3,6) %}
               <div class="col-lg-4 d-none d-lg-block">
                 <div class="card">
+                  <a href = "{{url_for('itemDynamic',id=photos[obj].photo_id)}}">
                   <img
-                    src="https://mdbootstrap.com/img/new/standard/nature/185.jpg"
-                    class="card-img-top"
+                    src="data:;base64,{{photos[obj].image}}"
+                    class="card-img-top home-card-img"
                     alt="..."
+                    data-id="{{photos[obj].photo_id}}"
                   />
+                </a>
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <h5 class="card-title">{{photos[obj].posted_by}}</h5>
                     <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk
-                      of the card's content.
+                      {{photos[obj].tags}} <br>
+                      Price:{{photos[obj].price}}
                     </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
+                    <a href="#!" class="btn btn-warning">View Item!</a>
                   </div>
                 </div>
               </div>
-
-              <div class="col-lg-4 d-none d-lg-block">
-                <div class="card">
-                  <img
-                    src="https://mdbootstrap.com/img/new/standard/nature/186.jpg"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk
-                      of the card's content.
-                    </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
-                  </div>
-                </div>
-              </div>
+              {% endfor %}
+              
             </div>
           </div>
         </div>
@@ -173,60 +119,29 @@
         <div class="carousel-item">
           <div class="container">
             <div class="row">
-              <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+              {% for obj in range(6,9) %}
+              <div class="col-lg-4 d-none d-lg-block">
                 <div class="card">
+                  <a href = "{{url_for('itemDynamic',id=photos[obj].photo_id)}}">
                   <img
-                    src="https://mdbootstrap.com/img/new/standard/nature/187.jpg"
-                    class="card-img-top"
+                    src="data:;base64,{{photos[obj].image}}"
+                    class="card-img-top home-card-img"
                     alt="..."
+                    data-id="{{photos[obj].photo_id}}"
                   />
+                </a>
                   <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <h5 class="card-title">{{photos[obj].posted_by}}</h5>
                     <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk
-                      of the card's content.
+                      {{photos[obj].tags}} <br>
+                      Price:{{photos[obj].price}}
                     </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
+                    <a href="#!" class="btn btn-warning">View Item!</a>
                   </div>
                 </div>
               </div>
-
-              <div class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
-                <div class="card">
-                  <img
-                    src="https://mdbootstrap.com/img/new/standard/nature/188.jpg"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk
-                      of the card's content.
-                    </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
-                <div class="card">
-                  <img
-                    src="https://mdbootstrap.com/img/new/standard/nature/189.jpg"
-                    class="card-img-top"
-                    alt="..."
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and make up the bulk
-                      of the card's content.
-                    </p>
-                    <a href="#!" class="btn btn-primary">Button</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+              {% endfor %}
+            
           </div>
         </div>
       </div>
@@ -241,7 +156,7 @@
         });    
       </script> 
       <!-- Carousel wrapper -->
-
+      {%endif%}
   <!-- Modal Content -->
   <div class="modal" id="exampleModalCenter" tabindex="-1">
     <div class="modal-dialog">

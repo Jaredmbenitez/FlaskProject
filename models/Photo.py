@@ -15,5 +15,5 @@ class Photo(db.Model):
     tags = db.Column((db.String(255)))
     nsfw = db.Column((db.Boolean))
     posted_by = db.Column(db.Integer)
-
-   
+    photo_description = db.Column(db.String(255))
+    num_views = db.Column(db.Integer)

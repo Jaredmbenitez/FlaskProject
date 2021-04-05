@@ -12,6 +12,12 @@ class User(db.Model):
     username = db.Column(db.String(50))
     password = db.Column(db.String(50))
     email = db.Column(db.String(100))
+    created_at = db.Column(db.DateTime)
+    bio = db.Column(db.String(255))
+    num_sales = db.Column(db.Integer)
+    num_purchases = db.Column(db.Integer)
+    profile_picture = db.Column(db.LargeBinary)
+    role = db.Column(db.String(255))
 
     # This method is how the object is printed out.
 

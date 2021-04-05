@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, RadioField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 import email_validator
 
@@ -56,3 +56,46 @@ class ReportForm(FlaskForm):
     extra_info = TextAreaField('Additional Information (max characters:255)', validators=[Length(min=1, max=255)])
 
     submit = SubmitField('Submit')
+
+
+class FullAddToCartForm(FlaskForm):
+
+    option = RadioField('Options:', choices=[('digital','Digital: '),('copyright','Digital & Copyright: '),('print','Print: ')], default='digital')
+
+    submit = SubmitField('Add To Cart')
+
+class DigitalAddToCartForm(FlaskForm):
+
+    option = RadioField('Options:', choices=[('digital','Digital: ')], default='digital')
+
+    submit = SubmitField('Add To Cart')
+
+class CopyrightAddToCartForm(FlaskForm):
+
+    option = RadioField('Options:', choices=[('copyright','Digital & Copyright')], default='digital')
+
+    submit = SubmitField('Add To Cart')
+
+class PrintAddToCartForm(FlaskForm):
+
+    option = RadioField('Options:', choices=[('print','Print')], default='digital')
+
+    submit = SubmitField('Add To Cart')
+
+class DigitalAndCopyrightAddToCartForm(FlaskForm):
+
+    option = RadioField('Options:', choices=[('digital','Digital: '),('copyright','Digital & Copyright: ')], default='digital')
+
+    submit = SubmitField('Add To Cart')
+
+class DigitalAndPrintAddToCartForm(FlaskForm):
+
+    option = RadioField('Options:', choices=[('digital','Digital: '),('print','Print: ')], default='digital')
+
+    submit = SubmitField('Add To Cart')
+
+class CopyrightAndPrintAddToCartForm(FlaskForm):
+
+    option = RadioField('Options:', choices=[('copyright','Digital & Copyright: '),('print','Print: ')], default='digital')
+
+    submit = SubmitField('Add To Cart')
