@@ -168,7 +168,8 @@ def itemDynamic(id):
 
 @app.route("/shop")  # Shop Page        --------------------------
 def shop():
-    return render_template('shop.html', title="Shop")
+    imageList = generateXRandomPhotoObjects(3)
+    return render_template('shop.html', title="Shop", imageList=imageList)
 # adding stuff to shop branch
 
 

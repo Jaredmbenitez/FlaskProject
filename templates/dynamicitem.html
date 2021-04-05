@@ -121,8 +121,10 @@
                     <div class="flex-container about_seller">
                         Information about the seller here.
                     </div>
-                    <button id="seller_button" class="btn btn-primary btn-block active" role="button" onclick="location.href='{{url_for('account')}}';" aria-disabled="true">See More From This Seller</button>
-              </div>
+                    <a href = "{{url_for('accountDynamic',username=userObject.username)}}">
+                        <button id="seller_button" class="btn btn-primary btn-block active" role="button" onclick="location.href='{{url_for('account')}}';" aria-disabled="true">See More From This Seller</button>
+                    </a>    
+                </div>
               <div class="container buy">
                 <h3>Item Rating: &#11088&#11088&#11088&#11088&#11088 | # of Sales:  ####</h3>
                 <div class="container item_options">
