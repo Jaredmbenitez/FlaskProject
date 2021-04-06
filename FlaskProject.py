@@ -33,7 +33,7 @@ from base64 import b64encode
 import random
 import secrets
 import pymysql
-from classes.forms import RegistrationForm, LoginForm, ReportForm
+from classes.forms import RegistrationForm, LoginForm, ReportForm, FullAddToCartForm, DigitalAddToCartForm, CopyrightAddToCartForm, PrintAddToCartForm, DigitalAndCopyrightAddToCartForm, DigitalAndPrintAddToCartForm, CopyrightAndPrintAddToCartForm 
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from werkzeug.utils import secure_filename
 from models.Report import Report
@@ -143,9 +143,40 @@ def item():
 @app.route("/item/<id>")
 def itemDynamic(id):
 
+    options=['digital','copyright','print'] #test info: must be in order that appears below for testing
+    length=len(options)
+
     photoObject = getPhotoObjectByPhotoID(id)
     incrementView(id)
     userObject = getUserInfoByUsername(photoObject.posted_by)
+
+    if options == ['digital', 'copyright', 'print']:
+        cartForm = FullAddToCartForm()
+    elif options == ['digital', 'copyright']:
+        cartForm = DigitalAndCopyrightAddToCartForm()
+    elif options == ['digital', 'print']:
+        cartForm = DigitalAndPrintAddToCartForm()
+    elif options == ['copyright', 'print']:
+        cartForm = CopyrightAndPrintAddToCartForm()
+    elif options == ['digital']:
+        cartForm = DigitalAddToCartForm()
+    elif options == ['copyright']:
+        cartForm = CopyrightAddToCartForm()
+    elif options == ['print']:
+        cartForm = PrintAddToCartForm()
+
+    
+    #if request.method == "POST":  # When a form gets submitted
+        #if cartForm.validate_on_submit():  # Check for form's validity
+            #cartOption = request.form.get("option")  # Store data from the form
+            # data = [reason, extra_info] # was used for early stage testing
+            # Put the data into a new Report object
+            #newCartItem=newCart(option=cartOption)
+            #db.session.add(newCartItem)  # add to the database and commit
+            #db.session.commit()
+            # tell the user the report was submitted
+            #flash('Item Added to Cart', 'success')
+    
 
     reportForm = ReportForm()
     if request.method == "POST":  # When a form gets submitted
@@ -163,7 +194,7 @@ def itemDynamic(id):
             # tell the user the report was submitted
             flash('Report Submitted', 'success')
         # return render_template('item.html', title="item", form=reportForm, data=data)
-    return render_template('dynamicitem.html', title="item", form=reportForm, userObject=userObject, photoObject=photoObject)
+    return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, options=options, length=length)
 
 
 @app.route("/shop")  # Shop Page        --------------------------

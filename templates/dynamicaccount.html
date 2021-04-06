@@ -22,58 +22,61 @@
     </div>
   </div>
 
-<!-- this will be another container that holds the available sales options -->
-<div class="availablesales-container container">
+    <!-- this will be another container that holds the available sales options -->
+  <div class="availablesales-container container">
 
-  <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Available Sales</h1>
+    <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Available Sales</h1>
 
-  <hr class="mt-2 mb-5">
+    <hr class="mt-2 mb-5">
 
-  <div class="row text-center text-lg-left">
+    <div class="row text-center text-lg-left">
 
-    {% if allPhotoObjects|length == 0 %}
-    <div>
-      <p>
-        No images to display
-      </p>
-    </div>
-    {% endif%}
-    {% for obj in allPhotoObjects %}
-      <div class="col-lg-3 col-md-4 col-6">
-        <a href = "{{url_for('itemDynamic', id=obj.photo_id)}}" class="d-block mb-4 h-100">
-              <img class="img-fluid img-thumbnail" src="data:;base64,{{obj.image}}" alt="" data-id="{{obj.photo_id}}">
-              <p class="container-text"> {{obj.tags}} {{obj.price}} </p>
-            </a>
+      {% if allPhotoObjects|length == 0 %}
+      <div>
+        <p>
+          No images to display
+        </p>
       </div>
-    {% endfor %}
+      {% endif%}
+      {% for obj in allPhotoObjects %}
+        <div class="col-lg-3 col-md-4 col-6">
+          <a href = "{{url_for('itemDynamic', id=obj.photo_id)}}" class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" src="data:;base64,{{obj.image}}" alt="" data-id="{{obj.photo_id}}">
+                <p class="container-text"> {{obj.tags}} {{obj.price}} </p>
+              </a>
+        </div>
+      {% endfor %}
 
-    
-    
+      
+      
 
-  </div> 
-</div>
+    </div> 
+  </div>
 
-</div>
+ 
 
-<!-- this will be the best sellers container-->
+  <!-- this will be the best sellers container-->
 
-<div class="bestsales-container container">
+  <div class="bestsales-container container">
 
-  <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Best Sellers</h1>
+    <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Best Sellers</h1>
 
-  <hr class="mt-2 mb-5">
+    <hr class="mt-2 mb-5">
 
-  <div class="row text-center text-lg-left">
-    {% if allPhotoObjects|length == 0 %}
-    <div>
-      <p>
-        No images to display
-      </p>
+    <div class="row text-center text-lg-left">
+      {% if allPhotoObjects|length == 0 %}
+      <div>
+        <p>
+          No images to display
+        </p>
+      </div>
+      {% endif%}
     </div>
-    {% endif%}
 
     
 
+  </div>
 </div>
+
 
 {% endblock content %}

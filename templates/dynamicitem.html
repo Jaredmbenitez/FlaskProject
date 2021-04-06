@@ -7,24 +7,16 @@
             document.getElementById("contact_button").style.display="block";
             document.getElementById("faq_button").style.display="block";
             document.getElementById("esc_button").style.display="block";
-            document.getElementById("item_page").style.filter = "blur(5px)";    //blur the background
-            document.getElementById("nav_bar").style.filter = "blur(5px)";
-            document.getElementById("item_ad").style.filter = "blur(5px)";
-            document.getElementById('seller_button').disabled=true; //disable the background elements
-            document.getElementById('cart_button').disabled=true;
-            document.getElementById('item_option1').disabled=true;
-            document.getElementById('item_option2').disabled=true;
-            document.getElementById('item_option3').disabled=true;
-            document.getElementById('cart_link').href="#";
-            document.getElementById('home_link').href="#";
-            document.getElementById('shop_link').href="#";
-            document.getElementById('item_link').href="#";
-            document.getElementById('account_link').href="#";
-            document.getElementById('logout_link').href="#";
-            document.getElementById('login_link').href="#";
+            //document.getElementById("item_page").style.filter = "blur(5px)";    //blur the background
+            //document.getElementById("nav_bar").style.filter = "blur(5px)";
+            //document.getElementById("item_ad").style.filter = "blur(5px)";
+            //document.getElementById('cart_button').disabled=true; //disable the background elements
+            //document.getElementById('item_option1').disabled=true;
+            //document.getElementById('item_option2').disabled=true;
+            //document.getElementById('item_option3').disabled=true;
         }
 
-        function clickReport() {    //when he report button is clicked
+        function clickReport() {    //when the report button is clicked
             document.getElementById("report_button").style.display="none"; //remove the display of the extra help buttons
             document.getElementById("contact_button").style.display="none";
             document.getElementById("faq_button").style.display="none";
@@ -66,9 +58,9 @@
             document.getElementById("faq_sheet").style.display="none";
             document.getElementById('seller_button').disabled=false; //enable the screen's elements again
             document.getElementById('cart_button').disabled=false;
-            document.getElementById('item_option1').disabled=false;
-            document.getElementById('item_option2').disabled=false;
-            document.getElementById('item_option3').disabled=false;
+            //document.getElementById('item_option1').disabled=false;
+            //document.getElementById('item_option2').disabled=false;      //TEMPORARILY DISABLED
+            //document.getElementById('item_option3').disabled=false;
             document.getElementById('cart_link').href="{{url_for('cart')}}";
             document.getElementById('home_link').href="{{url_for('home')}}";
             document.getElementById('shop_link').href="{{url_for('shop')}}";
@@ -77,6 +69,12 @@
             document.getElementById('logout_link').href="{{url_for('logout')}}";
             document.getElementById('login_link').href="{{url_for('login')}}";
         }
+
+        function twoDecimals(num) { //extend decimals out to 2 places for accurate pricing
+            twoDec = parseFloat(num).toFixed(2);
+            document.write(twoDec);
+        }
+
     </script>
     
     <div class = "flex-container item_page" id="item_page">
@@ -87,11 +85,11 @@
                 </div>
                 <div class="flex-container about_picture">
                     <div class="flex-container title">
-                        <h1>Title</h1>
-                        <h2><i>~Author</i></h2>
+                        <h1>Title</h1> <!--replace with title field when added-->
+                        <h2><i>~{{photoObject.posted_by}}</i></h2> <!--replace with author when field added-->
                     </div>
                     <div class="flex-container about">
-                        About this piece:
+                        About this piece: {{photoObject.photo_description}}
                     </div>
                 </div>
                 <div class="flex-container reviews">
@@ -116,38 +114,44 @@
                 <div class="container item_seller">
                     <h2 class="seller_header">{{userObject.username}} | Seller Rating:&#11088&#11088&#11088&#11088&#11088</h2>
                     <div class="flex-container profile">
-                        <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail">
+                        <img src="userObject:;base64,{{userObject.profile_picture}}" alt="profile" class="img-thumbnail">
                     </div>
                     <div class="flex-container about_seller">
                         Information about the seller here.
                     </div>
-                    <a href = "{{url_for('accountDynamic',username=userObject.username)}}">
-                        <button id="seller_button" class="btn btn-primary btn-block active" role="button" onclick="location.href='{{url_for('account')}}';" aria-disabled="true">See More From This Seller</button>
+                    <a href = "{{url_for('accountDynamic',username=userObject.username)}}" id="seller_button">
+                        <button class="btn btn-primary btn-block active" role="button" onclick="location.href='{{url_for('account')}}';" aria-disabled="true">See More From This Seller</button>
                     </a>    
                 </div>
               <div class="container buy">
-                <h3>Item Rating: &#11088&#11088&#11088&#11088&#11088 | # of Sales:  ####</h3>
-                <div class="container item_options">
-                    <div class="form-check item_option">
-                        <input id="item_option1" class="form-check-input-lg" type="radio" name="options" id="digital" value="option1" checked>
-                        <label class="form-check-label" for="digital">
-                        <h4>Digital ($49.99)</h4>
-                        </label>
+                <h3>Item Rating: &#11088&#11088&#11088&#11088&#11088 | # of Sales:  {{photoObject.times_purchased}}</h3>
+                <form method="POST" action="">
+                    {{ cartForm.hidden_tag() }}
+                    <div class="row">
+                        <div class="col-8">
+                            <fieldset class="form-group">
+                                {{ cartForm.option }}
+                            </fieldset>
+                        </div>
+                        <div class="col-4">
+                            {% if length == 1 %}
+                            <div class = row>
+                                <h4>$<script>twoDecimals({{photoObject.price}});</script></h4>
+                            </div>
+                            {% endif %}
+                            {% if length > 1 %}
+                                {% for options in options %}
+                                    <div class = row>
+                                        <h4>$<script>twoDecimals({{photoObject.price}});</script></h4>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="form-check item_option">
-                        <input id="item_option2" class="form-check-input-lg" type="radio" name="options" id="digital_and_copyright" value="option2">
-                        <label class="form-check-label" for="digital_and_copyright">
-                            <h4>Digital and Copyright ($129.99)</h4>
-                        </label>
+                    <div class="form-group"><!--submit button-->
+                        {{ cartForm.submit(class="btn btn-outline-info", id="cart_button") }}
                     </div>
-                    <div class="form-check item_option">
-                        <input id="item_option3" class="form-check-input-lg" type="radio" name="options" id="print" value="option3">
-                        <label class="form-check-label" for="print">
-                            <h4>Print ($59.99)</h4>
-                        </label>
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-block active" id="cart_button" role="button" aria-disabled="true">Add to Cart</button>
+                </form>
               </div>
               <div class="flex-container ad" >
                 <img src="{{url_for('static',filename  = 'images/mtndew.jpg')}}" class="img-fluid" alt="Responsive image">
@@ -155,87 +159,12 @@
             </div>
         </div>
         
-        <!--<div class = "row pic_and_author">
-            <div class = "col-8 picture">
-                <div class="flex-container">
-                    <img src="static/flower.jpg" class="img-fluid" alt="Responsive image">
-                </div>
-            </div>
-            <div class = "col-3 seller">
-                <h2 class="seller_header">Seller Name | Seller Rating: &#11088 &#11088 &#11088 &#11088 &#11088</h2>
-                <div class="flex-container profile">
-                    <img src="static/profile.jpg" alt="profile" class="img-thumbnail">
-                </div>
-                <div class="flex-container about_seller">
-                    Information about the seller here.
-                </div>
-                <a href="{{url_for('account')}}" class="btn btn-primary btn-lg active" role="button" aria-disabled="true">See More From This Seller</a>
-            </div>
-        </div>
-        <div class="row about_picture_and_buy">
-            <div class="col-8 about_picture">
-                <div class="flex-container title">
-                    <h1>Title</h1>
-                    <h2><i>~Author</i></h2>
-                </div>
-                <div class="flex-container about">
-                    About this piece:
-                </div>
-            </div>
-            <div class="col-3 buy">
-                <h3>Item Rating: &#11088&#11088&#11088&#11088&#11088 | # of Sales:  ####</h3>
-                <div class="container item_options">
-                    <div class="form-check item_option">
-                        <input class="form-check-input-lg" type="radio" name="options" id="digital" value="option1" checked>
-                        <label class="form-check-label" for="digital">
-                        <h4>Digital ($49.99)</h4>
-                        </label>
-                    </div>
-                    <div class="form-check item_option">
-                        <input class="form-check-input-lg" type="radio" name="options" id="digital_and_copyright" value="option2">
-                        <label class="form-check-label" for="digital_and_copyright">
-                            <h4>Digital and Copyright ($129.99)</h4>
-                        </label>
-                    </div>
-                    <div class="form-check item_option">
-                        <input class="form-check-input-lg" type="radio" name="options" id="print" value="option3">
-                        <label class="form-check-label" for="print">
-                            <h4>Print ($59.99)</h4>
-                        </label>
-                    </div>
-                </div>
-                <a class="btn btn-primary btn-lg active" role="button" aria-disabled="true">Add to Cart</a>
-            </div>
-        </div>
-        <div class="row reviews_and_ad">
-            <div class="col-8 reviews">
-                <h2>Average Item Rating: &#11088&#11088&#11088&#11088&#11088</h2>
-                <div class="flex-container review">
-                    <h3>Review 1:</h3>
-                    <div class="flex-container">
-                        <p style="text-align: left">"General Response."</p>
-                        <p style="text-align: right"><i>~username</i></p>
-                    </div>
-                </div>
-                <div class="flex-container review">
-                    <h3>Review 2:</h3>
-                    <div class="flex-container">
-                        <p style="text-align: left">"General Response."</p>
-                        <p style="text-align: right"><i>~username</i></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3 ad">
-                <img src="static/mtndew.jpg" class="img-fluid" alt="Responsive image">
-            </div> 
-        </div> -->
     </div>
     <div class="container item_ad" id="item_ad">
         <img src="{{url_for('static',filename  = 'images/candy.png')}}" class="img-fluid candy" alt="Responsive image">
     </div>
     <input type="button" class="help_button material-icons md-48 icon" onclick="clickHelp();" onmouseenter="document.getElementById('help_tag').style.display='block';" onmouseleave="document.getElementById('help_tag').style.display='none';" value="help_outline" />
     <div class="flex-container help_tag" id="help_tag">Help</div>
-    <!--<a href="" class="help_button"><p class="material-icons md-48 icon">help_outline</p></a> -->
     <input type="button" id="esc_button" class="esc_button material-icons md-24 icon" onclick="offHelp();" onmouseenter="document.getElementById('esc_tag').style.display='block';" onmouseleave="document.getElementById('esc_tag').style.display='none';" value="highlight_off" />
     <div class="flex-container esc_tag" id="esc_tag">Exit Help</div>
     <input type="button" id="report_button" class="report_button material-icons md-24 icon" onclick="clickReport();" onmouseenter="document.getElementById('report_tag').style.display='block';" onmouseleave="document.getElementById('report_tag').style.display='none';" value="report_problem" />
@@ -244,12 +173,9 @@
     <div class="flex-container contact_tag" id="contact_tag">Contact This Seller</div>
     <input type="button" id="faq_button" class="faq_button material-icons md-24 icon" onclick="clickFAQ();" onmouseenter="document.getElementById('faq_tag').style.display='block';" onmouseleave="document.getElementById('faq_tag').style.display='none';" value="help_center" />
     <div class="flex-container faq_tag" id="faq_tag">FAQ</div>
-    <!--<a href="" id="report_button" class="report_button"><p class="material-icons md-24 icon">report_problem</p></a>
-    <a href="" id="contact_button" class="contact_button"><p class="material-icons md-24 icon">contact_page</p></a>
-    <a href="" id="faq_button" class="faq_button"><p class="material-icons md-24 icon">help_center</p></a> -->
+    
     <div class="flex-container report_form" id="report_form"> <!--updated report form-->
         <input type="button" class="report_cancel material-icons md-24" id="report_cancel" onclick="offHelp();" value="highlight_off"/>
-        <!--<h1 class="center">Report Form</h1>-->
         <form method="POST" action=""> <!--posts the form info to this page-->
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
@@ -277,19 +203,6 @@
             <div class="form-group"><!--submit button-->
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
-            <!--
-            <label for="reason">Select a reason for this report: </label><br>
-            <select name="reason" id="reason">
-                <option selected hidden value="">Select Reason</option>
-                <option value="wrongTags">Wrong Tags</option>
-                <option value="nsfw">NSFW (not labeled)</option>
-                <option value="copyright">Copyright</option>
-                <option value="other">Other</option>
-              </select> <br>
-            <label for="extra_info">Enter any additional info: </label><br>
-            <textarea id="extra_info" class="extra_info" name="extra_info" rows="5" cols="66"></textarea>
-            <input type="button" class="report_submit" id="report_submit" onclick="offHelp();" value="submit"/>
-            -->
         </form>
     </div>
     <div class="flex-container faq_sheet" id="faq_sheet">
