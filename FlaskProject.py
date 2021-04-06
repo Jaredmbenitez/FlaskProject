@@ -80,7 +80,7 @@ def home():
 
         # Create new photo object and add to database.
         newPhoto = Photo(image=url, tags=tags, price=price,
-                         nsfw=nsfw, posted_by=posted_by, times_purchased=times_purchased)
+                         nsfw=nsfw, posted_by=posted_by, times_purchased=times_purchased, num_views=0)
         # Add and commit to database
         db.session.add(newPhoto)
         db.session.commit()
