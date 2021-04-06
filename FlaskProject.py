@@ -33,7 +33,7 @@ from base64 import b64encode
 import random
 import secrets
 import pymysql
-from classes.forms import RegistrationForm, LoginForm, ReportForm, FullAddToCartForm, DigitalAddToCartForm, CopyrightAddToCartForm, PrintAddToCartForm, DigitalAndCopyrightAddToCartForm, DigitalAndPrintAddToCartForm, CopyrightAndPrintAddToCartForm
+from classes.forms import RegistrationForm, LoginForm, ReportForm, FullAddToCartForm, DigitalAddToCartForm, CopyrightAddToCartForm, PrintAddToCartForm, DigitalAndCopyrightAddToCartForm, DigitalAndPrintAddToCartForm, CopyrightAndPrintAddToCartForm, ContactSellerForm
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from werkzeug.utils import secure_filename
 from models.Report import Report
@@ -177,6 +177,8 @@ def itemDynamic(id):
         # tell the user the report was submitted
         #flash('Item Added to Cart', 'success')
 
+    contactForm = ContactSellerForm()
+
     reportForm = ReportForm()
     if request.method == "POST":  # When a form gets submitted
         if reportForm.validate_on_submit():  # Check for form's validity
@@ -193,7 +195,7 @@ def itemDynamic(id):
             # tell the user the report was submitted
             flash('Report Submitted', 'success')
         # return render_template('item.html', title="item", form=reportForm, data=data)
-    return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, options=options, length=length)
+    return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
 
 
 @app.route("/shop")  # Shop Page        --------------------------

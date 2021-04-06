@@ -99,3 +99,14 @@ class CopyrightAndPrintAddToCartForm(FlaskForm):
     option = RadioField('Options:', choices=[('copyright','Digital & Copyright: '),('print','Print: ')], default='digital')
 
     submit = SubmitField('Add To Cart')
+
+class ContactSellerForm(FlaskForm):
+
+    email = StringField('Email', validators=[
+        DataRequired(),             # Required
+        Email()                     # Email Validator
+    ])
+
+    subject = TextAreaField('Subject (max characters:32)', validators=[Length(min=1, max=32)])
+
+    message = TextAreaField('Type your message to the seller here: ', validators=[Length(min=1, max=512)])
