@@ -436,3 +436,9 @@
 .cart-wrapper,.login-wrapper,.reg-wrapper{
   margin-top:10vh;
 }
+.shopitem
+{
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
