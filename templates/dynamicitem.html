@@ -56,6 +56,7 @@
             document.getElementById("item_ad").style.filter = "none";
             document.getElementById("report_form").style.display="none";    //remove the blur
             document.getElementById("faq_sheet").style.display="none";
+            document.getElementById("contact_form").style.display="none";
             document.getElementById('seller_button').disabled=false; //enable the screen's elements again
             document.getElementById('cart_button').disabled=false;
             //document.getElementById('item_option1').disabled=false;
@@ -81,7 +82,7 @@
         <div class="row item_everything">
             <div class="col-7 item_left">
                 <div class="flex-container item_picture">
-                    <img src="data:;base64,{{photoObject.image}}" class="img-fluid" alt="Responsive image">
+                    <img src="data:;base64,{{photoObject.image}}" class="img-fluid dynamic_picture" alt="Responsive image">
                 </div>
                 <div class="flex-container about_picture">
                     <div class="flex-container title">
@@ -115,9 +116,9 @@
                     <h2 class="seller_header">{{userObject.username}} | Seller Rating:&#11088&#11088&#11088&#11088&#11088</h2>
                     <div class="flex-container profile">
                         {% if userObject.profile_picture %}
-                            <img src="data:;base64,{{userObject.profile_picture}}" alt="profile" class="img-thumbnail">
+                            <img src="userObject:;base64,{{userObject.profile_picture}}" alt="profile" class="img-thumbnail profile_picture">
                         {% else %}
-                            <img src="{{url_for('static',filename='images/blank-user.jpeg')}}" alt="profile" class="img-thumbnail">
+                            <img src="{{url_for('static', filename='images/blank-user.jpeg')}}" class=" img-thumbnail profile_picture">
                         {% endif %}
                     </div>
                     <div class="flex-container about_seller">
@@ -164,6 +165,7 @@
         </div>
         
     </div>
+
     <div class="container item_ad" id="item_ad">
         <img src="{{url_for('static',filename  = 'images/candy.png')}}" class="img-fluid candy" alt="Responsive image">
     </div>
@@ -173,7 +175,7 @@
     <div class="flex-container esc_tag" id="esc_tag">Exit Help</div>
     <input type="button" id="report_button" class="report_button material-icons md-24 icon" onclick="clickReport();" onmouseenter="document.getElementById('report_tag').style.display='block';" onmouseleave="document.getElementById('report_tag').style.display='none';" value="report_problem" />
     <div class="flex-container report_tag" id="report_tag">Report</div>
-    <input type="button" id="contact_button" class="contact_button material-icons md-24 icon" onclick="location.href='{{url_for('account')}}';" onmouseenter="document.getElementById('contact_tag').style.display='block';" onmouseleave="document.getElementById('contact_tag').style.display='none';" value="contact_page" />
+    <input type="button" id="contact_button" class="contact_button material-icons md-24 icon" onclick="clickContact();" onmouseenter="document.getElementById('contact_tag').style.display='block';" onmouseleave="document.getElementById('contact_tag').style.display='none';" value="contact_page" />
     <div class="flex-container contact_tag" id="contact_tag">Contact This Seller</div>
     <input type="button" id="faq_button" class="faq_button material-icons md-24 icon" onclick="clickFAQ();" onmouseenter="document.getElementById('faq_tag').style.display='block';" onmouseleave="document.getElementById('faq_tag').style.display='none';" value="help_center" />
     <div class="flex-container faq_tag" id="faq_tag">FAQ</div>
@@ -185,21 +187,21 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Report Form</legend>
                 <div class="form-group"> <!--reason form element-->
-                    {{ form.reason.label(class="form-contol-label") }} <br>
-                    {{ form.reason(class="form-contol form-control-lg") }}
+                    {{ form.reason.label(class="form-control-label") }} <br>
+                    {{ form.reason(class="form-control form-control-lg") }}
                 </div>
                 <div class="form-group"> <!--extra info form element-->
-                    {{ form.extra_info.label(class="form-contol-label") }}<br>
+                    {{ form.extra_info.label(class="form-control-label") }}<br>
 
                     {% if form.extra_info.errors %} <!--for error handling-->
-                    {{ form.extra_info(class="form-contol form-control-lg is-invalid extra_info") }}
+                        {{ form.extra_info(class="form-control form-control-lg is-invalid extra_info") }}
                         <div class="invalid-feedback">
                             {% for errors in form.extra_info.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.extra_info(class="form-contol form-control-lg extra_info") }}
+                        {{ form.extra_info(class="form-control form-control-lg extra_info") }}
                     {% endif %}
 
                 </div>
@@ -209,6 +211,76 @@
             </div>
         </form>
     </div>
+    
+    <!--Contact Form-->
+    {% if session.logged_in %}
+        <div class="flex-container contact_form" id="contact_form">
+            <input type="button" class="contact_cancel material-icons md-24" id="contact_cancel" onclick="offHelp();" value="highlight_off"/>
+            <h1 class="border-bottom contact_head">Contact {{userObject.username}}</h1>
+            <form method="POST" action="">
+                {{ contactForm.hidden_tag() }}
+                <fieldset class="form-group contact_fields">
+                    <div class="form-group">
+                        {{ contactForm.email.label(class="form-control-label") }} <br>
+                        {% if contactForm.email.errors %} <!-- Error Messages -->
+                            {{ contactForm.email(class="form-control form-control-lg is-invalid extra_info contact_field1")}} 
+                            <div class="invalid-feedback"> 
+                                {% for error in contactForm.email.errors %}
+                                    <span> {{error}} </span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ contactForm.email(class="form-control form-control-lg contact_field1")}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ contactForm.subject.label(class="form-control-label") }} <br>
+                        {% if contactForm.subject.errors %} <!--for error handling-->
+                            {{ contactForm.subject(class="form-contol form-control-lg is-invalid contact_field2", id="contact_field2") }}
+                                <div class="invalid-feedback">
+                                    {% for errors in contactForm.subject.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                        {% else %}
+                            {{ contactForm.subject(class="form-contol form-control-lg contact_field2", id="contact_field2")}}
+                        {% endif %}
+                        <script>
+                            document.getElementById("contact_field2").defaultValue="Title"; // REPLACE TITLE WITH DYNAMIC DATA
+                        </script>
+                    </div>
+                    <div class="form-group">
+                        {{ contactForm.message.label(class="form-conrtol-label") }} <br>
+                        {% if contactForm.message.errors %} <!--for error handling-->
+                            {{ contactForm.message(class="form-contol form-control-lg is-invalid contact_field3", id="contact_field3") }}
+                                <div class="invalid-feedback">
+                                    {% for errors in contactForm.message.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                        {% else %}
+                            {{ contactForm.message(class="form-contol form-control-lg contact_field3", id="contact_field3") }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div class="form-group contact_submit"><!--submit button-->
+                    {{ contactForm.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <div class="flex-container log_contact_form" id="contact_form">
+            <input type="button" class="log_contact_cancel material-icons md-24" id="log_contact_cancel" onclick="offHelp();" value="highlight_off"/>
+            <h2 class="border-bottom log_contact_head">Please Log In To Contact This Seller</h2>
+            <a href="{{url_for('login')}}">
+                <button class="btn btn-primary active log_contact_button" id="log_contact_button" role="button" aria-disabled="true">Log In</button>
+            </a>
+        </div>
+    {% endif %}
+    <script>
+        document.getElementById("contact_form").style.display="none";
+    </script>
+
     <div class="flex-container faq_sheet" id="faq_sheet">
         <input type="button" class="faq_cancel material-icons md-24" id="faq_cancel" onclick="offHelp();" value="highlight_off"/>
         <h1 class="center faq_head">Frequently Asked Questions</h1>

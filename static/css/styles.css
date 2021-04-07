@@ -82,7 +82,18 @@
 .item_picture {
   margin-right: 2%;
   margin-bottom: 2%;
+  background-color: lightgray;
+  border-radius: 10px;
 }
+
+.dynamic_picture{
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 85%;
+  max-width: 100%;
+}
+
 .item_seller{
   border-style:solid;
   padding: 1% 1% 1% 1%;
@@ -96,10 +107,14 @@
 
 .profile{
   border: 2px solid black;
-  height: 200px;
-  width: 200px;
+  height: 22vh;
+  width: 22vh;
   margin-top: 2%;
   margin-bottom: 2%;
+}
+.profile_picture{
+  width:100%;
+  height:100%;
 }
 .about_seller{
   border: 2px solid black;
@@ -463,3 +478,81 @@
 
 }
 
+/*********STYLES FOR THE CONTACT FORMS*********/
+
+.log_contact_form{
+  border: 2px solid black;
+  background-color: #ffffff;
+  width:40vw;
+  height:30vh;
+  position: fixed;
+  left:30vw;
+  bottom:35vh;
+}
+
+.contact_form{
+  border: 2px solid black;
+  background-color: #ffffff;
+  width: 40vw;
+  height:75vh;
+  position: fixed;
+  left:30vw;
+  bottom:12.5vh; 
+}
+
+.contact_head {
+  margin-left:10%;
+  margin-top: 5%;
+
+}
+
+.contact_cancel{
+  background:none;
+  border:none;
+  position:fixed;
+  left:67%;
+  bottom:82%;
+}
+
+.log_contact_head {
+  margin-left:10%;
+  margin-top: 2%;
+
+}
+
+.log_contact_button{
+  margin-left:85%;
+  margin-top: 18%;
+}
+
+.log_contact_cancel{
+  background:none;
+  border:none;
+  position:fixed;
+  left:67%;
+  bottom:59.5%;
+}
+
+.contact_fields{
+  padding-left: 2%;
+  padding-right: 2%;
+  margin-top:10%;
+}
+
+.contact_field1{
+  width:50%;
+}
+
+.contact_field2{
+  width:80%;
+}
+
+.contact_field3{
+  width:100%;
+  height:30%;
+}
+
+.contact_submit{
+  margin-left:85%;
+  margin-top:15%;
+}

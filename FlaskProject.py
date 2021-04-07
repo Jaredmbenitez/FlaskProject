@@ -33,7 +33,7 @@ from base64 import b64encode
 import random
 import secrets
 import pymysql
-from classes.forms import RegistrationForm, LoginForm, ReportForm, FullAddToCartForm, DigitalAddToCartForm, CopyrightAddToCartForm, PrintAddToCartForm, DigitalAndCopyrightAddToCartForm, DigitalAndPrintAddToCartForm, CopyrightAndPrintAddToCartForm
+from classes.forms import RegistrationForm, LoginForm, ReportForm, FullAddToCartForm, DigitalAddToCartForm, CopyrightAddToCartForm, PrintAddToCartForm, DigitalAndCopyrightAddToCartForm, DigitalAndPrintAddToCartForm, CopyrightAndPrintAddToCartForm, ContactSellerForm
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from werkzeug.utils import secure_filename
 from models.Report import Report
@@ -140,16 +140,13 @@ def item():
     return render_template('item.html', title="item", form=reportForm)
 
 
-@app.route("/item/<id>")
+@app.route("/item/<id>", methods=['GET', 'POST'])
 def itemDynamic(id):
-
+    
     # test info: must be in order that appears below for testing
     options = ['digital', 'copyright', 'print']
     length = len(options)
-
-    photoObject = getPhotoObjectByPhotoID(id)
     incrementView(id)
-    userObject = getUserInfoByUsername(photoObject.posted_by)
 
     if options == ['digital', 'copyright', 'print']:
         cartForm = FullAddToCartForm()
@@ -177,11 +174,13 @@ def itemDynamic(id):
         # tell the user the report was submitted
         #flash('Item Added to Cart', 'success')
 
+    contactForm = ContactSellerForm()
+
     reportForm = ReportForm()
     if request.method == "POST":  # When a form gets submitted
         if reportForm.validate_on_submit():  # Check for form's validity
-            reason = request.form.get("reason")  # Store data from the form
-            extra_info = request.form.get("extra_info")
+            reason = request.form.get('reason')  # Store data from the form
+            extra_info = request.form.get('extra_info')
             userId = getUserIdbyUsername('root')
             # data = [reason, extra_info] # was used for early stage testing
             # Put the data into a new Report object
@@ -192,8 +191,20 @@ def itemDynamic(id):
             db.session.commit()
             # tell the user the report was submitted
             flash('Report Submitted', 'success')
+
+        elif contactForm.validate_on_submit():
+            email = request.form.get("email")
+            subject = request.form.get("subject")
+            message = request.form.get("message")
+            #!!! DATA GOES NOWHERE FOR NOW
+
+            flash('Email Successfully Sent', 'success')
+
+    photoObject = getPhotoObjectByPhotoID(id) #IMPORTANT must go just before return statement or else db.session.commit breaks the page
+    userObject = getUserInfoByUsername(photoObject.posted_by)
+
         # return render_template('item.html', title="item", form=reportForm, data=data)
-    return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, options=options, length=length)
+    return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
 
 
 @app.route("/shop")  # Shop Page        --------------------------
@@ -364,7 +375,7 @@ def getPhotoObjectByPhotoID(id):
     queryObject = Photo.query.filter_by(photo_id=id).first()
     tempImage = queryObject.image
     tempImage = b64encode(tempImage).decode("utf-8")
-    queryObject.image = tempImage
+    queryObject.image = tempImage # db.session.commit breaks the page after this line
     return queryObject
 
 
