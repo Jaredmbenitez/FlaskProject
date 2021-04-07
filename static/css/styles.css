@@ -161,7 +161,7 @@
 .item_option{
   margin-top:1vh;
 }
-.reviews_and_ad{
+.s_and_ad{
   height: 60vh;
   margin-bottom: 2%;
 }
@@ -430,8 +430,7 @@
 } 
 
 .review-card{
-  position: relative;
-  top: -38vh;
+  margin-top: -2vh;
 }
 
 /**adult content container for account page*/
@@ -442,7 +441,7 @@
 /*button container for account page*/
 .reveal-nsfw{
   position:relative;
-  left:45%;
+  left:27%;
 
   
 }
