@@ -394,13 +394,30 @@
 }
 
 
-/**************************/
+/**********Alec's work on account page****************/
 
 .account-card{
   float:left;
   margin-left: 3%;
   margin-top: 1%;
 } 
+
+.review-card{
+  position: relative;
+  top: -38vh;
+}
+
+/**adult content container for account page*/
+.nsfw-container{
+  display: none;
+}
+
+/*button container for account page*/
+.reveal-nsfw{
+  float: middle;
+  margin-left: 50px;
+  
+}
 
 .shop-col{
   margin-left: 100 em !important;
