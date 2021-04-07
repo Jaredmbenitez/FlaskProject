@@ -146,10 +146,7 @@ def itemDynamic(id):
     # test info: must be in order that appears below for testing
     options = ['digital', 'copyright', 'print']
     length = len(options)
-
-    photoObject = getPhotoObjectByPhotoID(id)
     incrementView(id)
-    userObject = getUserInfoByUsername(photoObject.posted_by)
 
     if options == ['digital', 'copyright', 'print']:
         cartForm = FullAddToCartForm()
@@ -202,6 +199,9 @@ def itemDynamic(id):
             #!!! DATA GOES NOWHERE FOR NOW
 
             flash('Email Successfully Sent', 'success')
+
+    photoObject = getPhotoObjectByPhotoID(id) #IMPORTANT must go just before return statement or else db.session.commit breaks the page
+    userObject = getUserInfoByUsername(photoObject.posted_by)
 
         # return render_template('item.html', title="item", form=reportForm, data=data)
     return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
@@ -375,7 +375,7 @@ def getPhotoObjectByPhotoID(id):
     queryObject = Photo.query.filter_by(photo_id=id).first()
     tempImage = queryObject.image
     tempImage = b64encode(tempImage).decode("utf-8")
-    queryObject.image = tempImage
+    queryObject.image = tempImage # db.session.commit breaks the page after this line
     return queryObject
 
 
