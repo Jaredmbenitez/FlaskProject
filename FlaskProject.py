@@ -251,7 +251,7 @@ def register():
     if registerForm.validate_on_submit():
         # Create new user object from form information
         newUser = User(username=registerForm.username.data,
-                       password=encrypt_password(registerForm.password.data), email=registerForm.email.data)
+                       password=encrypt_password(registerForm.password.data), email=registerForm.email.data, num_sales=0, num_purchases=0)
         # Add and commit the object to our database
         db.session.add(newUser)
         db.session.commit()

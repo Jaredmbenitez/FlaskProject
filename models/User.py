@@ -24,12 +24,6 @@ class User(db.Model):
     def __repr__(self):
         return f"User: ('{self.id}', '{self.username}', '{self.email}')"
 
-    # Constructor
-    def __init__(self, username='', password='', email=''):
-        self.username = username
-        self.password = password
-        self.email = email
-
     # Getters
     def get_id(self):
         return self.id

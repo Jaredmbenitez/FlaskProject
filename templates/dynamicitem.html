@@ -114,7 +114,11 @@
                 <div class="container item_seller">
                     <h2 class="seller_header">{{userObject.username}} | Seller Rating:&#11088&#11088&#11088&#11088&#11088</h2>
                     <div class="flex-container profile">
-                        <img src="userObject:;base64,{{userObject.profile_picture}}" alt="profile" class="img-thumbnail">
+                        {% if userObject.profile_picture %}
+                            <img src="data:;base64,{{userObject.profile_picture}}" alt="profile" class="img-thumbnail">
+                        {% else %}
+                            <img src="{{url_for('static',filename='images/blank-user.jpeg')}}" alt="profile" class="img-thumbnail">
+                        {% endif %}
                     </div>
                     <div class="flex-container about_seller">
                         Information about the seller here.
