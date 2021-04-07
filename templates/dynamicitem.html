@@ -187,21 +187,21 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Report Form</legend>
                 <div class="form-group"> <!--reason form element-->
-                    {{ form.reason.label(class="form-contol-label") }} <br>
-                    {{ form.reason(class="form-contol form-control-lg") }}
+                    {{ form.reason.label(class="form-control-label") }} <br>
+                    {{ form.reason(class="form-control form-control-lg") }}
                 </div>
                 <div class="form-group"> <!--extra info form element-->
-                    {{ form.extra_info.label(class="form-contol-label") }}<br>
+                    {{ form.extra_info.label(class="form-control-label") }}<br>
 
                     {% if form.extra_info.errors %} <!--for error handling-->
-                    {{ form.extra_info(class="form-contol form-control-lg is-invalid extra_info") }}
+                        {{ form.extra_info(class="form-control form-control-lg is-invalid extra_info") }}
                         <div class="invalid-feedback">
                             {% for errors in form.extra_info.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.extra_info(class="form-contol form-control-lg extra_info") }}
+                        {{ form.extra_info(class="form-control form-control-lg extra_info") }}
                     {% endif %}
 
                 </div>
@@ -212,31 +212,59 @@
         </form>
     </div>
     
+    <!--Contact Form-->
     {% if session.logged_in %}
         <div class="flex-container contact_form" id="contact_form">
             <input type="button" class="contact_cancel material-icons md-24" id="contact_cancel" onclick="offHelp();" value="highlight_off"/>
             <h1 class="border-bottom contact_head">Contact {{userObject.username}}</h1>
             <form method="POST" action="">
-                {{ form.hidden_tag() }}
+                {{ contactForm.hidden_tag() }}
                 <fieldset class="form-group contact_fields">
                     <div class="form-group">
-                        {{ contactForm.email.label(class="form-contol-label") }} <br>
-                        {{ contactForm.email(class="form-contol form-control-lg contact_field1") }}
+                        {{ contactForm.email.label(class="form-control-label") }} <br>
+                        {% if contactForm.email.errors %} <!-- Error Messages -->
+                            {{ contactForm.email(class="form-control form-control-lg is-invalid extra_info contact_field1")}} 
+                            <div class="invalid-feedback"> 
+                                {% for error in contactForm.email.errors %}
+                                    <span> {{error}} </span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ contactForm.email(class="form-control form-control-lg contact_field1")}}
+                        {% endif %}
                     </div>
                     <div class="form-group">
-                        {{ contactForm.subject.label(class="form-contol-label") }} <br>
-                        {{ contactForm.subject(class="form-contol form-control-lg contact_field2", id="contact_field2")}}
+                        {{ contactForm.subject.label(class="form-control-label") }} <br>
+                        {% if contactForm.subject.errors %} <!--for error handling-->
+                            {{ contactForm.subject(class="form-contol form-control-lg is-invalid contact_field2", id="contact_field2") }}
+                                <div class="invalid-feedback">
+                                    {% for errors in contactForm.subject.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                        {% else %}
+                            {{ contactForm.subject(class="form-contol form-control-lg contact_field2", id="contact_field2")}}
+                        {% endif %}
                         <script>
                             document.getElementById("contact_field2").defaultValue="Title"; // REPLACE TITLE WITH DYNAMIC DATA
                         </script>
                     </div>
                     <div class="form-group">
-                        {{ contactForm.message.label(class="form-contol-label") }} <br>
-                        {{ contactForm.message(class="form-contol form-control-lg contact_field3") }}
+                        {{ contactForm.message.label(class="form-conrtol-label") }} <br>
+                        {% if contactForm.message.errors %} <!--for error handling-->
+                            {{ contactForm.message(class="form-contol form-control-lg is-invalid contact_field3", id="contact_field3") }}
+                                <div class="invalid-feedback">
+                                    {% for errors in contactForm.message.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                        {% else %}
+                            {{ contactForm.message(class="form-contol form-control-lg contact_field3", id="contact_field3") }}
+                        {% endif %}
                     </div>
                 </fieldset>
                 <div class="form-group contact_submit"><!--submit button-->
-                    {{ form.submit(class="btn btn-outline-info") }}
+                    {{ contactForm.submit(class="btn btn-outline-info") }}
                 </div>
             </form>
         </div>

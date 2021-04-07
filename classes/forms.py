@@ -110,3 +110,5 @@ class ContactSellerForm(FlaskForm):
     subject = TextAreaField('Subject (max characters:32)', validators=[Length(min=1, max=32)])
 
     message = TextAreaField('Type your message to the seller here: ', validators=[Length(min=1, max=512)])
+
+    submit = SubmitField('Send Message')

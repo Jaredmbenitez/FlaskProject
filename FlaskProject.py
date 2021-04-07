@@ -140,7 +140,7 @@ def item():
     return render_template('item.html', title="item", form=reportForm)
 
 
-@app.route("/item/<id>")
+@app.route("/item/<id>", methods=['GET', 'POST'])
 def itemDynamic(id):
 
     # test info: must be in order that appears below for testing
@@ -182,8 +182,8 @@ def itemDynamic(id):
     reportForm = ReportForm()
     if request.method == "POST":  # When a form gets submitted
         if reportForm.validate_on_submit():  # Check for form's validity
-            reason = request.form.get("reason")  # Store data from the form
-            extra_info = request.form.get("extra_info")
+            reason = request.form.get('reason')  # Store data from the form
+            extra_info = request.form.get('extra_info')
             userId = getUserIdbyUsername('root')
             # data = [reason, extra_info] # was used for early stage testing
             # Put the data into a new Report object
@@ -194,6 +194,15 @@ def itemDynamic(id):
             db.session.commit()
             # tell the user the report was submitted
             flash('Report Submitted', 'success')
+
+        elif contactForm.validate_on_submit():
+            email = request.form.get("email")
+            subject = request.form.get("subject")
+            message = request.form.get("message")
+            #!!! DATA GOES NOWHERE FOR NOW
+
+            flash('Email Successfully Sent', 'success')
+
         # return render_template('item.html', title="item", form=reportForm, data=data)
     return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
 
