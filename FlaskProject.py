@@ -142,7 +142,7 @@ def item():
 
 @app.route("/item/<id>", methods=['GET', 'POST'])
 def itemDynamic(id):
-
+    
     # test info: must be in order that appears below for testing
     options = ['digital', 'copyright', 'print']
     length = len(options)
