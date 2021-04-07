@@ -426,8 +426,9 @@
 
 /*button container for account page*/
 .reveal-nsfw{
-  float: middle;
-  margin-left: 50px;
+  position:relative;
+  left:45%;
+
   
 }
 
