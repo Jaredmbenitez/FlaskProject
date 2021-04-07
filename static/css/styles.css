@@ -423,15 +423,22 @@
 }
 /**********Alec's work on account page****************/
 
+.account-left{
+  margin-left:2vw;
+}
 .account-card{
   float:left;
   margin-left: 1%;
   margin-top: 1%;
 } 
 
-.review-card{
-  margin-top: -2vh;
+.review-card-row{
+  margin-top:2vw;
 }
+
+/* .review-card{
+  margin-top: -2vh;
+} */
 
 /**adult content container for account page*/
 .nsfw-container{
@@ -440,10 +447,15 @@
 
 /*button container for account page*/
 .reveal-nsfw{
-  position:relative;
-  left:27%;
+  width:10vw;
+  margin-left:auto;
+  margin-right:auto;
 
   
+}
+
+.card-link{
+  margin:0px 0px 0px 0px !important; 
 }
 
 .shop-col{
@@ -475,6 +487,13 @@
   background-size: cover;
   background-repeat: no-repeat;
 
+}
+
+
+.account-pic{
+  min-height:12rem;
+  max-height:12rem;
+  width:100%;
 }
 
 /*********STYLES FOR THE CONTACT FORMS*********/
@@ -552,6 +571,6 @@
 }
 
 .contact_submit{
-  margin-left:85%;
+  margin-left:80%;
   margin-top:15%;
 }
