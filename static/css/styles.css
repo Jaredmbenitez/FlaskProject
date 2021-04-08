@@ -436,9 +436,9 @@
   margin-top:2vw;
 }
 
-/* .review-card{
-  margin-top: -2vh;
-} */
+ .review-card{
+  border: none !important;
+} 
 
 /**adult content container for account page*/
 .nsfw-container{
@@ -463,8 +463,16 @@
   margin-right: 100 em !important;
 }
 .shop-wrapper{
-  margin-top:9vh;
+  margin-top:7.5vh;
+  overflow-x:hidden;
 }
+.shop-row{
+  border-bottom:1px solid lightgrey;
+  margin-left: 7.5vh;
+  
+  
+}
+
 
 .button {
   border: none;

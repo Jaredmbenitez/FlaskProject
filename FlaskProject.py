@@ -88,7 +88,7 @@ def home():
         # Flash a message.
         flash(f'Image Posted', 'success')
 
-    photos = generateXRandomPhotoObjects(9)
+    photos = getAllExistingPhotoObjects()
     return render_template('home.html', title="Home", photos=photos)
 
 
@@ -113,14 +113,14 @@ def accountDynamic(username):
 
     contactForm = ContactSellerForm()
 
-    if request.method=="POST":
+    if request.method == "POST":
         if contactForm.validate_on_submit():
-                email = request.form.get("email")
-                subject = request.form.get("subject")
-                message = request.form.get("message")
-                #!!! DATA GOES NOWHERE FOR NOW
+            email = request.form.get("email")
+            subject = request.form.get("subject")
+            message = request.form.get("message")
+            #!!! DATA GOES NOWHERE FOR NOW
 
-                flash('Email Successfully Sent', 'success')
+            flash('Email Successfully Sent', 'success')
 
     if "username" in session:
         user = session["username"]
@@ -153,7 +153,7 @@ def item():
 
 @app.route("/item/<id>", methods=['GET', 'POST'])
 def itemDynamic(id):
-    
+
     # test info: must be in order that appears below for testing
     options = ['digital', 'copyright', 'print']
     length = len(options)
@@ -211,10 +211,11 @@ def itemDynamic(id):
 
             flash('Email Successfully Sent', 'success')
 
-    photoObject = getPhotoObjectByPhotoID(id) #IMPORTANT must go just before return statement or else db.session.commit breaks the page
+    # IMPORTANT must go just before return statement or else db.session.commit breaks the page
+    photoObject = getPhotoObjectByPhotoID(id)
     userObject = getUserInfoByUsername(photoObject.posted_by)
 
-        # return render_template('item.html', title="item", form=reportForm, data=data)
+    # return render_template('item.html', title="item", form=reportForm, data=data)
     return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
 
 
@@ -386,7 +387,7 @@ def getPhotoObjectByPhotoID(id):
     queryObject = Photo.query.filter_by(photo_id=id).first()
     tempImage = queryObject.image
     tempImage = b64encode(tempImage).decode("utf-8")
-    queryObject.image = tempImage # db.session.commit breaks the page after this line
+    queryObject.image = tempImage  # db.session.commit breaks the page after this line
     return queryObject
 
 
@@ -399,6 +400,15 @@ def getUserInfoByPhotoID():
 def getUserInfoByUsername(user):
     userObject = User.query.filter_by(username=user).first()
     return userObject
+
+
+def getAllExistingPhotoObjects():
+    queryObjects = Photo.query.all()
+    for obj in queryObjects:
+        tempImage = obj.image
+        tempImage = b64encode(tempImage).decode("utf-8")
+        obj.image = tempImage
+    return queryObjects
 
 
 def incrementView(id):

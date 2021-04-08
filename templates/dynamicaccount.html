@@ -83,7 +83,7 @@
       
           {% for object in allPhotoObjects %}
           <div class="col-lg-3 col-md-4 col-6">
-            <a href="#" class="d-block mb-4 h-100">
+            <a href="{{url_for('itemDynamic', id=object.photo_id)}}" class="d-block mb-4 h-100">
                   <img class="img-fluid img-thumbnail account-pic" src="data:;base64,{{object.image}}" alt="">
                   <p class="container-text"> {{object.price}} <br> {{object.posted_by}} </p>
                 </a>
@@ -107,7 +107,7 @@
           <div class="row">
          {% for object in allPhotoObjects %}
           <div class="col-lg-3 col-md-3 col-6">
-            <a href="#" class="d-block mb-4 h-100">
+            <a href="{{url_for('itemDynamic', id=object.photo_id)}}" class="d-block mb-4 h-100">
                   <img class="img-fluid img-thumbnail account-pic" src="data:;base64,{{object.image}}" alt="">
                   <p class="container-text"> {{object.price}} <br> {{object.posted_by}} </p>
                 </a>
