@@ -27,6 +27,7 @@
 from models.Report import Report
 from models.Photo import Photo
 from models.User import *
+from models.Cart import Cart
 ##
 from encrypt import *
 from base64 import b64encode
@@ -38,6 +39,7 @@ from flask import Flask, render_template, url_for, flash, request, redirect, ses
 from werkzeug.utils import secure_filename
 from models.Report import Report
 from classes.database import Database
+import json
 
 
 def convertToBinaryData(filename):
@@ -60,7 +62,6 @@ db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 def home():
     # Check if image was posted
     if request.method == 'POST':
-
         # Grab form data
         nsfw = 0  # nsfw is false by default
         times_purchased = 0  # Initialize as 0
@@ -183,12 +184,26 @@ def itemDynamic(id):
         # db.session.add(newCartItem)  # add to the database and commit
         # db.session.commit()
         # tell the user the report was submitted
-        #flash('Item Added to Cart', 'success')
+        # flash('Item Added to Cart', 'success')
 
     contactForm = ContactSellerForm()
 
     reportForm = ReportForm()
     if request.method == "POST":  # When a form gets submitted
+        if 'submit' in request.form:
+            if not "logged_in" in session:
+                # create guest user and log them in, post back to same item page.
+                GuestUser = createGuestUser()
+                session["username"] = GuestUser.username
+                session["email"] = GuestUser.email
+                session["logged_in"] = True
+                flash('You are now logged in as a guest user', 'success')
+
+                return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=getUserObjectByPhotoID(id), photoObject=getDecodedImageObjectByPhotoId(id), contactForm=contactForm, options=options, length=length)
+                # Add to cart after
+            addItemToCart(id)
+            flash(f"You have added this item to your cart!", "success")
+
         if reportForm.validate_on_submit():  # Check for form's validity
             reason = request.form.get('reason')  # Store data from the form
             extra_info = request.form.get('extra_info')
@@ -212,7 +227,7 @@ def itemDynamic(id):
             flash('Email Successfully Sent', 'success')
 
     # IMPORTANT must go just before return statement or else db.session.commit breaks the page
-    photoObject = getPhotoObjectByPhotoID(id)
+    photoObject = getDecodedImageObjectByPhotoId(id)
     userObject = getUserInfoByUsername(photoObject.posted_by)
 
     # return render_template('item.html', title="item", form=reportForm, data=data)
@@ -276,10 +291,18 @@ def register():
         newUser = User(username=registerForm.username.data,
                        password=encrypt_password(registerForm.password.data), email=registerForm.email.data, num_sales=0, num_purchases=0)
         # Add and commit the object to our database
+
         db.session.add(newUser)
         db.session.commit()
         # Flash a message.
-        flash(f'Account created for {registerForm.username.data}!', 'success')
+        loggedInUser = User.find_user_by_username(
+            registerForm.username.data)
+        session["username"] = loggedInUser.username
+        session["email"] = loggedInUser.email
+        session["logged_in"] = True
+        flash(
+            f'Account created for {registerForm.username.data}! You are now logged in.', 'success')
+
         # Redirect User back to homepage if validation succeeded.
         return redirect(url_for('home'))
     return render_template('register.html', title="Register", form=registerForm)
@@ -297,7 +320,8 @@ def logout():
 
 @app.route("/test")  # test --------------------------
 def test():
-    data = generateRandomPhotoObject()
+    data = session['guest']
+
     data2 = generateRandomPhotoObject()
     data3 = generateRandomPhotoObject()
     return render_template("test.html",  data=data)
@@ -391,8 +415,10 @@ def getPhotoObjectByPhotoID(id):
     return queryObject
 
 
-def getUserInfoByPhotoID():
-    return 0
+def getUserObjectByPhotoID(id):
+    PhotoObject = Photo.query.filter_by(photo_id=id).first()
+    UserObject = User.query.filter_by(username=PhotoObject.posted_by).first()
+    return UserObject
 
 # Returns a User object given the username
 
@@ -419,3 +445,46 @@ def incrementView(id):
     sql = ("UPDATE photos SET num_views = " +
            newVal + " WHERE `photo_id`= " + str(id))
     db.execute(sql)
+
+
+def createGuestUser():
+    username = "Guest" + str(random.randint(99, 1000))
+    password = "asdfasdf"
+    email = username + " @yahoo.com"
+    GuestUser = User(username=username,
+                     password=encrypt_password(password), email=email)
+    db.session.add(GuestUser)
+    db.session.commit()
+    return GuestUser
+
+
+def addItemToCart(id):
+
+    username = getUserObjectByPhotoID(id).username
+    photoObject = getDecodedImageObjectByPhotoId(id)
+
+    photo_id = photoObject.photo_id
+    price = photoObject.price
+    cart_id = getUserInfoByUsername(session["username"]).id
+
+    cartItem = Cart(posted_by_username=username, photo_id=photo_id)
+
+    newDB = Database()
+    sql = f"INSERT INTO cart (`posted_by_username`, `photo_id`, `cart_id`) VALUES('" + \
+        username + "'," + "'" + str(photo_id) + \
+        "'," + "'" + str(cart_id) + "')"
+    newDB.execute(sql)
+
+    return 1
+
+
+def getDecodedImageObjectByPhotoId(id):
+    queryObject = Photo.query.filter_by(photo_id=id).first()
+
+    if type(queryObject.image) == str:
+        tempImage = bytes(queryObject.image, encoding='utf-8')
+    else:
+        tempImage = b64encode(queryObject.image)
+    tempImage = tempImage.decode("utf-8")
+    queryObject.image = tempImage
+    return queryObject

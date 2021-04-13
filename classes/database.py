@@ -39,3 +39,5 @@ class Database:
         self.cur.execute(sql)
         self.con.commit()
         self.disconnect()
+
+    
