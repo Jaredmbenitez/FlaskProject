@@ -7,6 +7,9 @@ from models.Cart import Cart
 ##
 from FlaskProject import session
 
+import secrets
+import pymysql
+
 import random
 import secrets
 from encrypt import *
@@ -169,11 +172,6 @@ def getPhotoObjectsByUsername(user):
 # Cart page - Matthew
 
 
-def getCartDatabyUsername(username):
-    queryObjects = Cart.query.filter_by(posted_by_username=username).all()
-    return queryObjects
-
-
 def getPhotoObjectByPhotoID(id):
     queryObject = Photo.query.filter_by(photo_id=id).first()
     tempImage = queryObject.image
@@ -200,4 +198,10 @@ def generateAllExistingPhotoObjects():
     queryObjects = Photo.query.all()
     for obj in queryObjects:
         obj = decodeImageFromObject(obj)
+    return queryObjects
+
+
+def getCartDatabyUsername(username):
+    userObject = getUserInfoByUsername(username)
+    queryObjects = Cart.query.filter_by(cart_id=userObject.id).all()
     return queryObjects

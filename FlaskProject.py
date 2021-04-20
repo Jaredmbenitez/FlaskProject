@@ -256,7 +256,7 @@ def cart():
         itemsList.append(itemInfo)
         subTotal = subTotal + itemInfo.price
 
-    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=subTotal)
+    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=cartItems)
 # adding stuff to cart branch=
 
 # Login Page, Accepts POST and GET requests --------------------------
@@ -338,6 +338,9 @@ def test():
     data2 = generateRandomPhotoObject()
     data3 = generateRandomPhotoObject()
     return render_template("test.html",  data=data)
+
+
+
 
 
 if __name__ == '__main__':
