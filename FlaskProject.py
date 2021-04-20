@@ -236,6 +236,13 @@ def shop():
 # adding stuff to shop branch
 
 
+@app.route("/shop/<tag>")  # Shop Page        --------------------------
+def shopFiltered(tag):
+    imageList = generateXRandomPhotoObjects(40)
+    return render_template('shop.html', title="Shop", imageList=imageList)
+# adding stuff to shop branch
+
+
 @app.route("/cart")  # cart Page        --------------------------
 def cart():
     cartItems = getCartDatabyUsername(session["username"])

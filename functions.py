@@ -10,6 +10,7 @@ from FlaskProject import session
 import random
 import secrets
 from encrypt import *
+from classes.database import Database
 
 
 def decodeImageFromObject(photoObject):
