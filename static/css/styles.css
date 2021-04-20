@@ -56,6 +56,22 @@
   height: 15rem;
   object-fit: cover;
 }
+.display-tag{
+  float:left;
+  font-size:10px;
+  padding:0.5em 0.75em;
+  margin:1em;
+  display:inline-block;
+  background: lightblue;
+}
+.display-tag:hover{
+  background-color: rgb(159, 195, 207)
+}
+
+
+#image-preview{
+  
+}
 
 /**************************/
 
@@ -490,6 +506,11 @@
 .cart-wrapper,.login-wrapper,.reg-wrapper{
   margin-top:10vh;
 }
+.cart-pic-holder{
+  height: 15rem;
+  width:15rem;
+}
+
 .shopitem
 {
   background-size: cover;

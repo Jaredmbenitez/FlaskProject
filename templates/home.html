@@ -168,9 +168,13 @@
         <div class="modal-body">
           <form action="" method="POST" id="postImageForm" enctype="multipart/form-data">
             <div class="form-group">
-              <label for="inputFile">Upload image</label>
-              <img id="blah" alt="your image" width="100" height="100" />
-              <input name="inputFile" id="inputFile" type="file" class="form-control-file" id="uploadImage"  onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+              <label for="inputFile"></label>
+              <img id="image-preview" width="100" height="100" />
+              <input name="inputFile"  style = "margin-top: 1em;" id="inputFile" type="file" class="form-control" id="uploadImage"  onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
+            </div>
+            <div class="form-group">
+              <label for="description">Title this image:</label>
+              <textarea name = "title" id= "title"class="form-control"  rows="3"></textarea>
             </div>
             <div class="form-group">
               <label for="description">Describe this image</label>
@@ -179,7 +183,14 @@
             
             <div class="form-group">
               <label for="tags">Add tags to this image</label>
-              <textarea name="tags" id="tags" class="form-control"  rows="3"></textarea>
+              <input type="text"  name="tags" id="tags" class="form-control"  rows="3" onkeyup="checkWS()"></input>
+              <div class="container row"> 
+                <span class="display-tag col col-lg-2"> CSS </span>
+                <span class="display-tag col col-lg-2"> CSS </span>
+                <span class="display-tag col col-lg-2"> CSS </span>
+                <span class="display-tag col col-lg-2"> CSS </span>
+                <span class="display-tag col col-lg-2"> CSS </span>
+            </div>
             </div>
 
             <div class="form-group">
@@ -209,7 +220,11 @@
   </div> 
 
 
+  <script>
+    
   
+
+  </script>
   
   
 {% endblock content %}
