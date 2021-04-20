@@ -238,7 +238,7 @@ def shopFiltered(tag):
     newList = []
     for obj in imageList:
         tagsString = str(obj.tags)
-        if tag in tagsString:
+        if str(tag).lower() in tagsString:
             newList.append(obj)
 
     return render_template('shopFiltered.html', title="Shop", imageList=newList)
