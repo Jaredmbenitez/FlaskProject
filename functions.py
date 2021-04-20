@@ -52,7 +52,6 @@ def addItemToCart(id):
         username + "'," + "'" + str(photo_id) + \
         "'," + "'" + str(cart_id) + "')"
     newDB.execute(sql)
-    newDB.disconnect()
 
     return 1
 
@@ -96,7 +95,6 @@ def incrementView(id):
     sql = ("UPDATE photos SET num_views = " +
            newVal + " WHERE `photo_id`= " + str(id))
     db.execute(sql)
-    db.disconnenct()
 
 
 ##### Extra Functions ######
