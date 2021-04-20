@@ -17,6 +17,9 @@ class Database:
             user=self.user,
             password=self.password,
             db=self.db,
+            connect_timeout=1000,
+            wait_timeout=28800,
+            interactive_timeout=28800,
             cursorclass=pymysql.cursors.DictCursor)
 
         self.cur = self.con.cursor()
@@ -39,5 +42,3 @@ class Database:
         self.cur.execute(sql)
         self.con.commit()
         self.disconnect()
-
-    

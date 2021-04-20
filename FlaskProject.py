@@ -58,7 +58,7 @@ def home():
         if request.form.get("nsfwCheck"):
             nsfw = 1
 
-        tags = request.form.get("tags")
+        tags = str(request.form.get("tags")).lower()
         description = request.form.get("description")
         price = request.form.get("price")
         posted_by = session['username']
