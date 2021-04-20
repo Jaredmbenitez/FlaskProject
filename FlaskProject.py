@@ -30,16 +30,12 @@ from models.User import *
 from models.Cart import Cart
 ##
 from encrypt import *
-from base64 import b64encode
-import random
 import secrets
 import pymysql
 from classes.forms import RegistrationForm, LoginForm, ReportForm, FullAddToCartForm, DigitalAddToCartForm, CopyrightAddToCartForm, PrintAddToCartForm, DigitalAndCopyrightAddToCartForm, DigitalAndPrintAddToCartForm, CopyrightAndPrintAddToCartForm, ContactSellerForm
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from werkzeug.utils import secure_filename
-from models.Report import Report
 from classes.database import Database
-import json
 from functions import *
 
 
@@ -231,15 +227,21 @@ def itemDynamic(id):
 
 @app.route("/shop")  # Shop Page        --------------------------
 def shop():
-    imageList = generateXRandomPhotoObjects(40)
+    imageList = generateAllExistingPhotoObjects()
     return render_template('shop.html', title="Shop", imageList=imageList)
 # adding stuff to shop branch
 
 
 @app.route("/shop/<tag>")  # Shop Page        --------------------------
 def shopFiltered(tag):
-    imageList = generateXRandomPhotoObjects(40)
-    return render_template('shop.html', title="Shop", imageList=imageList)
+    imageList = generateAllExistingPhotoObjects()
+    newList = []
+    for obj in imageList:
+        tagsString = str(obj.tags)
+        if tag in tagsString:
+            newList.append(obj)
+
+    return render_template('shopFiltered.html', title="Shop", imageList=newList)
 # adding stuff to shop branch
 
 

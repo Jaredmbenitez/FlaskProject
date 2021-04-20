@@ -12,3 +12,5 @@ class Cart(db.Model):
     photo_id = db.Column(db.Integer)
     equipment_id = db.Column(db.Integer)
     cart_id = db.Column(db.Integer)
+
+

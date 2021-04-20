@@ -187,3 +187,17 @@ def convertToBinaryData(filename):
     with open(filename, 'rb') as file:
         blobData = file.read()
     return blobData
+
+
+def getPhotoObjectsByTag(tag):
+    queryObjects = Photo.query.filter_by(tags=tag)  # NOT CORRECT CURRENTLY
+    for obj in queryObjects:
+        obj = decodeImageFromObject(obj)
+    return queryObjects
+
+
+def generateAllExistingPhotoObjects():
+    queryObjects = Photo.query.all()
+    for obj in queryObjects:
+        obj = decodeImageFromObject(obj)
+    return queryObjects
