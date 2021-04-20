@@ -240,12 +240,14 @@ def shop():
 def cart():
     cartItems = getCartDatabyUsername(session["username"])
     itemsList = []
+    subTotal = 0
     for item in cartItems:
         itemInfo = Photo.query.filter_by(photo_id=item.photo_id).first()
         itemInfo = decodeImageFromObject(itemInfo)
         itemsList.append(itemInfo)
+        subTotal = subTotal + itemInfo.price
 
-    return render_template('cart.html', title="Cart", cartData=itemsList)
+    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=subTotal)
 # adding stuff to cart branch=
 
 # Login Page, Accepts POST and GET requests --------------------------
@@ -331,13 +333,3 @@ def test():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
