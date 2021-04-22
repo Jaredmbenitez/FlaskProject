@@ -24,6 +24,7 @@
   
 }
 
+
 /**************************/
 
 /* Styling for the Home page  - Jared Benitez*/
@@ -31,12 +32,14 @@
   font-size: 2vh;
   text-align:center;
   height: 100vh;
-  margin-top:15vh;
 }
-.alert-msgs{
-  margin-top:7vh;
+.top-container {
+  line-height:6vh;
+  margin-top:1vh;
+  border-radius: 1vh;
+  background-color: lightgrey;
+  height: 30vh;
 }
-
 .bottom-container {
   height: 40vh;
   border-radius:1vh;
@@ -44,17 +47,13 @@
 }
 /* Thumnail images */
 .home-thumb{
-  background-size: cover;
+  background-size:cover;
   background-repeat: no-repeat;
 }
 .home-thumb > a > img{
   width:100%;
   height:100%;
 
-}
-.home-card-img{
-  height: 15rem;
-  object-fit: cover;
 }
 
 /**************************/
@@ -65,12 +64,10 @@
   margin-top:1em;
 }
 .item_page{
-  
   margin-left: 2%;
   margin-right: 2%;
   padding-left: 3%;
   margin-top: 2%;
-  margin-top:10vh; /* Changed by Jared for navbar fix */ 
   margin-bottom: 2%;
 }
 .item_left{
@@ -82,18 +79,7 @@
 .item_picture {
   margin-right: 2%;
   margin-bottom: 2%;
-  background-color: lightgray;
-  border-radius: 10px;
 }
-
-.dynamic_picture{
-  display:block;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 85%;
-  max-width: 100%;
-}
-
 .item_seller{
   border-style:solid;
   padding: 1% 1% 1% 1%;
@@ -107,14 +93,10 @@
 
 .profile{
   border: 2px solid black;
-  height: 22vh;
-  width: 22vh;
+  height: 200px;
+  width: 200px;
   margin-top: 2%;
   margin-bottom: 2%;
-}
-.profile_picture{
-  width:100%;
-  height:100%;
 }
 .about_seller{
   border: 2px solid black;
@@ -161,7 +143,7 @@
 .item_option{
   margin-top:1vh;
 }
-.s_and_ad{
+.reviews_and_ad{
   height: 60vh;
   margin-bottom: 2%;
 }
@@ -357,18 +339,13 @@
 
 .report_form{
   position: fixed;
-  height:50vh;
+  height:40vh;
   width: 40vw;
   left:30vw;
-  bottom:25vh;
+  bottom:30vh;
   background-color:#ffffff;
   border: 3px solid black;
   padding: 1% 2% 1% 2%;
-}
-
-.extra_info{
-  width: 100%;
-  height: 15vh;
 }
 
 .center{
@@ -380,7 +357,7 @@
   border:none;
   position:fixed;
   left:67%;
-  bottom:70%;
+  bottom:64%;
 }
 
 .faq_sheet{
@@ -417,28 +394,18 @@
 }
 
 
-/**************************/
-.account-wrapper{
-  margin-top:10vh;
-}
 /**********Alec's work on account page****************/
 
-.account-left{
-  margin-left:2vw;
-}
 .account-card{
   float:left;
-  margin-left: 1%;
+  margin-left: 3%;
   margin-top: 1%;
 } 
-
-.review-card-row{
-  margin-top:2vw;
+/* review card template styling and position*/
+.review-card{
+  position: relative;
+  top: -38vh;
 }
-
-/* .review-card{
-  margin-top: -2vh;
-} */
 
 /**adult content container for account page*/
 .nsfw-container{
@@ -447,23 +414,71 @@
 
 /*button container for account page*/
 .reveal-nsfw{
-  width:10vw;
-  margin-left:auto;
-  margin-right:auto;
-
+  float: middle;
+  margin-left: 50px;
   
 }
 
-.card-link{
-  margin:0px 0px 0px 0px !important; 
+/*******End of Account page styling*******/
+
+/*Work on footer for the layout*/
+body{
+  font-family: 'Ropa Sans', sans-serif;
 }
+.footer-main{
+  
+  bottom: 0;
+}
+.footer-first{
+  height: 10px;
+  border-top: 1px solid black;
+  border-bottom: relative solid black;
+  background: solid black;
+}
+.footer-second{
+  background: rgb(49, 52, 56);
+}
+.footer-second p{
+  color:  black;
+  padding-top: 3px;
+}
+.footer-second a{
+  color:solid black;
+}
+.footer-icon i{
+  border: 2px solid #fff;
+  border-radius: 4px;
+  padding: 5px 6px;
+  margin-right: 5px;
+}
+.footer-icon i:hover{
+  color: solid black;
+  transition: 0.5s;
+  cursor: pointer;
+  border-color: solid black;
+  background: rgba(255,255,255,0.05);
+  -webkit-transform: scale(0.93);
+  -moz-transform: scale(0.93);
+  -ms-transform: scale(0.93);
+  transform: scale(0.93);
+}
+
+@media screen and (min-width:320px) and (max-width:360px) {
+  .footer-second p{
+    font-size: 15px !important;
+    margin-bottom: 2px !important;
+    text-align: center;
+  }
+  .footer-icon i{
+    padding: 7px 8px !important;
+  }
+}
+/*End of footer*/
+
 
 .shop-col{
   margin-left: 100 em !important;
   margin-right: 100 em !important;
-}
-.shop-wrapper{
-  margin-top:9vh;
 }
 
 .button {
@@ -479,98 +494,3 @@
 }
 
 
-.cart-wrapper,.login-wrapper,.reg-wrapper{
-  margin-top:10vh;
-}
-.shopitem
-{
-  background-size: cover;
-  background-repeat: no-repeat;
-
-}
-
-
-.account-pic{
-  min-height:12rem;
-  max-height:12rem;
-  width:100%;
-}
-
-/*********STYLES FOR THE CONTACT FORMS*********/
-
-.log_contact_form{
-  border: 2px solid black;
-  background-color: #ffffff;
-  width:40vw;
-  height:30vh;
-  position: fixed;
-  left:30vw;
-  bottom:35vh;
-}
-
-.contact_form{
-  border: 2px solid black;
-  background-color: #ffffff;
-  width: 40vw;
-  height:75vh;
-  position: fixed;
-  left:30vw;
-  bottom:12.5vh; 
-}
-
-.contact_head {
-  margin-left:10%;
-  margin-top: 5%;
-
-}
-
-.contact_cancel{
-  background:none;
-  border:none;
-  position:fixed;
-  left:67%;
-  bottom:82%;
-}
-
-.log_contact_head {
-  margin-left:10%;
-  margin-top: 2%;
-
-}
-
-.log_contact_button{
-  margin-left:85%;
-  margin-top: 18%;
-}
-
-.log_contact_cancel{
-  background:none;
-  border:none;
-  position:fixed;
-  left:67%;
-  bottom:59.5%;
-}
-
-.contact_fields{
-  padding-left: 2%;
-  padding-right: 2%;
-  margin-top:10%;
-}
-
-.contact_field1{
-  width:50%;
-}
-
-.contact_field2{
-  width:80%;
-}
-
-.contact_field3{
-  width:100%;
-  height:30%;
-}
-
-.contact_submit{
-  margin-left:80%;
-  margin-top:15%;
-}
