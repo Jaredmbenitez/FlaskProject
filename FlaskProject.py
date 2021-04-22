@@ -106,16 +106,27 @@ def account():
     return render_template('account.html',  title="Account")
 
 
-@app.route("/account/<username>")
+@app.route("/account/<username>", methods=['GET', 'POST'])
 def accountDynamic(username):
     userObj = getUserInfoByUsername(username)
     allPhotoObjects = getPhotoObjectsByUsername(username)
 
+    contactForm = ContactSellerForm()
+
+    if request.method=="POST":
+        if contactForm.validate_on_submit():
+                email = request.form.get("email")
+                subject = request.form.get("subject")
+                message = request.form.get("message")
+                #!!! DATA GOES NOWHERE FOR NOW
+
+                flash('Email Successfully Sent', 'success')
+
     if "username" in session:
         user = session["username"]
-        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects)
+        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm)
 
-    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects)
+    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm)
 
 
 # Item Page        --------------------------
