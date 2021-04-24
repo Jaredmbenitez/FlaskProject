@@ -68,7 +68,16 @@
   background-color: rgb(159, 195, 207)
 }
 
-
+.num_views_container{
+  position:absolute;
+  right:10%;
+  bottom: 5%;
+}
+.remove-cart-items{
+  width:20%; float:left;
+  margin-top:1vh;
+  margin-bottom:1vh;
+}
 #image-preview{
   
 }
