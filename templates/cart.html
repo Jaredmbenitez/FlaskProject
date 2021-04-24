@@ -2,6 +2,7 @@
 {% block content %}
 <div class="cart-wrapper">
 <div class="container-fluid">
+    <form action = "" method = "POST" id="#remove-item-form" name = "remove-item-form">
     <div class="row">
         <div class="col-8">
             <h3 class="d-flex justify-content-between align-items-center mb-3">
@@ -18,14 +19,26 @@
                                 <img class="img-thumbnail img-fluid cart-pic" src="data:;base64,{{item.image}}" alt="" data-id="{{item.photo_id}}">
                             </div>
                         </a>
-                        <h4 class="my-0">{{item.title}}</h4>
+                        <h4 class="my-0">{{item.title}}</h4> <br>
+                        
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{item.photo_id}}" name = "remove-item" id="remove-item" class="remove-item">
+                                <label class="form-check-label" for="remove-item">
+                                  Remove item from cart.
+                                </label>
+                        
                         <small class="text-muted">{{item.photo_description}}</small>
                     </div>
                     <span class="text-muted">${{item.price}}</span>
+                    {{data_ID}}
                     
                     
                 </li>
+
+
             {% endfor %}
+            <button class="btn btn-danger" type="submit" form="#remove-item-form"> Remove selected items </button>
+        </form>
             
             <li class="list-group-item d-flex justify-content-between bg-light">
                 <div class="text-success">

@@ -198,14 +198,17 @@ def itemDynamic(id):
         if reportForm.validate_on_submit():  # Check for form's validity
             reason = request.form.get('reason')  # Store data from the form
             extra_info = request.form.get('extra_info')
-            userId = getUserIdbyUsername('root')
+            userObject = getUserObjectByPhotoID(id)
+            userId = userObject.id
+
+            addReport(reason, extra_info, userId)
             # data = [reason, extra_info] # was used for early stage testing
             # Put the data into a new Report object
-            newReport = Report(report_tags=reason,
-                               report_description=extra_info,
-                               reported_user_id=userId)
-            db.session.add(newReport)  # add to the database and commit
-            db.session.commit()
+            # newReport = Report(report_tags=reason,
+            #                    report_description=extra_info,
+            #                    reported_user_id=userId)
+            # db.session.add(newReport)  # add to the database and commit
+            # db.session.commit()
             # tell the user the report was submitted
             flash('Report Submitted', 'success')
 
@@ -245,18 +248,25 @@ def shopFiltered(tag):
 # adding stuff to shop branch
 
 
-@app.route("/cart")  # cart Page        --------------------------
+# cart Page        --------------------------
+@app.route("/cart", methods=['GET', 'POST'])
 def cart():
     cartItems = getCartDatabyUsername(session["username"])
     itemsList = []
     subTotal = 0
+    data_ID = 0
+    if request.method == "POST":
+        data_ID = request.form.getlist("remove-item")
+        deleteItemFromCart(data_ID)
+        flash('Item Removed from cart!', 'success')
+        return redirect(url_for('cart'))
     for item in cartItems:
         itemInfo = Photo.query.filter_by(photo_id=item.photo_id).first()
         itemInfo = decodeImageFromObject(itemInfo)
         itemsList.append(itemInfo)
         subTotal = subTotal + itemInfo.price
 
-    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=cartItems)
+    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=subTotal)
 # adding stuff to cart branch=
 
 # Login Page, Accepts POST and GET requests --------------------------
@@ -338,9 +348,6 @@ def test():
     data2 = generateRandomPhotoObject()
     data3 = generateRandomPhotoObject()
     return render_template("test.html",  data=data)
-
-
-
 
 
 if __name__ == '__main__':

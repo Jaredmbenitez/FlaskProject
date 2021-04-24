@@ -33,6 +33,24 @@ class Database:
         self.disconnect()
         return result
 
+        # Insert
+    def insert(self, sql):
+        self.connect()
+        self.cur.execute(sql)
+        result = self.cur.fetchall()
+        self.con.commit()
+        self.disconnect()
+        return result
+
+      # Insert
+    def delete(self, sql):
+        self.connect()
+        self.cur.execute(sql)
+        result = self.cur.fetchall()
+        self.con.commit()
+        self.disconnect()
+        return result
+
     # execute statements
     def execute(self, sql):
         self.connect()

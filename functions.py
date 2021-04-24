@@ -205,3 +205,20 @@ def getCartDatabyUsername(username):
     userObject = getUserInfoByUsername(username)
     queryObjects = Cart.query.filter_by(cart_id=userObject.id).all()
     return queryObjects
+
+
+def deleteItemFromCart(data_id):
+    db = Database()
+    for id in data_id:
+        sql = "DELETE FROM cart WHERE photo_id = '" + id + "'"
+        result = db.delete(sql)
+
+    return 1
+
+
+def addReport(reason, extra_info, userId):
+    db = Database()
+    sql = "INSERT INTO `reports` (reported_user_id,report_description,report_tags) VALUES ('" + \
+        str(userId) + "', '" + str(extra_info) + "', '" + str(reason) + "')"
+    result = db.execute(sql)
+    return result
