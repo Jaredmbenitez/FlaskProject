@@ -265,6 +265,7 @@ def cart():
     itemsList = []
     subTotal = 0
     data_ID = 0
+    fees = 0
     if request.method == "POST":
         data_ID = request.form.getlist("remove-item")
         result = deleteItemFromCart(data_ID)
@@ -277,10 +278,18 @@ def cart():
     for item in cartItems:
         itemInfo = Photo.query.filter_by(photo_id=item.photo_id).first()
         itemInfo = decodeImageFromObject(itemInfo)
+        if(itemInfo.photo_description and len(itemInfo.photo_description) > 100):
+            itemInfo.photo_description = itemInfo.photo_description[:100]
+            itemInfo.photo_description += "..."
         itemsList.append(itemInfo)
         subTotal = subTotal + itemInfo.price
+        fees += itemInfo.price * 0.02
 
-    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=subTotal)
+    fees = round(fees, 2)
+    tax = (subTotal * 0.075)
+    grandTotal = subTotal + fees + tax
+
+    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=subTotal, tax=tax, fees=fees, grandTotal=grandTotal)
 # adding stuff to cart branch=
 
 # Login Page, Accepts POST and GET requests --------------------------
