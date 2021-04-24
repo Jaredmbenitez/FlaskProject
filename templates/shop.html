@@ -143,8 +143,8 @@
             <br>
             <div class="container-flex shop-row">
                 <div class="row row-cols-auto ">
-                    {% if imageList|length > 17%}
-                    {% for i in range(12,17) %}
+                    {% if imageList|length > 11%}
+                    {% for i in range(12,imageList|length) %}
                     <div class="col">
                         <div class="card" style="width: 18rem;">
                             <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">

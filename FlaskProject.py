@@ -72,7 +72,7 @@ def home():
 
         # Create new photo object and add to database.
         newPhoto = Photo(image=url, title=title, tags=tags, price=price,
-                         nsfw=nsfw, posted_by=posted_by, times_purchased=times_purchased, num_views=0)
+                         nsfw=nsfw, posted_by=posted_by, times_purchased=times_purchased, photo_description=description, num_views=0)
         # Add and commit to database
         db.session.add(newPhoto)
         db.session.commit()
@@ -343,6 +343,13 @@ def logout():
     flash(f'You have been logged out!', 'success')
     # Redirect to login page
     return redirect(url_for('home'))
+
+
+@app.route("/checkout")  # Shop Page        --------------------------
+def checkout():
+
+    return render_template('checkout.html', title="Checkout")
+# adding stuff to shop branch
 
 
 @app.route("/test")  # test --------------------------
