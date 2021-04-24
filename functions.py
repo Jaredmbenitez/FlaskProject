@@ -228,7 +228,7 @@ def addReport(reason, extra_info, userId):
     return result
 
 
-def sendEmail(toAddress='', itemsList=''):
+def sendPurchaseConfirmationEmail(toAddress, itemsList):
 
     server = smtplib.SMTP('smtp.mail.yahoo.com', 587)
     server.ehlo()
@@ -237,9 +237,17 @@ def sendEmail(toAddress='', itemsList=''):
 
     server.login("preciousemailer@yahoo.com", "uzwnfwabytncppng")
     subject = "Transaction is being processed"
-    body = "Your order has been accepted, and is now being processed by our systems. Please check back for a confirmation email once item is shipped. Thank you!"
+
+    body = "Your order has been accepted, and is now being processed by our systems.\n\n Please check back for a confirmation email once item is shipped. \n\n  Thank you! \n\n"
+    i = 1
+    for item in itemsList:
+        body += str(i) + "\n" + "Seller: " + item.posted_by + "\n" + "Item: " + item.title + "\n" + \
+            "Item Price: " + str(item.price) + "\n\n"
+        i = i + 1
+
     msg = f'Subject: {subject} \n\n{body}'
+
     server.sendmail("preciousemailer@yahoo.com",
-                    "Jaredmbenitez@gmail.com", msg)
+                    toAddress, msg)
 
     server.quit()

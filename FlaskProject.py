@@ -368,18 +368,20 @@ def logout():
 # Shop Page        --------------------------
 @app.route("/checkout", methods=["GET", "POST"])
 def checkout():
-    if request.method == "POST":
-        sendEmail()
-        flash(f'Checkout Success!', 'success')
-        return redirect(url_for('home'))
     cartData = getCartDatabyUsername(session["username"])
     subTotal = 0
     itemsList = []
+
     for item in cartData:
         itemInfo = Photo.query.filter_by(photo_id=item.photo_id).first()
         itemInfo = decodeImageFromObject(itemInfo)
         itemsList.append(itemInfo)
         subTotal = subTotal + itemInfo.price
+
+    if request.method == "POST":
+        sendPurchaseConfirmationEmail(session["email"], itemsList=itemsList)
+        flash(f'Checkout Success!', 'success')
+        return redirect(url_for('home'))
 
     return render_template('checkout.html', title="Checkout", cartData=itemsList, subTotal=subTotal)
 # adding stuff to shop branch
