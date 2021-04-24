@@ -172,7 +172,6 @@ def getPhotoObjectsByUsername(user):
 
 # Cart page - Matthew
 
-
 def getPhotoObjectByPhotoID(id):
     queryObject = Photo.query.filter_by(photo_id=id).first()
     tempImage = queryObject.image
