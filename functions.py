@@ -14,6 +14,8 @@ import random
 import secrets
 from encrypt import *
 from classes.database import Database
+import smtplib
+from email.message import EmailMessage
 
 
 def decodeImageFromObject(photoObject):
