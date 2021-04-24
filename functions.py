@@ -212,7 +212,8 @@ def deleteItemFromCart(data_id):
     for id in data_id:
         sql = "DELETE FROM cart WHERE photo_id = '" + id + "'"
         result = db.delete(sql)
-
+        if not result:
+            return 0
     return 1
 
 

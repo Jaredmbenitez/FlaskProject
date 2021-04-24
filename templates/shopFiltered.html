@@ -16,29 +16,29 @@
             </div>
         </div>
         <!-------------- FILTERS LISTINGS --------------->
-        <div class="dropdown" style =" font-size: 32px;">
+        <div class="dropdown" style =" font-size: 32px; overflow:visible !important;">
             <div> <b>Filters |</b>
         <!-- CATEGORY-->
-            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLinkf" data-bs-toggle="dropdown" aria-expanded="false">
             CATEGORY
             </a>
 
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Animals</a></li>
-            <li><a class="dropdown-item" href="#">Astrophotography</a></li>
-            <li><a class="dropdown-item" href="#">Black & White</a></li>
-            <li><a class="dropdown-item" href="#">Candid</a></li>
-            <li><a class="dropdown-item" href="#">Cars</a></li>
-            <li><a class="dropdown-item" href="#">City</a></li>
-            <li><a class="dropdown-item" href="#">Creative</a></li>
-            <li><a class="dropdown-item" href="#">Drone</a></li>
-            <li><a class="dropdown-item" href="#">Edited</a></li>
-            <li><a class="dropdown-item" href="#">Fashion</a></li>
-            <li><a class="dropdown-item" href="#">Food</a></li>
-            <li><a class="dropdown-item" href="#">Nature</a></li>
-            <li><a class="dropdown-item" href="#">Portrait</a></li>
-            <li><a class="dropdown-item" href="#">Sports</a></li>
-            </ul>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLinkf">
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Animals')}}">Animals</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Astrophotography')}}">Astrophotography</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Black & White')}}">Black & White</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Candid')}}">Candid</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Cars')}}">Cars</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'City')}}">City</a></li>
+                <li><a class="form-select" href="{{url_for('shopFiltered',tag = 'Creative')}}">Creative</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Drone')}}">Drone</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Edited')}}">Edited</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Fashion')}}">Fashion</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Food')}}">Food</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Nature')}}">Nature</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Portrait')}}">Portrait</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Sports')}}">Sports</a></li>
+                </ul>
 
         <!--PRICE -->
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -93,18 +93,14 @@
         </div>
         <br>
 
-        {% if imageList|length == 0 %}
-
-        <div class = "container-flex">
-            <span class="text-muted">No photos available with this tag</span>
-        </div>
-        {%else %}
+        
         <!-------------- PRODUCING IMAGES --------------->
-        <div class = "container-flex" style =  >
+        <div class = "container-flex" style = >
             <br>
+            {% for i in range(0,imageList|length) %}
             <div class="container-flex shop-row">
                 <div class="row row-cols-auto">
-                    {% for i in range(0,imageList|length) %}
+                    
                     <div class="col">
                         <div class="card" style="width: 18rem;">
                             <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
@@ -120,7 +116,8 @@
                 <br>
             </div>
         </div>
-        {% endif %}
+        
+
 
         
 
@@ -129,9 +126,7 @@
         
 
         
-
-        
-    </  
+    
 
 
 

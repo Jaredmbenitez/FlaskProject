@@ -46,9 +46,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = secrets.conn            # DB Connection
 db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 
 
-@app.route("/home", methods=['GET', 'POST'],)
+@app.route("/home", methods=['GET', 'POST'])
 # Root Page.           --------------------------
-@app.route("/", methods=['GET', 'POST'],)
+@app.route("/", methods=['GET', 'POST'])
 def home():
     # Check if image was posted
     if request.method == 'POST':
@@ -257,9 +257,13 @@ def cart():
     data_ID = 0
     if request.method == "POST":
         data_ID = request.form.getlist("remove-item")
-        deleteItemFromCart(data_ID)
-        flash('Item Removed from cart!', 'success')
-        return redirect(url_for('cart'))
+        result = deleteItemFromCart(data_ID)
+        if result == 0:
+            flash('Item Removed from cart!', 'success')
+            return redirect(url_for('cart'))
+        else:
+            flash("No items selected. Select items to remove from cart", 'danger')
+
     for item in cartItems:
         itemInfo = Photo.query.filter_by(photo_id=item.photo_id).first()
         itemInfo = decodeImageFromObject(itemInfo)
