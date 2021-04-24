@@ -355,8 +355,11 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/checkout")  # Shop Page        --------------------------
+# Shop Page        --------------------------
+@app.route("/checkout", methods=["GET", "POST"])
 def checkout():
+    if request.method == "POST":
+        sendEmail()
     cartData = getCartDatabyUsername(session["username"])
     subTotal = 0
     itemsList = []
@@ -366,7 +369,7 @@ def checkout():
         itemsList.append(itemInfo)
         subTotal = subTotal + itemInfo.price
 
-    return render_template('checkout.html', title="Checkout", cartData=itemsList, Total=subTotal)
+    return render_template('checkout.html', title="Checkout", cartData=itemsList, subTotal=subTotal)
 # adding stuff to shop branch
 
 

@@ -14,6 +14,8 @@ import random
 import secrets
 from encrypt import *
 from classes.database import Database
+import smtplib
+from email.message import EmailMessage
 
 
 def decodeImageFromObject(photoObject):
@@ -224,3 +226,17 @@ def addReport(reason, extra_info, userId):
         str(userId) + "', '" + str(extra_info) + "', '" + str(reason) + "')"
     result = db.execute(sql)
     return result
+
+
+def sendEmail():
+    with smtplib.SMPT("smtp.gmail.com", 465) as smtp:
+        smpt.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+
+        smtp.login("preciousemailer.smtp@gmail.com", "Precious1234")
+        subject = "Transaction is being processed"
+        body = "Your order has been accepted, and is now being processed by our systems. Please check back for a confirmation email once item is shipped. Thank you!"
+        msg = f'Subject: {subject} \n\n{body}'
+        smtp.sendmail("preciousemailer.smtp@gmail.com",
+                      "Jaredmbenitez@gmail.com", msg)
