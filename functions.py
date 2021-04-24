@@ -74,8 +74,9 @@ def createGuestUser():
     username = "Guest" + str(random.randint(99, 1000))
     password = "asdfasdf"
     email = username + " @yahoo.com"
+    role = "GuestUser"
     GuestUser = User(username=username,
-                     password=encrypt_password(password), email=email)
+                     password=encrypt_password(password), email=email, role=role, num_sales=0, num_purchases=0)
     db.session.add(GuestUser)
     db.session.commit()
     return GuestUser

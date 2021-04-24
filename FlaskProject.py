@@ -235,7 +235,7 @@ def shop():
 # adding stuff to shop branch
 
 
-@app.route("/shop/<tag>")  # Shop Page        --------------------------
+@app.route("/shop/<string:tag>")  # Shop Page        --------------------------
 def shopFiltered(tag):
     imageList = generateAllExistingPhotoObjects()
     newList = []
@@ -245,7 +245,17 @@ def shopFiltered(tag):
             newList.append(obj)
 
     return render_template('shopFiltered.html', title="Shop", imageList=newList)
-# adding stuff to shop branch
+
+
+@app.route("/shop/<int:price>")  # Shop Page        --------------------------
+def shopFilteredPrice(price):
+    imageList = generateAllExistingPhotoObjects()
+    newList = []
+    for obj in imageList:
+        if obj.price <= price:
+            newList.append(obj)
+
+    return render_template('shopFiltered.html', title="Shop", imageList=newList)
 
 
 # cart Page        --------------------------
@@ -316,7 +326,7 @@ def register():
     if registerForm.validate_on_submit():
         # Create new user object from form information
         newUser = User(username=registerForm.username.data,
-                       password=encrypt_password(registerForm.password.data), email=registerForm.email.data, num_sales=0, num_purchases=0)
+                       password=encrypt_password(registerForm.password.data), role="User", email=registerForm.email.data, num_sales=0, num_purchases=0)
         # Add and commit the object to our database
 
         db.session.add(newUser)
@@ -347,8 +357,16 @@ def logout():
 
 @app.route("/checkout")  # Shop Page        --------------------------
 def checkout():
+    cartData = getCartDatabyUsername(session["username"])
+    subTotal = 0
+    itemsList = []
+    for item in cartData:
+        itemInfo = Photo.query.filter_by(photo_id=item.photo_id).first()
+        itemInfo = decodeImageFromObject(itemInfo)
+        itemsList.append(itemInfo)
+        subTotal = subTotal + itemInfo.price
 
-    return render_template('checkout.html', title="Checkout")
+    return render_template('checkout.html', title="Checkout", cartData=itemsList, Total=subTotal)
 # adding stuff to shop branch
 
 

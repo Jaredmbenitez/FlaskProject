@@ -46,10 +46,10 @@
             </a>
         
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="#">$0-$10</a></li>
-                <li><a class="dropdown-item" href="#">$11-$30</a></li>
-                <li><a class="dropdown-item" href="#">$31-$50</a></li>
-                <li><a class="dropdown-item" href="#">$50+</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='10')}}">$0-$10</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='30')}}">$11-$30</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='50')}}">$31-$50</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='50')}}">$50+</a></li>
             </ul>
             <!--REVIEWS -->
             <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -97,10 +97,10 @@
         <!-------------- PRODUCING IMAGES --------------->
         <div class = "container-flex" style = >
             <br>
-            {% for i in range(0,imageList|length) %}
+            
             <div class="container-flex shop-row">
                 <div class="row row-cols-auto">
-                    
+                    {% for i in range(0,imageList|length) %}
                     <div class="col">
                         <div class="card" style="width: 18rem;">
                             <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">

@@ -68,6 +68,14 @@
 .display-tag:hover{
   background-color: rgb(159, 195, 207)
 }
+.num_views_container{
+  position:absolute;
+  right:10%;
+  bottom: 5%;
+}
+.num_views{
+  
+}
 
 
 #image-preview{
@@ -481,8 +489,6 @@
 }
 .shop-wrapper{
   margin-top:7.5vh;
-  
-  
 }
 .shop-row{
   border-bottom:1px solid lightgrey;
