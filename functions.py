@@ -174,6 +174,7 @@ def getPhotoObjectsByUsername(user):
 
 # Cart page - Matthew
 
+
 def getPhotoObjectByPhotoID(id):
     queryObject = Photo.query.filter_by(photo_id=id).first()
     tempImage = queryObject.image
@@ -225,3 +226,20 @@ def addReport(reason, extra_info, userId):
         str(userId) + "', '" + str(extra_info) + "', '" + str(reason) + "')"
     result = db.execute(sql)
     return result
+
+
+def sendEmail(toAddress='', itemsList=''):
+
+    server = smtplib.SMTP('smtp.mail.yahoo.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+
+    server.login("preciousemailer@yahoo.com", "uzwnfwabytncppng")
+    subject = "Transaction is being processed"
+    body = "Your order has been accepted, and is now being processed by our systems. Please check back for a confirmation email once item is shipped. Thank you!"
+    msg = f'Subject: {subject} \n\n{body}'
+    server.sendmail("preciousemailer@yahoo.com",
+                    "Jaredmbenitez@gmail.com", msg)
+
+    server.quit()

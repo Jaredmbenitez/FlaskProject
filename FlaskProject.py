@@ -290,7 +290,7 @@ def cart():
     tax = (subTotal * 0.075)
     grandTotal = subTotal + fees + tax
 
-    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=subTotal, tax = tax, fees = fees, grandTotal = grandTotal)
+    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=subTotal, tax=tax, fees=fees, grandTotal=grandTotal)
 # adding stuff to cart branch=
 
 # Login Page, Accepts POST and GET requests --------------------------
@@ -370,6 +370,8 @@ def logout():
 def checkout():
     if request.method == "POST":
         sendEmail()
+        flash(f'Checkout Success!', 'success')
+        return redirect(url_for('home'))
     cartData = getCartDatabyUsername(session["username"])
     subTotal = 0
     itemsList = []

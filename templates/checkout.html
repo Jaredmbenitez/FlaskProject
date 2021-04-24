@@ -48,7 +48,7 @@
         </div>
         <div class="col-md-7 col-lg-8">
           <h4 class="mb-3">Billing address</h4>
-          <form class="needs-validation" novalidate="">
+          <form class="needs-validation" novalidate="" action="" method="post">
             <div class="row g-3">
               <div class="col-sm-6">
                 <label for="firstName" class="form-label">First name</label>
@@ -147,15 +147,15 @@
   
             <div class="my-3">
               <div class="form-check">
-                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="">
+                <input id="credit" name="paymentMethod" type="radio" class="form-check-input"  >
                 <label class="form-check-label" for="credit">Credit card</label>
               </div>
               <div class="form-check">
-                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required="">
+                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" >
                 <label class="form-check-label" for="debit">Debit card</label>
               </div>
               <div class="form-check">
-                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required="">
+                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" >
                 <label class="form-check-label" for="paypal">PayPal</label>
               </div>
             </div>
@@ -163,7 +163,7 @@
             <div class="row gy-3">
               <div class="col-md-6">
                 <label for="cc-name" class="form-label">Name on card</label>
-                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                <input type="text" class="form-control" id="cc-name" placeholder="" >
                 <small class="text-muted">Full name as displayed on card</small>
                 <div class="invalid-feedback">
                   Name on card is required
@@ -172,7 +172,7 @@
   
               <div class="col-md-6">
                 <label for="cc-number" class="form-label">Credit card number</label>
-                <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                <input type="text" class="form-control" id="cc-number" placeholder="">
                 <div class="invalid-feedback">
                   Credit card number is required
                 </div>
@@ -180,7 +180,7 @@
   
               <div class="col-md-3">
                 <label for="cc-expiration" class="form-label">Expiration</label>
-                <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                <input type="text" class="form-control" id="cc-expiration" placeholder="" >
                 <div class="invalid-feedback">
                   Expiration date required
                 </div>
@@ -188,7 +188,7 @@
   
               <div class="col-md-3">
                 <label for="cc-cvv" class="form-label">CVV</label>
-                <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                <input type="text" class="form-control" id="cc-cvv" placeholder="" >
                 <div class="invalid-feedback">
                   Security code required
                 </div>
@@ -197,7 +197,7 @@
   
             <hr class="my-4">
   
-            <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Confirm Checkout</button>
           </form>
         </div>
       </div>
