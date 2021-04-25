@@ -16,6 +16,7 @@ class User(db.Model):
     bio = db.Column(db.String(255))
     num_sales = db.Column(db.Integer)
     num_purchases = db.Column(db.Integer)
+    seller_rating = db.Column(db.Integer)
     profile_picture = db.Column(db.LargeBinary)
     role = db.Column(db.String(255))
 

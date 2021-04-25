@@ -262,9 +262,41 @@ def shopFiltered(tag):
 def shopFilteredPrice(price):
     imageList = generateAllExistingPhotoObjects()
     newList = []
-    for obj in imageList:
-        if obj.price <= price:
-            newList.append(obj)
+    if price == 10:
+        for obj in imageList:
+            if obj.price <= price:
+                newList.append(obj)
+    elif price == 30:
+        for obj in imageList:
+            if obj.price >= 10 and obj.price <= 30:
+                newList.append(obj)
+    elif price == 50:
+        for obj in imageList:
+            if obj.price >= 30 and obj.price <= 50:
+                newList.append(obj)
+    elif price == 55:
+        for obj in imageList:
+            if obj.price >= 50:
+                newList.append(obj)
+
+    elif price == 0:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(0)
+    elif price == 1:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(1)
+    elif price == 2:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(2)
+    elif price == 3:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(3)
+    elif price == 4:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(4)
+    elif price == 5:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(5)
 
     return render_template('shopFiltered.html', title="Shop", imageList=newList)
 

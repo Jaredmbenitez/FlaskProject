@@ -49,7 +49,7 @@
                 <li><a class="dropdown-item"href="{{url_for('shopFilteredPrice',price='10')}}">$0-$10</a></li>
                 <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='30')}}">$11-$30</a></li>
                 <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='50')}}">$31-$50</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='50')}}">$50+</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='55')}}">$50+</a></li>
             </ul>
         <!--REVIEWS -->
             <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,12 +57,12 @@
             </a>
         
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="#">5 Star</a></li>
-                <li><a class="dropdown-item" href="#">4 Star</a></li>
-                <li><a class="dropdown-item" href="#">3 Star</a></li>
-                <li><a class="dropdown-item" href="#">2 Star</a></li>
-                <li><a class="dropdown-item" href="#">1 Star</a></li>
-                <li><a class="dropdown-item" href="#">Not Reviewed Yet</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='5')}}">5 Star</a></li>
+                <li><a class="dropdown-item"href="{{url_for('shopFilteredPrice',price='4')}}">4 Star</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='3')}}">3 Star</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='2')}}">2 Star</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='1')}}">1 Star</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='0')}}">Not Reviewed Yet</a></li>
             </ul>
         <!--NEW RELEASE -->
             <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">

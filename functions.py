@@ -167,9 +167,7 @@ def getPhotoIdBy_____():
 def getPhotoObjectsByUsername(user):
     queryObjects = Photo.query.filter_by(posted_by=user).all()
     for obj in queryObjects:
-        tempImage = obj.image
-        tempImage = b64encode(tempImage).decode("utf-8")
-        obj.image = tempImage
+        decodeImageFromObject(obj)
     return queryObjects
 
 # Cart page - Matthew
@@ -251,3 +249,14 @@ def sendPurchaseConfirmationEmail(toAddress, itemsList):
                     toAddress, msg)
 
     server.quit()
+
+
+def getPhotoObjectsBySellerRating(seller_rating):
+    userObjects = User.query.filter_by(seller_rating=seller_rating).all()
+    newList = []
+    for obj in userObjects:
+        photoObjects = getPhotoObjectsByUsername(obj.username)
+        for obj2 in photoObjects:
+            newList.append(obj2)
+
+    return newList
