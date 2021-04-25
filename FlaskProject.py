@@ -28,6 +28,7 @@ from models.Report import Report
 from models.Photo import Photo
 from models.User import *
 from models.Cart import Cart
+from models.Review import Review
 ##
 from encrypt import *
 import secrets
@@ -118,6 +119,16 @@ def accountDynamic(username):
             #!!! DATA GOES NOWHERE FOR NOW
 
             flash('Email Successfully Sent', 'success')
+
+            #!! User rating variables and validation on submit
+        elif "selectUserRating" in request.form:
+            flash('Review was sent', 'success')
+            reviewInfo = request.form.get("review-content")
+            reviewRating = request.form.get("selectUserRating")
+            newReview = Review(review_content= reviewInfo , review_value= reviewRating , user_name= username )
+            db.session.add (newReview)
+            db.session.commit()
+            
 
     if "username" in session:
         user = session["username"]
