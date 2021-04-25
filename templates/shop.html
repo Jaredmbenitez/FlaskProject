@@ -92,20 +92,50 @@
             </div>
         </div>
         <br>
-
+        <div>{{searchTag}}</div>
         
         <!-------------- PRODUCING IMAGES --------------->
         <div class = "container-flex" style =  >
             <br>
+            {% if imageList|length > 0%}
             <div class="container-flex shop-row">
                 <div class="row row-cols-auto">
-                    {% if imageList|length > 5%}
-                    {% for i in range(0,5) %}
+                    
+                        {% for i in range(0,5) %}
+                        <div class="col">
+                            <div class="card" style="width: 18rem;">
+                                <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
+                                <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
+                            </a>
+                            <span class = "num_views_container">
+                                <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                            </span>
+                                <div class="card-body">
+                                <p class="card-text"> ${{imageList[i].price}} <br>By: {{imageList[i].posted_by}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {%endfor%}
+                    {%endif%}
+                </div>
+                <br>
+            </div>
+
+        <div class = "container-flex"  >
+            <br>
+            {%if imageList|length > 6%}
+            <div class="container-flex shop-row">
+                <div class="row row-cols-auto">
+                    
+                    {% for i in range(6,imageList|length) %}
                     <div class="col">
                         <div class="card" style="width: 18rem;">
                             <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
                             <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
                         </a>
+                        <span class = "num_views_container">
+                            <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                          </span>
                             <div class="card-body">
                             <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
                             </div>
@@ -119,37 +149,19 @@
 
         <div class = "container-flex"  >
             <br>
-            <div class="container-flex shop-row">
-                <div class="row row-cols-auto">
-                    {%if imageList|length > 11%}
-                    {% for i in range(6,11) %}
-                    <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
-                            <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
-                        </a>
-                            <div class="card-body">
-                            <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    {%endfor%}
-                    {%endif%}
-                </div>
-                <br>
-            </div>
-
-        <div class = "container-flex"  >
-            <br>
+            {% if imageList|length > 11%}
             <div class="container-flex shop-row">
                 <div class="row row-cols-auto ">
-                    {% if imageList|length > 11%}
+                    
                     {% for i in range(12,imageList|length) %}
                     <div class="col">
                         <div class="card" style="width: 18rem;">
                             <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
                             <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
                         </a>
+                        <span class = "num_views_container">
+                            <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                          </span>
                             <div class="card-body">
                             <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
                             </div>
@@ -163,15 +175,19 @@
 
         <div class = "container-flex"  >
             <br>
+            {%if imageList|length > 18 %}
             <div class="container-flex shop-row">
                 <div class="row row-cols-auto">
-                    {%if imageList|length > 23 %}
-                    {% for i in range(18,23) %}
+                    
+                    {% for i in range(18,imageList|length) %}
                     <div class="col">
                         <div class="card" style="width: 18rem;">
                             <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
                             <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
                         </a>
+                        <span class = "num_views_container">
+                            <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                          </span>
                             <div class="card-body">
                             <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
                             </div>
@@ -185,15 +201,19 @@
 
         <div class = "container-flex"  >
             <br>
+            {% if imageList|length > 24 %}
             <div class="container-flex shop-row">
                 <div class="row row-cols-auto">
-                    {% if imageList|length > 29 %}
-                    {% for i in range(24,29) %}
+                    
+                    {% for i in range(24,imageList|length) %}
                     <div class="col">
                         <div class="card" style="width: 18rem;">
                             <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
                             <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
                         </a>
+                        <span class = "num_views_container">
+                            <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                          </span>
                             <div class="card-body">
                             <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
                             </div>
@@ -207,15 +227,19 @@
 
         <div class = "container-flex"  >
             <br>
+            {%if imageList|length > 30%}
             <div class="container-flex shop-row">
                 <div class="row row-cols-auto">
-                    {%if imageList|length > 35%}
-                    {% for i in range(30,35) %}
+                    
+                    {% for i in range(30,imageList|length) %}
                     <div class="col">
                         <div class="card" style="width: 18rem;">
                             <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
                             <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
                         </a>
+                        <span class = "num_views_container">
+                            <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                          </span>
                             <div class="card-body">
                             <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
                             </div>
@@ -227,7 +251,7 @@
                 <br>
             </div>  
         </div>
-    </  
+    
 
 
 

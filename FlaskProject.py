@@ -55,9 +55,14 @@ def home():
         # Grab form data
         nsfw = 0  # nsfw is false by default
         times_purchased = 0  # Initialize as 0
+        print_price = None
+        copyright_price = None
         if request.form.get("nsfwCheck"):
             nsfw = 1
-
+        if request.form.get("print-price"):
+            print_price = request.form.get("print-price")
+        if request.form.get("copyright_price"):
+            copyright_price = request.form.get("copyright_price")
         tags = str(request.form.get("tags")).lower()
         description = request.form.get("description")
         price = request.form.get("price")
@@ -71,7 +76,7 @@ def home():
         url = convertToBinaryData(url)
 
         # Create new photo object and add to database.
-        newPhoto = Photo(image=url, title=title, tags=tags, price=price,
+        newPhoto = Photo(image=url, title=title, tags=tags, price=price, print_price=print_price, copyright_price=copyright_price,
                          nsfw=nsfw, posted_by=posted_by, times_purchased=times_purchased, photo_description=description, num_views=0)
         # Add and commit to database
         db.session.add(newPhoto)
@@ -228,14 +233,20 @@ def itemDynamic(id):
     return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
 
 
-@app.route("/shop")  # Shop Page        --------------------------
+# Shop Page        --------------------------
+@app.route("/shop", methods=["GET", "POST"])
 def shop():
     imageList = generateAllExistingPhotoObjects()
+    if request.method == "POST":
+        searchTag = request.form.get("search")
+        return redirect(url_for("shopFiltered", tag=searchTag))
     return render_template('shop.html', title="Shop", imageList=imageList)
+
 # adding stuff to shop branch
 
 
-@app.route("/shop/<string:tag>")  # Shop Page        --------------------------
+# Shop Page        --------------------------
+@app.route("/shop/<string:tag>", methods=["GET", "POST"])
 def shopFiltered(tag):
     imageList = generateAllExistingPhotoObjects()
     newList = []
@@ -266,11 +277,21 @@ def cart():
     subTotal = 0
     data_ID = 0
     fees = 0
+    ID = 0
     if request.method == "POST":
+        if 'remove-ind-item-button' in request.form:
+            ID = request.form.get('remove-ind-item-button')
+            result = deleteItemFromCart([ID])
+            if result == 0:
+                flash('Item Removed from cart!', 'success')
+            return redirect(url_for('cart'))
+        else:
+            flash("Error Removing item from cart", 'danger')
+
         data_ID = request.form.getlist("remove-item")
         result = deleteItemFromCart(data_ID)
         if result == 0:
-            flash('Item Removed from cart!', 'success')
+            flash('Items Removed from cart!', 'success')
             return redirect(url_for('cart'))
         else:
             flash("No items selected. Select items to remove from cart", 'danger')
@@ -290,7 +311,7 @@ def cart():
     tax = (subTotal * 0.075)
     grandTotal = subTotal + fees + tax
 
-    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=subTotal, tax=tax, fees=fees, grandTotal=grandTotal)
+    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=subTotal, tax=tax, fees=fees, grandTotal=grandTotal, ID=ID)
 # adding stuff to cart branch=
 
 # Login Page, Accepts POST and GET requests --------------------------

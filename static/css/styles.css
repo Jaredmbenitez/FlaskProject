@@ -1,6 +1,7 @@
 * {
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
+
 .remember-me-label {
   margin-left: 2vh;
   margin-top: 0.25vh;
@@ -489,6 +490,7 @@
 }
 .shop-wrapper{
   margin-top:7.5vh;
+  height:100vh;
  
 }
 .shop-row{

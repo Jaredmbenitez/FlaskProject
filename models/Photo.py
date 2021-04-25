@@ -13,6 +13,8 @@ class Photo(db.Model):
     image = db.Column((db.LargeBinary))
     title = db.Column((db.String(255)))
     price = db.Column(db.Float)
+    copyright_price = db.Column(db.Float)
+    print_price = db.Column(db.Float)
     tags = db.Column((db.String(255)))
     nsfw = db.Column((db.Boolean))
     posted_by = db.Column(db.Integer)

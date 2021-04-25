@@ -93,11 +93,11 @@
         </div>
         
 
-        
+        <div>{{searchTag}}</div>
         <!-------------- PRODUCING IMAGES --------------->
         <div class = "container-flex" style = >
             <br>
-            
+            {% if imageList|length > 0%}
             <div class="container-flex shop-row">
                 <div class="row row-cols-auto">
                     {% for i in range(0,imageList|length) %}
@@ -115,6 +115,11 @@
                 </div>
                 <br>
             </div>
+            {%else%}
+            <div class="container-flex shop-row text-center">
+                <span class="text-muted"> No available photos for this search.</span>
+            </div>
+            {%endif%}
         </div>
         
 
