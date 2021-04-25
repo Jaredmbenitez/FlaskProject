@@ -16,241 +16,242 @@
             </div>
         </div>
         <!-------------- FILTERS LISTINGS --------------->
-        <div class="dropdown" style =" font-size: 32px;">
-            <div> <b>Filters |</b>
-        <!-- CATEGORY-->
-            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            CATEGORY
-            </a>
-
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Animals')}}">Animals</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Astrophotography')}}">Astrophotography</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Black & White')}}">Black & White</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Candid')}}">Candid</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Cars')}}">Cars</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'City')}}">City</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Creative')}}">Creative</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Drone')}}">Drone</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Edited')}}">Edited</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Fashion')}}">Fashion</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Food')}}">Food</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Nature')}}">Nature</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Portrait')}}">Portrait</a></li>
-            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Sports')}}">Sports</a></li>
-            </ul>
-
-        <!--PRICE -->
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                PRICE
-            </a>
-        
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item"href="{{url_for('shopFilteredPrice',price='10')}}">$0-$10</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='30')}}">$11-$30</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='50')}}">$31-$50</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='55')}}">$50+</a></li>
-            </ul>
-        <!--REVIEWS -->
-            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                REVIEWS
-            </a>
-        
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='5')}}">5 Star</a></li>
-                <li><a class="dropdown-item"href="{{url_for('shopFilteredPrice',price='4')}}">4 Star</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='3')}}">3 Star</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='2')}}">2 Star</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='1')}}">1 Star</a></li>
-                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='0')}}">Not Reviewed Yet</a></li>
-            </ul>
-        <!--NEW RELEASE -->
-            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                NEW RELEASE
-            </a>
-        
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">Last Week</a></li>
-                <li><a class="dropdown-item" href="#">Last Month</a></li>
-                <li><a class="dropdown-item" href="#">Last Year</a></li>
-            </ul>
-        <!-- EQUIPMENT-->
-            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                EQUIPMENT
-            </a>
-        
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Cameras</a></li>
-                <li><a class="dropdown-item" href="#">Lens</a></li>
-                <li><a class="dropdown-item" href="#">Batteries</a></li>
-                <li><a class="dropdown-item" href="#">Travel/Storage</a></li>
-                <li><a class="dropdown-item" href="#">Rentals</a></li>
-                <li><a class="dropdown-item" href="#">Accessories</a></li>
-            </ul>
-        
-            </div>
-        </div>
-        <br>
-        <div>{{searchTag}}</div>
-        
-        <!-------------- PRODUCING IMAGES --------------->
-        <div class = "container-flex" style =  >
-            <br>
-            {% if imageList|length > 0%}
-            <div class="container-flex shop-row">
-                <div class="row row-cols-auto">
-                    
-                        {% for i in range(0,5) %}
-                        <div class="col">
-                            <div class="card" style="width: 18rem;">
-                                <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
-                                <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
+            <div class="dropdown" style =" font-size: 32px;">
+                <div> <b>Filters |</b>
+                        <!-- CATEGORY-->
+                            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            CATEGORY
                             </a>
-                            <span class = "num_views_container">
-                                <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
-                            </span>
-                                <div class="card-body">
-                                <p class="card-text"> ${{imageList[i].price}} <br>By: {{imageList[i].posted_by}}</p>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Animals')}}">Animals</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Astrophotography')}}">Astrophotography</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Black & White')}}">Black & White</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Candid')}}">Candid</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Cars')}}">Cars</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'City')}}">City</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Creative')}}">Creative</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Drone')}}">Drone</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Edited')}}">Edited</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Fashion')}}">Fashion</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Food')}}">Food</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Nature')}}">Nature</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Portrait')}}">Portrait</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Sports')}}">Sports</a></li>
+                            </ul>
+
+                        <!--PRICE -->
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                PRICE
+                            </a>
+                        
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item"href="{{url_for('shopFilteredPrice',price='10')}}">$0-$10</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='30')}}">$11-$30</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='50')}}">$31-$50</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='55')}}">$50+</a></li>
+                            </ul>
+                        <!--REVIEWS -->
+                            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                REVIEWS
+                            </a>
+                        
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='5')}}">5 Star</a></li>
+                                <li><a class="dropdown-item"href="{{url_for('shopFilteredPrice',price='4')}}">4 Star</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='3')}}">3 Star</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='2')}}">2 Star</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='1')}}">1 Star</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='0')}}">Not Reviewed Yet</a></li>
+                            </ul>
+                        <!--NEW RELEASE -->
+                            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                NEW RELEASE
+                            </a>
+                        
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">Last Week</a></li>
+                                <li><a class="dropdown-item" href="#">Last Month</a></li>
+                                <li><a class="dropdown-item" href="#">Last Year</a></li>
+                            </ul>
+                        <!-- EQUIPMENT-->
+                            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                EQUIPMENT
+                            </a>
+                        
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Cameras</a></li>
+                                <li><a class="dropdown-item" href="#">Lens</a></li>
+                                <li><a class="dropdown-item" href="#">Batteries</a></li>
+                                <li><a class="dropdown-item" href="#">Travel/Storage</a></li>
+                                <li><a class="dropdown-item" href="#">Rentals</a></li>
+                                <li><a class="dropdown-item" href="#">Accessories</a></li>
+                            </ul>
+            
+                </div>
+            </div>
+            <br>
+            
+        
+                    <!-------------- PRODUCING IMAGES --------------->
+                    <div class = "container-flex" style =  >
+                        <br>
+                        {% if imageList|length > 0%}
+                        <div class="container-flex shop-row">
+                            <div class="row row-cols-auto">
+                                
+                                    {% for i in range(0,5) %}
+                                    <div class="col">
+                                        <div class="card" style="width: 18rem;">
+                                            <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
+                                            <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
+                                        </a>
+                                        <span class = "num_views_container">
+                                            <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                                        </span>
+                                            <div class="card-body">
+                                            <p class="card-text"> ${{imageList[i].price}} <br>By: {{imageList[i].posted_by}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {%endfor%}
+                                {%endif%}
+                            </div>
+                            <br>
+                        </div>
+
+                    <div class = "container-flex"  >
+                        <br>
+                        {%if imageList|length > 6%}
+                        <div class="container-flex shop-row">
+                            <div class="row row-cols-auto">
+                                
+                                {% for i in range(6,imageList|length) %}
+                                <div class="col">
+                                    <div class="card" style="width: 18rem;">
+                                        <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
+                                        <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
+                                    </a>
+                                    <span class = "num_views_container">
+                                        <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                                    </span>
+                                        <div class="card-body">
+                                        <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
+                                        </div>
+                                    </div>
                                 </div>
+                                {%endfor%}
+                                {%endif%}
                             </div>
+                            <br>
                         </div>
-                        {%endfor%}
-                    {%endif%}
-                </div>
-                <br>
-            </div>
 
-        <div class = "container-flex"  >
-            <br>
-            {%if imageList|length > 6%}
-            <div class="container-flex shop-row">
-                <div class="row row-cols-auto">
-                    
-                    {% for i in range(6,imageList|length) %}
-                    <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
-                            <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
-                        </a>
-                        <span class = "num_views_container">
-                            <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
-                          </span>
-                            <div class="card-body">
-                            <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
+                    <div class = "container-flex"  >
+                        <br>
+                        {% if imageList|length > 11%}
+                        <div class="container-flex shop-row">
+                            <div class="row row-cols-auto ">
+                                
+                                {% for i in range(12,imageList|length) %}
+                                <div class="col">
+                                    <div class="card" style="width: 18rem;">
+                                        <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
+                                        <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
+                                    </a>
+                                    <span class = "num_views_container">
+                                        <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                                    </span>
+                                        <div class="card-body">
+                                        <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endfor%}
+                                {%endif%}
                             </div>
+                            <br>
                         </div>
-                    </div>
-                    {%endfor%}
-                    {%endif%}
-                </div>
-                <br>
-            </div>
 
-        <div class = "container-flex"  >
-            <br>
-            {% if imageList|length > 11%}
-            <div class="container-flex shop-row">
-                <div class="row row-cols-auto ">
-                    
-                    {% for i in range(12,imageList|length) %}
-                    <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
-                            <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
-                        </a>
-                        <span class = "num_views_container">
-                            <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
-                          </span>
-                            <div class="card-body">
-                            <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
+                    <div class = "container-flex"  >
+                        <br>
+                        {%if imageList|length > 18 %}
+                        <div class="container-flex shop-row">
+                            <div class="row row-cols-auto">
+                                
+                                {% for i in range(18,imageList|length) %}
+                                <div class="col">
+                                    <div class="card" style="width: 18rem;">
+                                        <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
+                                        <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
+                                    </a>
+                                    <span class = "num_views_container">
+                                        <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                                    </span>
+                                        <div class="card-body">
+                                        <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endfor%}
+                                {%endif%}
                             </div>
+                            <br>
                         </div>
-                    </div>
-                    {%endfor%}
-                    {%endif%}
-                </div>
-                <br>
-            </div>
 
-        <div class = "container-flex"  >
-            <br>
-            {%if imageList|length > 18 %}
-            <div class="container-flex shop-row">
-                <div class="row row-cols-auto">
-                    
-                    {% for i in range(18,imageList|length) %}
-                    <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
-                            <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
-                        </a>
-                        <span class = "num_views_container">
-                            <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
-                          </span>
-                            <div class="card-body">
-                            <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
+                    <div class = "container-flex"  >
+                        <br>
+                        {% if imageList|length > 24 %}
+                        <div class="container-flex shop-row">
+                            <div class="row row-cols-auto">
+                                
+                                {% for i in range(24,imageList|length) %}
+                                <div class="col">
+                                    <div class="card" style="width: 18rem;">
+                                        <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
+                                        <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
+                                    </a>
+                                    <span class = "num_views_container">
+                                        <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                                    </span>
+                                        <div class="card-body">
+                                        <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endfor%}
+                                {%endif%}
                             </div>
+                            <br>
                         </div>
-                    </div>
-                    {%endfor%}
-                    {%endif%}
-                </div>
-                <br>
-            </div>
 
-        <div class = "container-flex"  >
-            <br>
-            {% if imageList|length > 24 %}
-            <div class="container-flex shop-row">
-                <div class="row row-cols-auto">
-                    
-                    {% for i in range(24,imageList|length) %}
-                    <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
-                            <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
-                        </a>
-                        <span class = "num_views_container">
-                            <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
-                          </span>
-                            <div class="card-body">
-                            <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
+                    <div class = "container-flex"  >
+                        <br>
+                        {%if imageList|length > 30%}
+                        <div class="container-flex shop-row">
+                            <div class="row row-cols-auto">
+                                
+                                {% for i in range(30,imageList|length) %}
+                                <div class="col">
+                                    <div class="card" style="width: 18rem;">
+                                        <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
+                                        <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
+                                    </a>
+                                    <span class = "num_views_container">
+                                        <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
+                                    </span>
+                                        <div class="card-body">
+                                        <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endfor%}
+                                {%endif%}
                             </div>
-                        </div>
+                            <br>
+                        </div>  
                     </div>
-                    {%endfor%}
-                    {%endif%}
-                </div>
-                <br>
-            </div>
-
-        <div class = "container-flex"  >
-            <br>
-            {%if imageList|length > 30%}
-            <div class="container-flex shop-row">
-                <div class="row row-cols-auto">
-                    
-                    {% for i in range(30,imageList|length) %}
-                    <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <a href="{{url_for('itemDynamic',id=imageList[i].photo_id)}}">
-                            <img class="card-img-top img shopImage" style = " height: 15rem;" src="data:;base64,{{imageList[i].image}}" alt="Card image cap">
-                        </a>
-                        <span class = "num_views_container">
-                            <i class="bi bi-eye"> </i> <span class="num_views"> {{imageList[i].num_views}} </span>
-                          </span>
-                            <div class="card-body">
-                            <p class="card-text"> ${{imageList[i].price}} <br> Posted By: {{imageList[i].posted_by}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    {%endfor%}
-                    {%endif%}
-                </div>
-                <br>
-            </div>  
-        </div>
+    </div>
     
 
 
