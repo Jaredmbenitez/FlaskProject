@@ -153,10 +153,12 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="form-group"><!--submit button-->
+                    <div><!--submit button-->
                         {{ cartForm.submit(class="btn btn-outline-info", id="cart_button") }}
+                        <!-- <button onclick="console.log('HI')" class="btn btn-outline-info"> Add to Cart </button> -->
                     </div>
                 </form>
+                
               </div>
               <div class="flex-container ad" >
                 <img src="{{url_for('static',filename  = 'images/mtndew.jpg')}}" class="img-fluid" alt="Responsive image">

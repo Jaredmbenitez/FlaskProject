@@ -11,6 +11,7 @@ class Photo(db.Model):
     photo_id = db.Column(db.Integer, primary_key=True)
     times_purchased = db.Column(db.Integer)
     image = db.Column((db.LargeBinary))
+    title = db.Column((db.String(255)))
     price = db.Column(db.Float)
     tags = db.Column((db.String(255)))
     nsfw = db.Column((db.Boolean))

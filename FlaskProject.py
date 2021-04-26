@@ -27,24 +27,16 @@
 from models.Report import Report
 from models.Photo import Photo
 from models.User import *
+from models.Cart import Cart
 ##
 from encrypt import *
-from base64 import b64encode
-import random
 import secrets
 import pymysql
 from classes.forms import RegistrationForm, LoginForm, ReportForm, FullAddToCartForm, DigitalAddToCartForm, CopyrightAddToCartForm, PrintAddToCartForm, DigitalAndCopyrightAddToCartForm, DigitalAndPrintAddToCartForm, CopyrightAndPrintAddToCartForm, ContactSellerForm
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from werkzeug.utils import secure_filename
-from models.Report import Report
 from classes.database import Database
-
-
-def convertToBinaryData(filename):
-    # Convert digital data to binary format
-    with open(filename, 'rb') as file:
-        blobData = file.read()
-    return blobData
+from functions import *
 
 
 app = Flask(__name__)
@@ -60,17 +52,17 @@ db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 def home():
     # Check if image was posted
     if request.method == 'POST':
-
         # Grab form data
         nsfw = 0  # nsfw is false by default
         times_purchased = 0  # Initialize as 0
         if request.form.get("nsfwCheck"):
             nsfw = 1
 
-        tags = request.form.get("tags")
+        tags = str(request.form.get("tags")).lower()
         description = request.form.get("description")
         price = request.form.get("price")
         posted_by = session['username']
+        title = request.form.get("title")
 
         # Process image into binary data
         image = request.files["inputFile"]
@@ -79,7 +71,7 @@ def home():
         url = convertToBinaryData(url)
 
         # Create new photo object and add to database.
-        newPhoto = Photo(image=url, tags=tags, price=price,
+        newPhoto = Photo(image=url, title=title, tags=tags, price=price,
                          nsfw=nsfw, posted_by=posted_by, times_purchased=times_purchased, num_views=0)
         # Add and commit to database
         db.session.add(newPhoto)
@@ -88,7 +80,7 @@ def home():
         # Flash a message.
         flash(f'Image Posted', 'success')
 
-    photos = generateXRandomPhotoObjects(9)
+    photos = getAllExistingPhotoObjects()
     return render_template('home.html', title="Home", photos=photos)
 
 
@@ -113,14 +105,14 @@ def accountDynamic(username):
 
     contactForm = ContactSellerForm()
 
-    if request.method=="POST":
+    if request.method == "POST":
         if contactForm.validate_on_submit():
-                email = request.form.get("email")
-                subject = request.form.get("subject")
-                message = request.form.get("message")
-                #!!! DATA GOES NOWHERE FOR NOW
+            email = request.form.get("email")
+            subject = request.form.get("subject")
+            message = request.form.get("message")
+            #!!! DATA GOES NOWHERE FOR NOW
 
-                flash('Email Successfully Sent', 'success')
+            flash('Email Successfully Sent', 'success')
 
     if "username" in session:
         user = session["username"]
@@ -153,7 +145,7 @@ def item():
 
 @app.route("/item/<id>", methods=['GET', 'POST'])
 def itemDynamic(id):
-    
+
     # test info: must be in order that appears below for testing
     options = ['digital', 'copyright', 'print']
     length = len(options)
@@ -183,12 +175,26 @@ def itemDynamic(id):
         # db.session.add(newCartItem)  # add to the database and commit
         # db.session.commit()
         # tell the user the report was submitted
-        #flash('Item Added to Cart', 'success')
+        # flash('Item Added to Cart', 'success')
 
     contactForm = ContactSellerForm()
 
     reportForm = ReportForm()
     if request.method == "POST":  # When a form gets submitted
+        if 'submit' in request.form:
+            if not "logged_in" in session:
+                # create guest user and log them in, post back to same item page.
+                GuestUser = createGuestUser()
+                session["username"] = GuestUser.username
+                session["email"] = GuestUser.email
+                session["logged_in"] = True
+                flash('You are now logged in as a guest user', 'success')
+
+                return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=getUserObjectByPhotoID(id), photoObject=getDecodedImageObjectByPhotoId(id), contactForm=contactForm, options=options, length=length)
+                # Add to cart after
+            addItemToCart(id)
+            flash(f"You have added this item to your cart!", "success")
+
         if reportForm.validate_on_submit():  # Check for form's validity
             reason = request.form.get('reason')  # Store data from the form
             extra_info = request.form.get('extra_info')
@@ -211,23 +217,46 @@ def itemDynamic(id):
 
             flash('Email Successfully Sent', 'success')
 
-    photoObject = getPhotoObjectByPhotoID(id) #IMPORTANT must go just before return statement or else db.session.commit breaks the page
+    # IMPORTANT must go just before return statement or else db.session.commit breaks the page
+    photoObject = getDecodedImageObjectByPhotoId(id)
     userObject = getUserInfoByUsername(photoObject.posted_by)
 
-        # return render_template('item.html', title="item", form=reportForm, data=data)
+    # return render_template('item.html', title="item", form=reportForm, data=data)
     return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
 
 
 @app.route("/shop")  # Shop Page        --------------------------
 def shop():
-    imageList = generateXRandomPhotoObjects(40)
+    imageList = generateAllExistingPhotoObjects()
     return render_template('shop.html', title="Shop", imageList=imageList)
+# adding stuff to shop branch
+
+
+@app.route("/shop/<tag>")  # Shop Page        --------------------------
+def shopFiltered(tag):
+    imageList = generateAllExistingPhotoObjects()
+    newList = []
+    for obj in imageList:
+        tagsString = str(obj.tags)
+        if str(tag).lower() in tagsString:
+            newList.append(obj)
+
+    return render_template('shopFiltered.html', title="Shop", imageList=newList)
 # adding stuff to shop branch
 
 
 @app.route("/cart")  # cart Page        --------------------------
 def cart():
-    return render_template('cart.html', title="Cart")
+    cartItems = getCartDatabyUsername(session["username"])
+    itemsList = []
+    subTotal = 0
+    for item in cartItems:
+        itemInfo = Photo.query.filter_by(photo_id=item.photo_id).first()
+        itemInfo = decodeImageFromObject(itemInfo)
+        itemsList.append(itemInfo)
+        subTotal = subTotal + itemInfo.price
+
+    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=cartItems)
 # adding stuff to cart branch=
 
 # Login Page, Accepts POST and GET requests --------------------------
@@ -275,10 +304,18 @@ def register():
         newUser = User(username=registerForm.username.data,
                        password=encrypt_password(registerForm.password.data), email=registerForm.email.data, num_sales=0, num_purchases=0)
         # Add and commit the object to our database
+
         db.session.add(newUser)
         db.session.commit()
         # Flash a message.
-        flash(f'Account created for {registerForm.username.data}!', 'success')
+        loggedInUser = User.find_user_by_username(
+            registerForm.username.data)
+        session["username"] = loggedInUser.username
+        session["email"] = loggedInUser.email
+        session["logged_in"] = True
+        flash(
+            f'Account created for {registerForm.username.data}! You are now logged in.', 'success')
+
         # Redirect User back to homepage if validation succeeded.
         return redirect(url_for('home'))
     return render_template('register.html', title="Register", form=registerForm)
@@ -296,116 +333,15 @@ def logout():
 
 @app.route("/test")  # test --------------------------
 def test():
-    data = generateRandomPhotoObject()
+    data = session['guest']
+
     data2 = generateRandomPhotoObject()
     data3 = generateRandomPhotoObject()
     return render_template("test.html",  data=data)
 
 
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-##### Extra Functions ######
-# Returns a random photo decoded ready to be caught.
-def generateRandomImage():
-    # Query photo table for all entries
-    obj = Photo.query.all()
-    if len(obj) == 0:
-        return 0
-    # Choose a random entry from the table
-    randomNumber = random.randint(0, len(obj) - 1)
-    # Decode the image
-    randomImage = b64encode(obj[randomNumber].image).decode("utf-8")
-    # image can be caught in html pages by the following:
-    # <img src="data:;base64,{{ image }}"/>
-    return randomImage
-
-# Returns a random Photo Object. Image has been decoded.
-
-
-def generateRandomPhotoObject():
-
-    # Query photo table for all entries
-    obj = Photo.query.all()
-    if len(obj) == 0:
-        return
-    # Choose a random entry from the table
-    randomNumber = random.randint(0, len(obj) - 1)
-    randomPhotoObject = obj[randomNumber]
-    if type(randomPhotoObject.image) == str:
-        tempImage = bytes(randomPhotoObject.image, encoding='utf-8')
-    else:
-        tempImage = b64encode(randomPhotoObject.image)
-    tempImage = tempImage.decode("utf-8")
-    randomPhotoObject.image = tempImage
-    return randomPhotoObject
-
-
-# Generate a number of random Photo Object
-def generateXRandomPhotoObjects(x):
-    objectsList = []
-    for key in range(x):
-        tempObj = generateRandomPhotoObject()
-        # Somehow we need to check here for duplicates
-        objectsList.append(tempObj)
-    return objectsList
-
-
-# FINISHED
-def getUserIdbyUsername(user):
-    # Query to find user ID
-    queryObject = User.query.filter_by(username=user).first()
-    return queryObject.id
-
-# Item Page Wyatt
-
-
-def getPhotoIdBy_____():
-    return 0
-
-# Account page - Alec
-
-
-def getPhotoObjectsByUsername(user):
-    queryObjects = Photo.query.filter_by(posted_by=user).all()
-    for obj in queryObjects:
-        tempImage = obj.image
-        tempImage = b64encode(tempImage).decode("utf-8")
-        obj.image = tempImage
-    return queryObjects
-
-# Cart page - Matthew
-
-
-def getCartDatabyUserID():
-    return 0
-
-
-def getPhotoObjectByPhotoID(id):
-    queryObject = Photo.query.filter_by(photo_id=id).first()
-    tempImage = queryObject.image
-    tempImage = b64encode(tempImage).decode("utf-8")
-    queryObject.image = tempImage # db.session.commit breaks the page after this line
-    return queryObject
-
-
-def getUserInfoByPhotoID():
-    return 0
-
-# Returns a User object given the username
-
-
-def getUserInfoByUsername(user):
-    userObject = User.query.filter_by(username=user).first()
-    return userObject
-
-
-def incrementView(id):
-
-    db = Database()
-    photoObject = Photo.query.filter_by(photo_id=id).first()
-    newVal = str(photoObject.num_views + 1)
-    sql = ("UPDATE photos SET num_views = " +
-           newVal + " WHERE `photo_id`= " + str(id))
-    db.execute(sql)

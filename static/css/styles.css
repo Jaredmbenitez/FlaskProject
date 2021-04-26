@@ -56,6 +56,22 @@
   height: 15rem;
   object-fit: cover;
 }
+.display-tag{
+  float:left;
+  font-size:10px;
+  padding:0.5em 0.75em;
+  margin:1em;
+  display:inline-block;
+  background: lightblue;
+}
+.display-tag:hover{
+  background-color: rgb(159, 195, 207)
+}
+
+
+#image-preview{
+  
+}
 
 /**************************/
 
@@ -423,15 +439,22 @@
 }
 /**********Alec's work on account page****************/
 
+.account-left{
+  margin-left:2vw;
+}
 .account-card{
   float:left;
   margin-left: 1%;
   margin-top: 1%;
 } 
 
-.review-card{
-  margin-top: -2vh;
+.review-card-row{
+  margin-top:2vw;
 }
+
+ .review-card{
+  border: none !important;
+} 
 
 /**adult content container for account page*/
 .nsfw-container{
@@ -440,10 +463,15 @@
 
 /*button container for account page*/
 .reveal-nsfw{
-  position:relative;
-  left:27%;
+  width:10vw;
+  margin-left:auto;
+  margin-right:auto;
 
   
+}
+
+.card-link{
+  margin:0px 0px 0px 0px !important; 
 }
 
 .shop-col{
@@ -451,8 +479,16 @@
   margin-right: 100 em !important;
 }
 .shop-wrapper{
-  margin-top:9vh;
+  margin-top:7.5vh;
+  overflow-x:hidden;
 }
+.shop-row{
+  border-bottom:1px solid lightgrey;
+  margin-left: 7.5vh;
+  
+  
+}
+
 
 .button {
   border: none;
@@ -470,11 +506,23 @@
 .cart-wrapper,.login-wrapper,.reg-wrapper{
   margin-top:10vh;
 }
+.cart-pic-holder{
+  height: 15rem;
+  width:15rem;
+}
+
 .shopitem
 {
   background-size: cover;
   background-repeat: no-repeat;
 
+}
+
+
+.account-pic{
+  min-height:12rem;
+  max-height:12rem;
+  width:100%;
 }
 
 /*********STYLES FOR THE CONTACT FORMS*********/
@@ -552,6 +600,6 @@
 }
 
 .contact_submit{
-  margin-left:85%;
+  margin-left:80%;
   margin-top:15%;
 }
