@@ -260,3 +260,14 @@ def getPhotoObjectsBySellerRating(seller_rating):
             newList.append(obj2)
 
     return newList
+
+
+def submitUserReview(username, reviewInfo, reviewRating):
+    db = Database()
+    sql = "INSERT into `user_reviews` (user_name, review_value, review_content) VALUES (" + \
+        "'" + username + "', '" + \
+        str(reviewRating) + "', '" + reviewInfo + "')"
+    result = db.insert(sql)
+    if result:
+        return 1
+    return 0

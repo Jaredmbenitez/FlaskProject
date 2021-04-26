@@ -125,10 +125,7 @@ def accountDynamic(username):
             flash('Review was sent', 'success')
             reviewInfo = request.form.get("review-content")
             reviewRating = request.form.get("selectUserRating")
-            newReview = Review(review_content= reviewInfo , review_value= reviewRating , user_name= username )
-            db.session.add (newReview)
-            db.session.commit()
-            
+            submitUserReview(username, reviewInfo, reviewRating)
 
     if "username" in session:
         user = session["username"]
