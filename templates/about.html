@@ -1,4 +1,76 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h1>About Page</h1>
+  
+<div class="container-flex home-wrapper h-100">
+  <div class="text-vertical-center">
+    <h1 >About us</h1>
+    <br>
+  </div>
+  <div class="container" style="max-width: 80%">
+    <div class="row">
+      <div class="col">
+        <div class="text-vertical-center">
+          <h4>Logan Arens</h4>
+        </div>
+        <img src="{{url_for('static',filename  = 'images/Logan Arens.jpg')}}" class="img-fluid" alt="Responsive image">
+        <p class="text-left" style="font-size: 1rem">
+          I started with computer science in 2017 at Folsom Lake College with a basic python course. 
+          I earned an A.S. in Computer Science in 2020 in addition to an A.S. in Physical and Mathematical Sciences. 
+          Over the years most of my experience has been in C/C++, but I am looking forward to expanding further into different languages especially 
+          in a team environment at Sacramento State where Java is more common.  After graduation I want to apply my knowledge towards aerospace applications, 
+          specifically rocket engine propulsion.
+        </p>
+      </div>
+      <div class="col">
+        <div class="text-vertical-center">
+          <h4>Jared benitez</h4>
+        </div>
+        <img src="{{url_for('static',filename  = 'images/Jared Benitez.jpg')}}" class="img-fluid" alt="Responsive image">
+        <p class="text-left" style="font-size: 1rem">
+          I have been studying Computer Information Science for about 2 and a half years now. 
+          Much of my backend experience lies in C++, Python, and PHP. 
+          My frontend experience is limited to CSS/HTML/Javascript, and I have begun working in a few frameworks such as laravel (PHP backend framework) 
+          and React(Js frontend framework). I have worked on a few side projects such as a basic full stack CRUD web application, 
+          and a script that trades stocks and cryptocurrencies throughout the day.
+        </p>
+      </div>
+      <div class="col">
+        <div class="text-vertical-center">
+          <h4>Wyatt Ciciarelli</h4>
+        </div>
+        <img src="{{url_for('static',filename  = 'images/Wyatt Ciciarelli.jpg')}}" class="img-fluid" alt="Responsive image">
+        <p class="text-left" style="font-size: 1rem">
+          I am a transfer student from Sierra College and this is my first year at Sac State. 
+          I was formerly an Economics major, but found more passion for Computer Science. 
+          I have been studying Computer Science for about 2 years now. My main classes have all been in Java so far, 
+          so that is the language I am most comfortable in. However I have also taken course work in and feel comfortable with C, C++, HTML/CSS, SQL, and Linux.
+        </p>
+      </div>
+      <div class="col">
+        <div class="text-vertical-center">
+          <h4>Matthew Smith</h4>
+        </div>
+        <img src="{{url_for('static',filename  = 'images/Matthew Smith.jpg')}}" class="img-fluid" alt="Responsive image">
+        <p class="text-left" style="font-size: 1rem">
+          I received my Associates Degree in computer science Spring 2020, 
+          and since then I have transferred to Sacramento State University to continue my education and get my Bachelor’s degree. 
+          I’ve done most of my work so far in Java, but I have also taken classes in C++, SQL, HTML & CSS. 
+          My long term career goals are to go into either computer graphics or prosthetics and bionics.
+        </p>
+      </div>
+      <div class="col">
+        <div class="text-vertical-center">
+          <h4>Alec Davilla</h4>
+        </div>
+        <img src="{{url_for('static',filename  = 'images/Alec Davilla.jpg')}}" class="img-fluid" alt="Responsive image">
+        <p class="text-left" style="font-size: 1rem">
+          I have been going to Sac state for about two years now chasing down my degree in computer science. 
+          I have most experience in java with my bigger projects occurring in my last semester in CSC 130. 
+          I have no work experience as of yet but i am trying to get an internship in a position of information security and data security. 
+          I am looking forward to learning about how to tackle projects and working as a team in a real world scenario.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
