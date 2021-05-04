@@ -267,9 +267,8 @@ def getPhotoObjectsBySellerRating(seller_rating):
 
 def submitUserReview(username, reviewInfo, reviewRating):
     db = Database()
-    sql = "INSERT into `user_reviews` (user_name, review_value, review_content) VALUES (" + \
-        "'" + username + "', '" + \
-        str(reviewRating) + "', '" + reviewInfo + "')"
+    loggedInUser = session['username']
+    sql = f"INSERT into `user_reviews` (user_name, review_value, review_content, review_posted_by) VALUES('{username}', '{reviewRating}', '{reviewInfo}', '{loggedInUser}')"
     result = db.insert(sql)
     if result:
         return 1
@@ -297,3 +296,13 @@ def updateProfilePicture(image):
     sql = f"UPDATE user SET profile_picture = '{filename}' WHERE username = '{loggedInUser}'"
     result = db.update(sql)
     return result
+
+
+def getUserReviews(username):
+    db = Database()
+    sql = f"SELECT * FROM `user_reviews` WHERE user_name = '{username}'"
+    userReviews = db.query(sql)
+    for review in userReviews:
+        var = User.query.filter_by(username=review["review_posted_by"]).first()
+        review["profile_picture"] = var.profile_picture
+    return userReviews

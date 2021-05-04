@@ -30,7 +30,6 @@ class Database:
         self.connect()
         self.cur.execute(sql)
         result = self.cur.fetchall()
-        self.disconnect()
         return result
 
         # Insert

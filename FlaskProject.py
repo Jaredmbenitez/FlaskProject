@@ -108,6 +108,7 @@ def account():
 def accountDynamic(username):
     userObj = getUserInfoByUsername(username)
     allPhotoObjects = getPhotoObjectsByUsername(username)
+    userReviews = getUserReviews(username)
 
     contactForm = ContactSellerForm()
 
@@ -119,6 +120,7 @@ def accountDynamic(username):
             #!!! DATA GOES NOWHERE FOR NOW
 
             flash('Email Successfully Sent', 'success')
+            return redirect(url_for('accountDynamic', username=username))
 
             #!! User rating variables and validation on submit
         elif "selectUserRating" in request.form:
@@ -126,6 +128,7 @@ def accountDynamic(username):
             reviewInfo = request.form.get("review-content")
             reviewRating = request.form.get("selectUserRating")
             submitUserReview(username, reviewInfo, reviewRating)
+            return redirect(url_for('accountDynamic', username=username))
 
             # Remove item from seller page
         elif "unlistItemButton" in request.form:
@@ -144,9 +147,9 @@ def accountDynamic(username):
 
     if "username" in session:
         user = session["username"]
-        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm)
+        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews=userReviews)
 
-    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm)
+    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews=userReviews)
 
 
 # Item Page        --------------------------

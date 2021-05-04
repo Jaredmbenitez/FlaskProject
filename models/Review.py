@@ -11,5 +11,5 @@ class Review(db.Model):
     review_id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(255))
     review_value = db.Column((db.Integer))
+    review_posted_by = db.Column((db.String(255)))
     review_content = db.Column((db.String(255)))
-   
