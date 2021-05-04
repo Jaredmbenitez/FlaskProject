@@ -117,7 +117,7 @@
                     <h2 class="seller_header">{{userObject.username}} | Seller Rating:&#11088&#11088&#11088&#11088&#11088</h2>
                     <div class="flex-container profile">
                         {% if userObject.profile_picture %}
-                            <img src="userObject:;base64,{{userObject.profile_picture}}" alt="profile" class="img-thumbnail profile_picture">
+                            <img src="{{url_for('static',filename='images/profile_pictures/' + userObject.profile_picture)}}" alt="profile" class="img-thumbnail profile_picture">
                         {% else %}
                             <img src="{{url_for('static', filename='images/blank-user.jpeg')}}" class=" img-thumbnail profile_picture">
                         {% endif %}

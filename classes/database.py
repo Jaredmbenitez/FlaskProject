@@ -42,6 +42,14 @@ class Database:
         self.disconnect()
         return result
 
+    # Insert
+    def update(self, sql):
+        self.connect()
+        result = self.cur.execute(sql)
+        self.con.commit()
+        self.disconnect()
+        return result
+
       # delete
     def delete(self, sql):
         self.connect()

@@ -134,6 +134,14 @@ def accountDynamic(username):
             flash("Item has been removed from your seller page.", "success")
             return redirect(url_for('accountDynamic', username=username))
 
+            # Change Profile Pic
+        elif "ChangeProfilePictureButton" in request.form:
+            # Process image into binary data
+            image = request.files["ChangeProfilePictureInput"]
+            updateProfilePicture(image)
+            flash("You have updated you profile picture!", "success")
+            return redirect(url_for('accountDynamic', username=username))
+
     if "username" in session:
         user = session["username"]
         return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm)
