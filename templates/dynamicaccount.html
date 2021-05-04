@@ -96,11 +96,18 @@
                      Standard Print: ${{object.print_price}} <br>  
                   
                   </p>
-                  {% if session["username"] == userObj.username %}
-                  <form name="unlistItem" id="unlistItem" method="post" action="">
-                    <button form = "unlistItem" name="unlistItemButton" id="unlistItemButton" type="submit" class="btn btn-outline-danger" value="{{object.photo_id}}">Remove Item</button>
-                  </form>
-                  {% endif %}
+                  <div class= "row">
+                    <div class ="col">
+                      {% if session["username"] == userObj.username %}
+                        <form name="unlistItem" id="unlistItem" method="post" action="">                        
+                          <button form = "unlistItem" name="unlistItemButton" id="unlistItemButton" type="submit" class="btn btn-outline-danger" value="{{object.photo_id}}">Remove Item</button>
+                        </form>
+                      {% endif %}
+                    </div>
+                    <div class ="col">
+                      <a class = "btn btn-outline-primary" href="{{url_for('itemDynamic',id=object.photo_id)}}"> View </a>
+                    </div>
+                </div>
                 
               </div>
                 
@@ -136,11 +143,18 @@
                        Standard Print: ${{object.print_price}} <br>  
                     
                     </p>
-                    {% if session["username"] == userObj.username %}
-                  <form name="unlistItem" id="unlistItem" method="post" action="">
-                    <button form = "unlistItem" name="unlistItemButton" id="unlistItemButton" type="submit" class="btn btn-outline-danger" value="{{object.photo_id}}">Remove Item</button>
-                  </form>
-                  {% endif %}
+                    <div class= "row">
+                      <div class ="col">
+                        {% if session["username"] == userObj.username %}
+                          <form name="unlistItem" id="unlistItem" method="post" action="">                        
+                            <button form = "unlistItem" name="unlistItemButton" id="unlistItemButton" type="submit" class="btn btn-outline-danger" value="{{object.photo_id}}">Remove Item</button>
+                          </form>
+                        {% endif %}
+                      </div>
+                      <div class ="col">
+                        <a class = "btn btn-outline-primary" href="{{url_for('itemDynamic',id=object.photo_id)}}"> View </a>
+                      </div>
+                  </div>
                 </div>
                   
             </div> 
