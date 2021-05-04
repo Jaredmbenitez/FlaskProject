@@ -21,8 +21,8 @@
           <p class="card-text"> Quick about me blurp with the account holder. </p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Account Type:</li>
-          <li class="list-group-item">Reputation Level:</li>
+          <li class="list-group-item">Account Type: Seller/Buyer </li>
+          <li class="list-group-item">Reputation Level: {{userObj.seller_rating}}</li>
           
         </ul>
         <div class="row card-body">
@@ -147,30 +147,57 @@
       
           <div class="col-lg-3 col-md-4 col-6">
             <a href="#" class="d-block mb-4 h-100">
-                  <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/pWkk7iiCoDM/400x300" alt="">
+                  <img class="img-fluid img-thumbnail" src="{{url_for('static',filename='images/nude1.jpg')}}" alt="">
                   <p class="container-text"> Item name and price </p>
                 </a>
           </div>
           <div class="col-lg-3 col-md-4 col-6">
             <a href="#" class="d-block mb-4 h-100">
-                  <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/aob0ukAYfuI/400x300" alt="">
+                  <img class="img-fluid img-thumbnail" src="{{url_for('static',filename='images/war.jpg')}}" alt="">
                   <p class="container-text"> Item name and price </p>
                 </a>
           </div>
           <div class="col-lg-3 col-md-4 col-6">
             <a href="#" class="d-block mb-4 h-100">
-                  <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/EMSDtjVHdQ8/400x300" alt="">
+                  <img class="img-fluid img-thumbnail" src="{{url_for('static',filename='images/weedpost.jpg')}}" alt="">
                   <p class="container-text"> Item name and price </p>
                 </a>
           </div>
           <div class="col-lg-3 col-md-4 col-6">
             <a href="#" class="d-block mb-4 h-100">
-                  <img class="img-fluid img-thumbnail" src="https://source.unsplash.com/M185_qYH8vg/400x300" alt="">
+                  <img class="img-fluid img-thumbnail" src="{{url_for('static',filename='images/nude.jpg')}}" alt="">
                   <p class="container-text"> Item name and price </p>
                 </a>
           </div>
         </div>
        </div>
+    </div>
+
+    <div class = "spacer">
+  
+
+    </div>
+
+    <!--Review posting form-->
+    <div class="container reviews-co footer">
+      <div class="mgb-25 padb-30 auto-invert line-b-4 align-center">
+          <h1 class="font-cond-b fg-text-d lts-md fs-300 fs-100-xs no-mg" contenteditable="false">Read Customer Reviews</h1>
+      </div>
+      <ul class="hash-list cols-3 cols-1-xs pad-30-all align-center text-sm">
+        <!--This will grab review from data base based on user's review content and output-->
+        {% if userReviews|length>0 %}
+          {% for x in range(0,3) %}
+            
+          <li>
+            <img src="{{url_for('static',filename='images/profile.jpg')}}" class="wpx-100 img-round mgb-20" title="" alt="" data-edit="false" data-editor="field" data-field="src[Image Path]; title[Image Title]; alt[Image Alternate Text]">
+            <p class="fs-110 font-cond-l" contenteditable="false"> {{userReviews[x].review_content}} </p>
+            <h5 class="font-cond mgb-5 fg-text-d fs-130" contenteditable="false">Username Here</h5>
+            <small class="font-cond case-u lts-sm fs-200 fg-text-l " contenteditable="false">{{userReviews[x].review_value}} Stars</small>
+          </li>
+            
+          {% endfor %}
+        {% endif %}
+        </ul>
     </div>
 
   </div>
@@ -285,4 +312,72 @@
         </div>
       </div>
     </div>
+
+
+    <style>
+      body{margin-top:20px;}
+    
+    .align-center {
+        text-align: center;
+    }
+    .hash-list {
+        display: block;
+        padding: 0;
+        margin: 0 auto;
+    }
+    
+    @media (min-width: 768px){
+        .hash-list.cols-3 > li:nth-last-child(-n+3) {
+            border-bottom: none;
+        }
+    }
+    @media (min-width: 768px){
+        .hash-list.cols-3 > li {
+            width: 33.3333%;
+        }
+    }
+    .hash-list > li {
+        display: block;
+        float: left;
+        border-right: 1px solid rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    .pad-30, .pad-30-all > * {
+        padding: 30px;
+    }
+    img {
+        border: 0;
+    }
+    .mgb-20, .mgb-20-all > * {
+        margin-bottom: 20px;
+    }
+    .wpx-100, .wpx-100-after:after {
+        width: 100px;
+    }
+    .img-round, .img-rel-round {
+        border-radius: 50%;
+    }
+    .padb-30, .padb-30-all > * {
+        padding-bottom: 30px;
+    }
+    
+    .mgb-40, .mgb-40-all > * {
+        margin-bottom: 40px;
+    }
+    .align-center {
+        text-align: center;
+    }
+    [class*="line-b"] {
+        position: relative;
+        padding-bottom: 20px;
+        border-color: #E6AF2A;
+    }
+    .fg-text-d, .fg-hov-text-d:hover, .fg-active-text-d.active {
+        color: #222;
+    }
+    .font-cond-b {
+        font-weight: 700 !important;
+    }
+    
+    </style>
 {% endblock content %}

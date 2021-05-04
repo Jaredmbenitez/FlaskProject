@@ -445,7 +445,9 @@
 
 /**************************/
 .account-wrapper{
+  position: relative;
   margin-top:10vh;
+
 }
 /**********Alec's work on account page****************/
 
@@ -613,4 +615,16 @@
 .contact_submit{
   margin-left:80%;
   margin-top:15%;
+}
+
+/**review posting box**/
+.spacer{
+  height: 150px;
+  width: 100%;
+}
+.reviews-co{
+
+  position: relative;
+  bottom: 0%;
+  
 }

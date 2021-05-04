@@ -260,3 +260,10 @@ def getPhotoObjectsBySellerRating(seller_rating):
             newList.append(obj2)
 
     return newList
+
+def getUserReviews(username):
+    db = Database()
+    sql = f"SELECT * FROM `user_reviews` WHERE(user_name = '{username}') "
+    result = db.query(sql)
+
+    return result

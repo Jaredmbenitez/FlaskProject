@@ -108,6 +108,7 @@ def account():
 def accountDynamic(username):
     userObj = getUserInfoByUsername(username)
     allPhotoObjects = getPhotoObjectsByUsername(username)
+    userReviews = getUserReviews(username)
 
     contactForm = ContactSellerForm()
 
@@ -132,9 +133,9 @@ def accountDynamic(username):
 
     if "username" in session:
         user = session["username"]
-        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm)
+        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews= userReviews)
 
-    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm)
+    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews= userReviews)
 
 
 # Item Page        --------------------------
