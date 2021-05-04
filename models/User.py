@@ -17,7 +17,7 @@ class User(db.Model):
     num_sales = db.Column(db.Integer)
     num_purchases = db.Column(db.Integer)
     seller_rating = db.Column(db.Integer)
-    profile_picture = db.Column(db.LargeBinary)
+    profile_picture = db.Column(db.String(255))
     role = db.Column(db.String(255))
 
     # This method is how the object is printed out.
