@@ -84,10 +84,26 @@
       
           {% for object in allPhotoObjects %}
           <div class="col-lg-3 col-md-4 col-6">
+            <div class="outer-div"> 
             <a href="{{url_for('itemDynamic', id=object.photo_id)}}" class="d-block mb-4 h-100">
                   <img class="img-fluid img-thumbnail account-pic" src="data:;base64,{{object.image}}" alt="">
-                  <p class="container-text"> {{object.price}} <br> {{object.posted_by}} </p>
                 </a>
+                  <h4> {{object.title}}</h4>
+                  <p class="container-text">
+                    {{object.title}}
+                     Standard Digital:${{object.price}} <br> 
+                     Digital with copyright: ${{object.copyright_price}} <br> 
+                     Standard Print: ${{object.print_price}} <br>  
+                  
+                  </p>
+                  {% if session["username"] == userObj.username %}
+                  <form name="unlistItem" id="unlistItem" method="post" action="">
+                    <button form = "unlistItem" name="unlistItemButton" id="unlistItemButton" type="submit" class="btn btn-outline-danger" value="{{object.photo_id}}">Remove Item</button>
+                  </form>
+                  {% endif %}
+                
+              </div>
+                
           </div> 
       
           {% endfor %}
@@ -106,15 +122,30 @@
        
          <hr class="mt-2 mb-5">
           <div class="row">
-         {% for object in allPhotoObjects %}
-          <div class="col-lg-3 col-md-3 col-6">
-            <a href="{{url_for('itemDynamic', id=object.photo_id)}}" class="d-block mb-4 h-100">
-                  <img class="img-fluid img-thumbnail account-pic" src="data:;base64,{{object.image}}" alt="">
-                  <p class="container-text"> {{object.price}} <br> {{object.posted_by}} </p>
-                </a>
-          </div> 
-      
-          {% endfor %}
+            {% for object in allPhotoObjects %}
+            <div class="col-lg-3 col-md-4 col-6">
+              <div class="outer-div"> 
+              <a href="{{url_for('itemDynamic', id=object.photo_id)}}" class="d-block mb-4 h-100">
+                    <img class="img-fluid img-thumbnail account-pic" src="data:;base64,{{object.image}}" alt="">
+                  </a>
+                    <h4> {{object.title}}</h4>
+                    <p class="container-text">
+                      {{object.title}}
+                       Standard Digital:${{object.price}} <br> 
+                       Digital with copyright: ${{object.copyright_price}} <br> 
+                       Standard Print: ${{object.print_price}} <br>  
+                    
+                    </p>
+                    {% if session["username"] == userObj.username %}
+                  <form name="unlistItem" id="unlistItem" method="post" action="">
+                    <button form = "unlistItem" name="unlistItemButton" id="unlistItemButton" type="submit" class="btn btn-outline-danger" value="{{object.photo_id}}">Remove Item</button>
+                  </form>
+                  {% endif %}
+                </div>
+                  
+            </div> 
+        
+            {% endfor %}
           </div>
            
          </div>

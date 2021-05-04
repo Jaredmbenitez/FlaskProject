@@ -127,6 +127,13 @@ def accountDynamic(username):
             reviewRating = request.form.get("selectUserRating")
             submitUserReview(username, reviewInfo, reviewRating)
 
+            # Remove item from seller page
+        elif "unlistItemButton" in request.form:
+            photo_id = request.form.get('unlistItemButton')
+            unlistItem(photo_id)
+            flash("Item has been removed from your seller page.", "success")
+            return redirect(url_for('accountDynamic', username=username))
+
     if "username" in session:
         user = session["username"]
         return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm)

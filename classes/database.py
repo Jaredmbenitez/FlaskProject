@@ -42,7 +42,7 @@ class Database:
         self.disconnect()
         return result
 
-      # Insert
+      # delete
     def delete(self, sql):
         self.connect()
         self.cur.execute(sql)

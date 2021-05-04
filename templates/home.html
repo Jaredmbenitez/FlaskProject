@@ -18,11 +18,13 @@
         
       </div>
       <h1 class="font-weight-light text-center mt-4 mb-4">Featured Posts: </h1>
-      {% if not photos[0] %}
+      {% if photos|length == 0%}
 
       <p> No photos present in database. </p>
 
-      {% else %}
+      {%endif%}
+
+      {% if photos|length >= 9 %}
         <!-- Carousel wrapper -->
       <div
       id="carouselMultiItemExample"
@@ -56,6 +58,7 @@
         <div class="carousel-item active">
           <div class="container">
             <div class="row">
+              
               {% for obj in range(0,3) %}
               <div class="col-lg-4 d-none d-lg-block">
                 <div class="card">

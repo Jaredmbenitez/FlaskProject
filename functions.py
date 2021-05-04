@@ -271,3 +271,14 @@ def submitUserReview(username, reviewInfo, reviewRating):
     if result:
         return 1
     return 0
+
+
+def unlistItem(photo_id):
+    db = Database()
+    sql = f"DELETE FROM photos WHERE photo_id = '{photo_id}'"
+
+    result = db.delete(sql)
+
+    if result:
+        return 1
+    return 0
