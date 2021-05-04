@@ -111,12 +111,13 @@
                     </div>
                 </div>
             </div>
+            
             <div class="col-3 item_right">
                 <div class="container item_seller">
                     <h2 class="seller_header">{{userObject.username}} | Seller Rating:&#11088&#11088&#11088&#11088&#11088</h2>
                     <div class="flex-container profile">
                         {% if userObject.profile_picture %}
-                            <img src="userObject:;base64,{{userObject.profile_picture}}" alt="profile" class="img-thumbnail profile_picture">
+                            <img src="{{url_for('static',filename='images/profile_pictures/' + userObject.profile_picture)}}" alt="profile" class="img-thumbnail profile_picture">
                         {% else %}
                             <img src="{{url_for('static', filename='images/blank-user.jpeg')}}" class=" img-thumbnail profile_picture">
                         {% endif %}
@@ -128,41 +129,40 @@
                         <button class="btn btn-primary btn-block active" role="button" onclick="location.href='{{url_for('account')}}';" aria-disabled="true">See More From This Seller</button>
                     </a>    
                 </div>
+
               <div class="container buy">
                 <h3>Item Rating: &#11088&#11088&#11088&#11088&#11088 | # of Sales:  {{photoObject.times_purchased}}</h3>
-                <form method="POST" action="">
-                    {{ cartForm.hidden_tag() }}
-                    <div class="row">
-                        <div class="col-8">
-                            <fieldset class="form-group">
-                                {{ cartForm.option }}
-                            </fieldset>
+                    <form method="POST" action="">
+                        <h3> Pricing Options:  </h3>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{photoObject.print_price}}" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Standard Print: $ {{photoObject.print_price}}
+                            </label>
                         </div>
-                        <div class="col-4">
-                            {% if length == 1 %}
-                            <div class = row>
-                                <h4>$<script>twoDecimals({{photoObject.price}});</script></h4>
-                            </div>
-                            {% endif %}
-                            {% if length > 1 %}
-                                {% for options in options %}
-                                    <div class = row>
-                                        <h4>$<script>twoDecimals({{photoObject.price}});</script></h4>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{photoObject.price}}" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Digital: $ {{photoObject.price}}
+                            </label>
                         </div>
-                    </div>
-                    <div><!--submit button-->
-                        {{ cartForm.submit(class="btn btn-outline-info", id="cart_button") }}
-                        <!-- <button onclick="console.log('HI')" class="btn btn-outline-info"> Add to Cart </button> -->
-                    </div>
-                </form>
-                
-              </div>
-              <div class="flex-container ad" >
+                        <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{photoObject.copyright_price}}" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Digital w/ Copyright: ${{photoObject.copyright_price}}
+                                </label>
+                            
+                                <button class="btn btn-outline-info" id="submit" name="submit" style="margin-left:2vh;"> Add to Cart </button>
+                            
+                        </div>
+                            
+                        
+                    </form>
+                    
+            </div>
+            <div class="flex-container ad" >
                 <img src="{{url_for('static',filename  = 'images/mtndew.jpg')}}" class="img-fluid" alt="Responsive image">
-              </div>
+            </div>
             </div>
         </div>
         

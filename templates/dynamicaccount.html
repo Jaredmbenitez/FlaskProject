@@ -15,20 +15,34 @@
   <div class="col-2 account-left">
     <div class="row account-card-row">
       <div class="account-card card" style="width: 18rem;">
-        <img class="card-img-top" src="{{url_for('static',filename='images/blank-user.jpeg')}}" alt="Card image cap">
+        {% if userObj.username == session["username"] %}
+        <!-- Button trigger Modal (Change Profile Pic)-->
+        <a data-bs-toggle="modal" data-bs-target="#ChangeProfilePicModal"> 
+          <i  style= "margin-top:1vh; color:lightgrey;" class="fa fa-cog" aria-hidden="true"></i>
+        </a>
+        {% endif %}
+        {%if userObj.profile_picture %}
+          <img class="card-img-top" src="{{url_for('static',filename='images/profile_pictures/' + userObj.profile_picture)}}" alt="Card image cap">
+        {%else%}
+          <img class="card-img-top" src="{{url_for('static',filename='images/profile.jpg')}}" alt="Card image cap">
+        {%endif%}
         <div class="card-body">
           <h5 class="card-title">{{userObj.username}}</h5>
           <p class="card-text"> Quick about me blurp with the account holder. </p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Account Type:</li>
-          <li class="list-group-item">Reputation Level:</li>
+          <li class="list-group-item">Account Type: {{userObj.role}}</li>
           
         </ul>
-        <div class="row card-body">
-          <a href= "#" class="col-sm card-link">Subscribe</a>
-          <button class="col-sm btn card-link" onclick="clickContact();">Contact</button>
-          <a href="#" class="col-sm card-link">Report</a>
+        <div class="card-body">
+          <div class="row"> 
+            <div class="col-sm-6"> 
+              <button class="col-sm btn  btn-outline-warning" onclick="clickContact();"> Contact</button>
+            </div>
+            <div class="col-sm-6">
+              <a href="#" class="col-sm  btn btn-outline-warning"> <i class="fas fa-flag"></i> Report</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -40,7 +54,11 @@
                   <div class="card-body">
                       <div class="text-center">
                           <div class="d-inline align-baseline display-2 mr-1">{{userObj.seller_rating}}<span class="full-rating">/5</span></div>
-                          <div class=" align-baseline text-sm text-warning mr-1"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                          <div class=" align-baseline text-sm text-warning mr-1">
+                            {% for i in range(0,userObj.seller_rating) %}
+                            <i class="fa fa-star"></i>
+                            {%endfor%}
+                          </div>
                       </div>
                       <div class="pt-3"> <label class="text-medium text-sm">5 stars <span class="text-muted">- 34</span></label>
                           <div class="progress margin-bottom-1x">
@@ -59,7 +77,7 @@
                               <div class="progress-bar bg-warning" role="progressbar" style="width: 0; height: 2px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
                       </div>
-                      <div class="pt-2"><a class="btn btn-warning btn-block" href="#" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-abc="true">Leave a Review</a></div>
+                      <div class="pt-2"><a class="btn btn-outline-warning btn-block" href="#" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-abc="true">Leave a Review</a></div>
 
                   </div>
               </div>
@@ -84,10 +102,33 @@
       
           {% for object in allPhotoObjects %}
           <div class="col-lg-3 col-md-4 col-6">
+            <div class="outer-div"> 
             <a href="{{url_for('itemDynamic', id=object.photo_id)}}" class="d-block mb-4 h-100">
                   <img class="img-fluid img-thumbnail account-pic" src="data:;base64,{{object.image}}" alt="">
-                  <p class="container-text"> {{object.price}} <br> {{object.posted_by}} </p>
                 </a>
+                  <h4> {{object.title}}</h4>
+                  <p class="container-text">
+                    {{object.title}}
+                     Standard Digital:${{object.price}} <br> 
+                     Digital with copyright: ${{object.copyright_price}} <br> 
+                     Standard Print: ${{object.print_price}} <br>  
+                  
+                  </p>
+                  <div class= "row">
+                    <div class ="col">
+                      {% if session["username"] == userObj.username %}
+                        <form name="unlistItem" id="unlistItem" method="post" action="">                        
+                          <button form = "unlistItem" name="unlistItemButton" id="unlistItemButton" type="submit" class="btn btn-outline-danger" value="{{object.photo_id}}">Remove Item</button>
+                        </form>
+                      {% endif %}
+                    </div>
+                    <div class ="col">
+                      <a class = "btn btn-outline-primary" href="{{url_for('itemDynamic',id=object.photo_id)}}"> View </a>
+                    </div>
+                </div>
+                
+              </div>
+                
           </div> 
       
           {% endfor %}
@@ -106,15 +147,37 @@
        
          <hr class="mt-2 mb-5">
           <div class="row">
-         {% for object in allPhotoObjects %}
-          <div class="col-lg-3 col-md-3 col-6">
-            <a href="{{url_for('itemDynamic', id=object.photo_id)}}" class="d-block mb-4 h-100">
-                  <img class="img-fluid img-thumbnail account-pic" src="data:;base64,{{object.image}}" alt="">
-                  <p class="container-text"> {{object.price}} <br> {{object.posted_by}} </p>
-                </a>
-          </div> 
-      
-          {% endfor %}
+            {% for object in allPhotoObjects %}
+            <div class="col-lg-3 col-md-4 col-6">
+              <div class="outer-div"> 
+              <a href="{{url_for('itemDynamic', id=object.photo_id)}}" class="d-block mb-4 h-100">
+                    <img class="img-fluid img-thumbnail account-pic" src="data:;base64,{{object.image}}" alt="">
+                  </a>
+                    <h4> {{object.title}}</h4>
+                    <p class="container-text">
+                      {{object.title}}
+                       Standard Digital:${{object.price}} <br> 
+                       Digital with copyright: ${{object.copyright_price}} <br> 
+                       Standard Print: ${{object.print_price}} <br>  
+                    
+                    </p>
+                    <div class= "row">
+                      <div class ="col">
+                        {% if session["username"] == userObj.username %}
+                          <form name="unlistItem" id="unlistItem" method="post" action="">                        
+                            <button form = "unlistItem" name="unlistItemButton" id="unlistItemButton" type="submit" class="btn btn-outline-danger" value="{{object.photo_id}}">Remove Item</button>
+                          </form>
+                        {% endif %}
+                      </div>
+                      <div class ="col">
+                        <a class = "btn btn-outline-primary" href="{{url_for('itemDynamic',id=object.photo_id)}}"> View </a>
+                      </div>
+                  </div>
+                </div>
+                  
+            </div> 
+        
+            {% endfor %}
           </div>
            
          </div>
@@ -267,11 +330,11 @@
               </div>
               <select class="form-select" form = "postReviewForm" name = "selectUserRating" id = "selectUserRating" aria-label="Default select example">
                 <option selected>Rate this User</option>
-                <option value="1">1 Stars</option>
-                <option value="2">2 Stars</option>
-                <option value="3">3 Stars</option>
-                <option value="4">4 Stars</option>
-                <option value="5">5 Stars</option>
+                <option value="1">1 Stars  &#9734;</option>
+                <option value="2">2 Stars  &#9734;&#9734;</option>
+                <option value="3">3 Stars &#9734;&#9734;&#9734;</option>
+                <option value="4">4 Stars &#9734;&#9734;&#9734;&#9734;</option>
+                <option value="5">5 Stars &#9734;&#9734;&#9734;&#9734;&#9734;</option>
               </select>    
             </form>
   
@@ -285,4 +348,29 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal Change profile Pic-->
+<div class="modal fade" id="ChangeProfilePicModal" tabindex="-1" aria-labelledby="ChangeProfilePicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form name="ChangeProfilePicture" id="ChangeProfilePicture" action="" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="ChangeProfilePicture"> Upload Profile Picture </label>
+            <input type="file" accept="image/x-png,image/gif,image/jpeg" name="ChangeProfilePictureInput" id="ChangeProfilePictureInput">
+          
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button form="ChangeProfilePicture" type="submit" name="ChangeProfilePictureButton" id="ChangeProfilePictureButton" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

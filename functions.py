@@ -1,4 +1,5 @@
 from base64 import b64encode
+import os
 # Import Models
 from models.Report import Report
 from models.Photo import Photo
@@ -16,6 +17,8 @@ from encrypt import *
 from classes.database import Database
 import smtplib
 from email.message import EmailMessage
+from flask import Flask, render_template, url_for, flash, request, redirect, session
+from werkzeug.utils import secure_filename
 
 
 def decodeImageFromObject(photoObject):
@@ -271,3 +274,26 @@ def submitUserReview(username, reviewInfo, reviewRating):
     if result:
         return 1
     return 0
+
+
+def unlistItem(photo_id):
+    db = Database()
+    sql = f"DELETE FROM photos WHERE photo_id = '{photo_id}'"
+
+    result = db.delete(sql)
+
+    if result:
+        return 1
+    return 0
+
+
+def updateProfilePicture(image):
+    # Process image into binary data
+    loggedInUser = session["username"]
+    filename = secure_filename(image.filename)
+    fullPath = (os.getcwd() + "/static/images/profile_pictures/" + filename)
+    image.save(fullPath)
+    db = Database()
+    sql = f"UPDATE user SET profile_picture = '{filename}' WHERE username = '{loggedInUser}'"
+    result = db.update(sql)
+    return result

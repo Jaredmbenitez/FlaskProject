@@ -127,6 +127,21 @@ def accountDynamic(username):
             reviewRating = request.form.get("selectUserRating")
             submitUserReview(username, reviewInfo, reviewRating)
 
+            # Remove item from seller page
+        elif "unlistItemButton" in request.form:
+            photo_id = request.form.get('unlistItemButton')
+            unlistItem(photo_id)
+            flash("Item has been removed from your seller page.", "success")
+            return redirect(url_for('accountDynamic', username=username))
+
+            # Change Profile Pic
+        elif "ChangeProfilePictureButton" in request.form:
+            # Process image into binary data
+            image = request.files["ChangeProfilePictureInput"]
+            updateProfilePicture(image)
+            flash("You have updated you profile picture!", "success")
+            return redirect(url_for('accountDynamic', username=username))
+
     if "username" in session:
         user = session["username"]
         return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm)
@@ -164,31 +179,16 @@ def itemDynamic(id):
     length = len(options)
     incrementView(id)
 
-    if options == ['digital', 'copyright', 'print']:
-        cartForm = FullAddToCartForm()
-    elif options == ['digital', 'copyright']:
-        cartForm = DigitalAndCopyrightAddToCartForm()
-    elif options == ['digital', 'print']:
-        cartForm = DigitalAndPrintAddToCartForm()
-    elif options == ['copyright', 'print']:
-        cartForm = CopyrightAndPrintAddToCartForm()
-    elif options == ['digital']:
-        cartForm = DigitalAddToCartForm()
-    elif options == ['copyright']:
-        cartForm = CopyrightAddToCartForm()
-    elif options == ['print']:
-        cartForm = PrintAddToCartForm()
-
     # if request.method == "POST":  # When a form gets submitted
-        # if cartForm.validate_on_submit():  # Check for form's validity
-        # cartOption = request.form.get("option")  # Store data from the form
-        # data = [reason, extra_info] # was used for early stage testing
-        # Put the data into a new Report object
-        # newCartItem=newCart(option=cartOption)
-        # db.session.add(newCartItem)  # add to the database and commit
-        # db.session.commit()
-        # tell the user the report was submitted
-        # flash('Item Added to Cart', 'success')
+    # if cartForm.validate_on_submit():  # Check for form's validity
+    # cartOption = request.form.get("option")  # Store data from the form
+    # data = [reason, extra_info] # was used for early stage testing
+    # Put the data into a new Report object
+    # newCartItem=newCart(option=cartOption)
+    # db.session.add(newCartItem)  # add to the database and commit
+    # db.session.commit()
+    # tell the user the report was submitted
+    # flash('Item Added to Cart', 'success')
 
     contactForm = ContactSellerForm()
 
@@ -203,7 +203,7 @@ def itemDynamic(id):
                 session["logged_in"] = True
                 flash('You are now logged in as a guest user', 'success')
 
-                return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=getUserObjectByPhotoID(id), photoObject=getDecodedImageObjectByPhotoId(id), contactForm=contactForm, options=options, length=length)
+                return render_template('dynamicitem.html', title="item", form=reportForm, userObject=getUserObjectByPhotoID(id), photoObject=getDecodedImageObjectByPhotoId(id), contactForm=contactForm, options=options, length=length)
                 # Add to cart after
             addItemToCart(id)
             flash(f"You have added this item to your cart!", "success")
@@ -238,7 +238,7 @@ def itemDynamic(id):
     userObject = getUserInfoByUsername(photoObject.posted_by)
 
     # return render_template('item.html', title="item", form=reportForm, data=data)
-    return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
+    return render_template('dynamicitem.html', title="item", form=reportForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
 
 
 # Shop Page        --------------------------
