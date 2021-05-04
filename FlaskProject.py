@@ -28,6 +28,7 @@ from models.Report import Report
 from models.Photo import Photo
 from models.User import *
 from models.Cart import Cart
+from models.Review import Review
 ##
 from encrypt import *
 import secrets
@@ -46,18 +47,23 @@ app.config['SQLALCHEMY_DATABASE_URI'] = secrets.conn            # DB Connection
 db.init_app(app)    # Connect to database with ORM using SQLAlchemy
 
 
-@app.route("/home", methods=['GET', 'POST'],)
+@app.route("/home", methods=['GET', 'POST'])
 # Root Page.           --------------------------
-@app.route("/", methods=['GET', 'POST'],)
+@app.route("/", methods=['GET', 'POST'])
 def home():
     # Check if image was posted
     if request.method == 'POST':
         # Grab form data
         nsfw = 0  # nsfw is false by default
         times_purchased = 0  # Initialize as 0
+        print_price = None
+        copyright_price = None
         if request.form.get("nsfwCheck"):
             nsfw = 1
-
+        if request.form.get("print-price"):
+            print_price = request.form.get("print-price")
+        if request.form.get("copyright_price"):
+            copyright_price = request.form.get("copyright_price")
         tags = str(request.form.get("tags")).lower()
         description = request.form.get("description")
         price = request.form.get("price")
@@ -71,8 +77,8 @@ def home():
         url = convertToBinaryData(url)
 
         # Create new photo object and add to database.
-        newPhoto = Photo(image=url, title=title, tags=tags, price=price,
-                         nsfw=nsfw, posted_by=posted_by, times_purchased=times_purchased, num_views=0)
+        newPhoto = Photo(image=url, title=title, tags=tags, price=price, print_price=print_price, copyright_price=copyright_price,
+                         nsfw=nsfw, posted_by=posted_by, times_purchased=times_purchased, photo_description=description, num_views=0)
         # Add and commit to database
         db.session.add(newPhoto)
         db.session.commit()
@@ -113,6 +119,13 @@ def accountDynamic(username):
             #!!! DATA GOES NOWHERE FOR NOW
 
             flash('Email Successfully Sent', 'success')
+
+            #!! User rating variables and validation on submit
+        elif "selectUserRating" in request.form:
+            flash('Review was sent', 'success')
+            reviewInfo = request.form.get("review-content")
+            reviewRating = request.form.get("selectUserRating")
+            submitUserReview(username, reviewInfo, reviewRating)
 
     if "username" in session:
         user = session["username"]
@@ -198,14 +211,17 @@ def itemDynamic(id):
         if reportForm.validate_on_submit():  # Check for form's validity
             reason = request.form.get('reason')  # Store data from the form
             extra_info = request.form.get('extra_info')
-            userId = getUserIdbyUsername('root')
+            userObject = getUserObjectByPhotoID(id)
+            userId = userObject.id
+
+            addReport(reason, extra_info, userId)
             # data = [reason, extra_info] # was used for early stage testing
             # Put the data into a new Report object
-            newReport = Report(report_tags=reason,
-                               report_description=extra_info,
-                               reported_user_id=userId)
-            db.session.add(newReport)  # add to the database and commit
-            db.session.commit()
+            # newReport = Report(report_tags=reason,
+            #                    report_description=extra_info,
+            #                    reported_user_id=userId)
+            # db.session.add(newReport)  # add to the database and commit
+            # db.session.commit()
             # tell the user the report was submitted
             flash('Report Submitted', 'success')
 
@@ -225,14 +241,20 @@ def itemDynamic(id):
     return render_template('dynamicitem.html', title="item", form=reportForm, cartForm=cartForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
 
 
-@app.route("/shop")  # Shop Page        --------------------------
+# Shop Page        --------------------------
+@app.route("/shop", methods=["GET", "POST"])
 def shop():
     imageList = generateAllExistingPhotoObjects()
+    if request.method == "POST":
+        searchTag = request.form.get("search")
+        return redirect(url_for("shopFiltered", tag=searchTag))
     return render_template('shop.html', title="Shop", imageList=imageList)
+
 # adding stuff to shop branch
 
 
-@app.route("/shop/<tag>")  # Shop Page        --------------------------
+# Shop Page        --------------------------
+@app.route("/shop/<string:tag>", methods=["GET", "POST"])
 def shopFiltered(tag):
     imageList = generateAllExistingPhotoObjects()
     newList = []
@@ -242,21 +264,94 @@ def shopFiltered(tag):
             newList.append(obj)
 
     return render_template('shopFiltered.html', title="Shop", imageList=newList)
-# adding stuff to shop branch
 
 
-@app.route("/cart")  # cart Page        --------------------------
+@app.route("/shop/<int:price>")  # Shop Page        --------------------------
+def shopFilteredPrice(price):
+    imageList = generateAllExistingPhotoObjects()
+    newList = []
+    if price == 10:
+        for obj in imageList:
+            if obj.price <= price:
+                newList.append(obj)
+    elif price == 30:
+        for obj in imageList:
+            if obj.price >= 10 and obj.price <= 30:
+                newList.append(obj)
+    elif price == 50:
+        for obj in imageList:
+            if obj.price >= 30 and obj.price <= 50:
+                newList.append(obj)
+    elif price == 55:
+        for obj in imageList:
+            if obj.price >= 50:
+                newList.append(obj)
+
+    elif price == 0:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(0)
+    elif price == 1:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(1)
+    elif price == 2:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(2)
+    elif price == 3:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(3)
+    elif price == 4:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(4)
+    elif price == 5:
+        for obj in imageList:
+            newList = getPhotoObjectsBySellerRating(5)
+
+    return render_template('shopFiltered.html', title="Shop", imageList=newList)
+
+
+# cart Page        --------------------------
+@app.route("/cart", methods=['GET', 'POST'])
 def cart():
     cartItems = getCartDatabyUsername(session["username"])
     itemsList = []
     subTotal = 0
+    data_ID = 0
+    fees = 0
+    ID = 0
+    if request.method == "POST":
+        if 'remove-ind-item-button' in request.form:
+            ID = request.form.get('remove-ind-item-button')
+            result = deleteItemFromCart([ID])
+            if result == 0:
+                flash('Item Removed from cart!', 'success')
+            return redirect(url_for('cart'))
+        else:
+            flash("Error Removing item from cart", 'danger')
+
+        data_ID = request.form.getlist("remove-item")
+        result = deleteItemFromCart(data_ID)
+        if result == 0:
+            flash('Items Removed from cart!', 'success')
+            return redirect(url_for('cart'))
+        else:
+            flash("No items selected. Select items to remove from cart", 'danger')
+
+    fees = 0
     for item in cartItems:
         itemInfo = Photo.query.filter_by(photo_id=item.photo_id).first()
         itemInfo = decodeImageFromObject(itemInfo)
+        if(itemInfo.photo_description and len(itemInfo.photo_description) > 100):
+            itemInfo.photo_description = itemInfo.photo_description[:100]
+            itemInfo.photo_description += "..."
         itemsList.append(itemInfo)
         subTotal = subTotal + itemInfo.price
+        fees += itemInfo.price * 0.02
 
-    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=cartItems)
+    fees = round(fees, 2)
+    tax = (subTotal * 0.075)
+    grandTotal = subTotal + fees + tax
+
+    return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=subTotal, tax=tax, fees=fees, grandTotal=grandTotal, ID=ID)
 # adding stuff to cart branch=
 
 # Login Page, Accepts POST and GET requests --------------------------
@@ -302,7 +397,7 @@ def register():
     if registerForm.validate_on_submit():
         # Create new user object from form information
         newUser = User(username=registerForm.username.data,
-                       password=encrypt_password(registerForm.password.data), email=registerForm.email.data, num_sales=0, num_purchases=0)
+                       password=encrypt_password(registerForm.password.data), role="User", email=registerForm.email.data, num_sales=0, num_purchases=0)
         # Add and commit the object to our database
 
         db.session.add(newUser)
@@ -331,6 +426,28 @@ def logout():
     return redirect(url_for('home'))
 
 
+# Shop Page        --------------------------
+@app.route("/checkout", methods=["GET", "POST"])
+def checkout():
+    cartData = getCartDatabyUsername(session["username"])
+    subTotal = 0
+    itemsList = []
+
+    for item in cartData:
+        itemInfo = Photo.query.filter_by(photo_id=item.photo_id).first()
+        itemInfo = decodeImageFromObject(itemInfo)
+        itemsList.append(itemInfo)
+        subTotal = subTotal + itemInfo.price
+
+    if request.method == "POST":
+        sendPurchaseConfirmationEmail(session["email"], itemsList=itemsList)
+        flash(f'Checkout Success!', 'success')
+        return redirect(url_for('home'))
+
+    return render_template('checkout.html', title="Checkout", cartData=itemsList, subTotal=subTotal)
+# adding stuff to shop branch
+
+
 @app.route("/test")  # test --------------------------
 def test():
     data = session['guest']
@@ -338,9 +455,6 @@ def test():
     data2 = generateRandomPhotoObject()
     data3 = generateRandomPhotoObject()
     return render_template("test.html",  data=data)
-
-
-
 
 
 if __name__ == '__main__':

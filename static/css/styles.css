@@ -1,6 +1,7 @@
 * {
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
+
 .remember-me-label {
   margin-left: 2vh;
   margin-top: 0.25vh;
@@ -68,7 +69,16 @@
   background-color: rgb(159, 195, 207)
 }
 
-
+.num_views_container{
+  position:absolute;
+  right:10%;
+  bottom: 5%;
+}
+.remove-cart-items{
+  width:20%; float:left;
+  margin-top:1vh;
+  margin-bottom:1vh;
+}
 #image-preview{
   
 }
@@ -480,7 +490,8 @@
 }
 .shop-wrapper{
   margin-top:7.5vh;
-  overflow-x:hidden;
+  height:100vh;
+ 
 }
 .shop-row{
   border-bottom:1px solid lightgrey;

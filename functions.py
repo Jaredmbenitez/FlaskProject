@@ -14,6 +14,8 @@ import random
 import secrets
 from encrypt import *
 from classes.database import Database
+import smtplib
+from email.message import EmailMessage
 
 
 def decodeImageFromObject(photoObject):
@@ -74,8 +76,9 @@ def createGuestUser():
     username = "Guest" + str(random.randint(99, 1000))
     password = "asdfasdf"
     email = username + " @yahoo.com"
+    role = "GuestUser"
     GuestUser = User(username=username,
-                     password=encrypt_password(password), email=email)
+                     password=encrypt_password(password), email=email, role=role, num_sales=0, num_purchases=0)
     db.session.add(GuestUser)
     db.session.commit()
     return GuestUser
@@ -164,9 +167,7 @@ def getPhotoIdBy_____():
 def getPhotoObjectsByUsername(user):
     queryObjects = Photo.query.filter_by(posted_by=user).all()
     for obj in queryObjects:
-        tempImage = obj.image
-        tempImage = b64encode(tempImage).decode("utf-8")
-        obj.image = tempImage
+        decodeImageFromObject(obj)
     return queryObjects
 
 # Cart page - Matthew
@@ -205,3 +206,68 @@ def getCartDatabyUsername(username):
     userObject = getUserInfoByUsername(username)
     queryObjects = Cart.query.filter_by(cart_id=userObject.id).all()
     return queryObjects
+
+
+def deleteItemFromCart(data_id):
+    db = Database()
+    for id in data_id:
+        sql = "DELETE FROM cart WHERE photo_id = '" + id + "'"
+        result = db.delete(sql)
+        if not result:
+            return 0
+    return 1
+
+
+def addReport(reason, extra_info, userId):
+    db = Database()
+    sql = "INSERT INTO `reports` (reported_user_id,report_description,report_tags) VALUES ('" + \
+        str(userId) + "', '" + str(extra_info) + "', '" + str(reason) + "')"
+    result = db.execute(sql)
+    return result
+
+
+def sendPurchaseConfirmationEmail(toAddress, itemsList):
+
+    server = smtplib.SMTP('smtp.mail.yahoo.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+
+    server.login("preciousemailer@yahoo.com", "uzwnfwabytncppng")
+    subject = "Transaction is being processed"
+
+    body = "Your order has been accepted, and is now being processed by our systems.\n\n Please check back for a confirmation email once item is shipped. \n\n  Thank you! \n\n"
+    i = 1
+    for item in itemsList:
+        body += str(i) + "\n" + "Seller: " + item.posted_by + "\n" + "Item: " + item.title + "\n" + \
+            "Item Price: " + str(item.price) + "\n\n"
+        i = i + 1
+
+    msg = f'Subject: {subject} \n\n{body}'
+
+    server.sendmail("preciousemailer@yahoo.com",
+                    toAddress, msg)
+
+    server.quit()
+
+
+def getPhotoObjectsBySellerRating(seller_rating):
+    userObjects = User.query.filter_by(seller_rating=seller_rating).all()
+    newList = []
+    for obj in userObjects:
+        photoObjects = getPhotoObjectsByUsername(obj.username)
+        for obj2 in photoObjects:
+            newList.append(obj2)
+
+    return newList
+
+
+def submitUserReview(username, reviewInfo, reviewRating):
+    db = Database()
+    sql = "INSERT into `user_reviews` (user_name, review_value, review_content) VALUES (" + \
+        "'" + username + "', '" + \
+        str(reviewRating) + "', '" + reviewInfo + "')"
+    result = db.insert(sql)
+    if result:
+        return 1
+    return 0

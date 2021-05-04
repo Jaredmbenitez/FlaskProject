@@ -16,29 +16,29 @@
             </div>
         </div>
         <!-------------- FILTERS LISTINGS --------------->
-        <div class="dropdown" style =" font-size: 32px;">
-            <div> <b>Filters |</b>
+        <div class="dropdown" style =" font-size: 32px; overflow:visible !important;">
+            <div> <span style="margin-left: 8vh;"><b>Filters |</b>
         <!-- CATEGORY-->
-            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLinkf" data-bs-toggle="dropdown" aria-expanded="false">
             CATEGORY
             </a>
 
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Animals</a></li>
-            <li><a class="dropdown-item" href="#">Astrophotography</a></li>
-            <li><a class="dropdown-item" href="#">Black & White</a></li>
-            <li><a class="dropdown-item" href="#">Candid</a></li>
-            <li><a class="dropdown-item" href="#">Cars</a></li>
-            <li><a class="dropdown-item" href="#">City</a></li>
-            <li><a class="dropdown-item" href="#">Creative</a></li>
-            <li><a class="dropdown-item" href="#">Drone</a></li>
-            <li><a class="dropdown-item" href="#">Edited</a></li>
-            <li><a class="dropdown-item" href="#">Fashion</a></li>
-            <li><a class="dropdown-item" href="#">Food</a></li>
-            <li><a class="dropdown-item" href="#">Nature</a></li>
-            <li><a class="dropdown-item" href="#">Portrait</a></li>
-            <li><a class="dropdown-item" href="#">Sports</a></li>
-            </ul>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLinkf" >
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Animals')}}">Animals</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Astrophotography')}}">Astrophotography</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Black & White')}}">Black & White</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Candid')}}">Candid</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Cars')}}">Cars</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'City')}}">City</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Creative')}}">Creative</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Drone')}}">Drone</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Edited')}}">Edited</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Fashion')}}">Fashion</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Food')}}">Food</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Nature')}}">Nature</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Portrait')}}">Portrait</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFiltered',tag = 'Sports')}}">Sports</a></li>
+                </ul>
 
         <!--PRICE -->
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,25 +46,25 @@
             </a>
         
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="#">$0-$10</a></li>
-                <li><a class="dropdown-item" href="#">$11-$30</a></li>
-                <li><a class="dropdown-item" href="#">$31-$50</a></li>
-                <li><a class="dropdown-item" href="#">$50+</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='10')}}">$0-$10</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='30')}}">$11-$30</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='50')}}">$31-$50</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='55')}}">$50+</a></li>
             </ul>
-        <!--REVIEWS -->
+            <!--REVIEWS -->
             <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 REVIEWS
             </a>
         
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="#">5 Star</a></li>
-                <li><a class="dropdown-item" href="#">4 Star</a></li>
-                <li><a class="dropdown-item" href="#">3 Star</a></li>
-                <li><a class="dropdown-item" href="#">2 Star</a></li>
-                <li><a class="dropdown-item" href="#">1 Star</a></li>
-                <li><a class="dropdown-item" href="#">Not Reviewed Yet</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='5')}}">5 Star</a></li>
+                <li><a class="dropdown-item"href="{{url_for('shopFilteredPrice',price='4')}}">4 Star</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='3')}}">3 Star</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='2')}}">2 Star</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='1')}}">1 Star</a></li>
+                <li><a class="dropdown-item" href="{{url_for('shopFilteredPrice',price='0')}}">Not Reviewed Yet</a></li>
             </ul>
-        <!--NEW RELEASE -->
+            <!--NEW RELEASE -->
             <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 NEW RELEASE
             </a>
@@ -75,7 +75,7 @@
                 <li><a class="dropdown-item" href="#">Last Month</a></li>
                 <li><a class="dropdown-item" href="#">Last Year</a></li>
             </ul>
-        <!-- EQUIPMENT-->
+            <!-- EQUIPMENT-->
             <a style = "margin-left: 10px" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 EQUIPMENT
             </a>
@@ -91,17 +91,13 @@
         
             </div>
         </div>
-        <br>
+        
 
-        {% if imageList|length == 0 %}
-
-        <div class = "container-flex">
-            <span class="text-muted">No photos available with this tag</span>
-        </div>
-        {%else %}
+        <div>{{searchTag}}</div>
         <!-------------- PRODUCING IMAGES --------------->
-        <div class = "container-flex" style =  >
+        <div class = "container-flex" style = >
             <br>
+            {% if imageList|length > 0%}
             <div class="container-flex shop-row">
                 <div class="row row-cols-auto">
                     {% for i in range(0,imageList|length) %}
@@ -119,19 +115,23 @@
                 </div>
                 <br>
             </div>
+            {%else%}
+            <div class="container-flex shop-row text-center">
+                <span class="text-muted"> No available photos for this search.</span>
+            </div>
+            {%endif%}
         </div>
-        {% endif %}
+        
+
 
         
 
         
-
+</div>
         
 
         
-
-        
-    </  
+    
 
 
 

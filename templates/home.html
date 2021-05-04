@@ -66,15 +66,20 @@
                     alt="..."
                     data-id={{photos[obj].photo_id}}
                   />
+                  
                 </a>
                   <div class="card-body">
-                    <h5 class="card-title">{{photos[obj].posted_by}}</h5>
                     <p class="card-text">
-                      {{photos[obj].tags}} <br>
-                      Price:{{photos[obj].price}}
+                      Title: {{photos[obj].title}} <br>
                     </p>
+                    <h5 class="card-title">By: {{photos[obj].posted_by}}</h5>
+                    
+                    
                     <a href="{{url_for('itemDynamic',id=photos[obj].photo_id)}}" class="btn btn-warning">View Item!</a>
                   </div>
+                  <span class = "num_views_container">
+                    <i class="bi bi-eye"> </i> <span class="num_views"> {{photos[obj].num_views}} </span>
+                  </span>
                 </div>
               </div>
               {% endfor %}
@@ -100,13 +105,16 @@
                   />
                 </a>
                   <div class="card-body">
-                    <h5 class="card-title">{{photos[obj].posted_by}}</h5>
                     <p class="card-text">
-                      {{photos[obj].tags}} <br>
-                      Price:{{photos[obj].price}}
+                      Title: {{photos[obj].title}} <br>
                     </p>
+                    <h5 class="card-title">By: {{photos[obj].posted_by}}</h5>
+                    
                     <a href="{{url_for('itemDynamic',id=photos[obj].photo_id)}}" class="btn btn-warning">View Item!</a>
                   </div>
+                  <span class = "num_views_container">
+                    <i class="bi bi-eye"> </i> <span class="num_views"> {{photos[obj].num_views}} </span>
+                  </span>
                 </div>
               </div>
               {% endfor %}
@@ -131,13 +139,16 @@
                   />
                 </a>
                   <div class="card-body">
-                    <h5 class="card-title">{{photos[obj].posted_by}}</h5>
                     <p class="card-text">
-                      {{photos[obj].tags}} <br>
-                      Price:{{photos[obj].price}}
+                      Title: {{photos[obj].title}} <br>
                     </p>
+                    <h5 class="card-title">By: {{photos[obj].posted_by}}</h5>
+                    
                     <a href="{{url_for('itemDynamic',id=photos[obj].photo_id)}}" class="btn btn-warning">View Item!</a>
                   </div>
+                  <span class = "num_views_container">
+                    <i class="bi bi-eye"> </i> <span class="num_views"> {{photos[obj].num_views}} </span>
+                  </span>
                 </div>
               </div>
               {% endfor %}
@@ -172,6 +183,8 @@
               <img id="image-preview" width="100" height="100" />
               <input name="inputFile"  style = "margin-top: 1em;" id="inputFile" type="file" class="form-control" id="uploadImage"  onchange="document.getElementById('image-preview').src = window.URL.createObjectURL(this.files[0])">
             </div>
+            
+
             <div class="form-group">
               <label for="description">Title this image:</label>
               <textarea name = "title" id= "title"class="form-control"  rows="3"></textarea>
@@ -194,8 +207,34 @@
             </div>
 
             <div class="form-group">
-              <label for="price">Price this image</label>
+              <label for="price">Price this image (digital use only)</label>
               <input id = "price" name = "price" class="form-control"  />
+            </div>
+
+        
+
+            
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="reveal-print-price" name="reveal-print-price" >
+              <label class="form-check-label" for="reveal-print-price">
+                Price for standard prints
+              </label>
+            </div>
+            <div class="form-group " style="display:none;" id = "print-price" >
+              <label for="price">Price this image(standard prints)</label>
+              <input  name = "print-price" class="form-control"  />
+            </div>
+  
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="reveal-copyright-price" name="reveal-copyright-price" >
+              <label class="form-check-label" for="reveal-copyright-price">
+                Price with copyright
+              </label>
+            </div>
+            <div class="form-group" style="display:none;" id = "copyright-price" >
+              <label for="copyright_price">Price this image (digital use with copyrights)</label>
+              <input  name = "copyright_price" class="form-control"  />
             </div>
 
             <div class="form-check">
@@ -203,10 +242,13 @@
               <label class="form-check-label" for="defaultCheck1">
                 is this image NSFW?
               </label>
+            </div>
             
-              
-            
+
           </form>
+
+          
+
         </div>
         <div class="modal-footer">
           <button name = "closeModal" id ="closeModal"type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -220,8 +262,24 @@
   </div> 
 
 
-  <script>
-    
+  <script type="text/javascript">
+    $('#reveal-print-price').click(function() {
+      if (this.checked){
+        $("#print-price").show();
+      }
+      else{
+        $("#print-price").hide();
+      }
+});
+
+$('#reveal-copyright-price').click(function() {
+  if (this.checked){
+        $("#copyright-price").show();
+      }
+      else{
+        $("#copyright-price").hide();
+      }
+});
   
 
   </script>
