@@ -1,0 +1,296 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+      
+    .vertical-scrollable> .row {
+        top: 5%;
+        bottom: 10%;
+        position: absolute;
+        overflow-y: scroll; 
+    }
+ </style> 
+
+<div class="container-flex home-wrapper h-100">
+</div>
+<div class="container" style="max-width: 90%">
+    <div class="row">
+        <!--main section holding the the photo and info-->
+        <div class="col-8">
+            <!--photo-->
+            <div class="col">
+                <div class="flex-container item_picture">
+                    <img src="{{url_for('static',filename  = 'images/flower.jpg')}}" class="img-fluid mx-auto d-block" alt="Responsive image">
+                </div>
+            </div>
+
+            <!--info section-->
+            <div class="row">
+                <!-- author and title-->  
+                <div class="pl-5 col-5">
+                    <!--Title-->
+                    <div class="row">
+                            <span style="font-size:1.8em;">
+                              "Title of Piece"
+                            </span>
+                    </div>
+
+                    <!--Author-->
+                    <div class="pt-3 row">
+                        <div class="col-3">
+                            <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail">
+                        </div>
+                        <div class="col">
+                            Uploaded by:<br>
+                            <span style="font-size:1.2em">
+                                Xx_UserName420-69_xX
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Pricing-->
+                <div class="col-4">
+                    <span style="font-size:1.8em;">
+                        Pricing Options
+                    </span>
+                        <div class="form-check item_option">
+                            <input id="item_option1" class="form-check-input-lg" type="radio" name="options" id="digital" value="option1" checked>
+                            <label class="form-check-label" for="digital">
+                            Digital ($49.99)
+                            </label>
+                        </div>
+                        <div class="form-check item_option">
+                            <input id="item_option2" class="form-check-input-lg" type="radio" name="options" id="digital_and_copyright" value="option2">
+                            <label class="form-check-label" for="digital_and_copyright">
+                                Digital and Copyright ($129.99)
+                            </label>
+                        </div>
+                        <div class="form-check item_option">
+                            <input id="item_option3" class="form-check-input-lg" type="radio" name="options" id="print" value="option3">
+                            <label class="form-check-label" for="print">
+                                Print ($59.99)
+                            </label>
+                        </div>
+                </div>
+
+                <!--Add to cart button-->
+                <div class="pr-5 col-3">
+                    <button class="btn btn-primary btn-block active" id="cart_button" role="button" aria-disabled="true">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!--Description-->
+            <div class="pl-4 pb-4 pt-4">
+                <span style="font-size:1.8em;">
+                    About this piece:
+                </span>
+                <br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Sed a metus sit amet dui aliquet hendrerit nec at ligula. 
+                Morbi tristique lacinia ligula vel fringilla. Proin placerat id nisl quis commodo. 
+                Pellentesque scelerisque tortor eu lobortis venenatis. Curabitur a auctor felis. 
+                Phasellus at tincidunt dui, scelerisque sodales massa. Duis laoreet massa in turpis maximus suscipit sit amet non lacus. 
+                Phasellus eu lacus nisl. Aenean pellentesque vehicula fringilla. Nulla laoreet orci rutrum ligula fringilla porta.
+
+            </div>
+        </div>
+        <!--side panel holding reviews-->
+        <div class="col-4">
+            <h5>What others had to say about this piece:</h5> 
+            <div class="container vertical-scrollable">
+                <!--holds all reviews-->
+                <div class="row"> 
+                    <div class="pt-4 pb-4 col-sm-12 border">
+                        <!--top row of review holds profile pic and username-->
+                        <div class="row">
+                            <!--profile pic-->
+                            <div class="col-2">
+                                <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail">
+                            </div>
+                            <!--username-->
+                            <div class="col">
+                                Username
+                            </div> 
+                        </div>
+                        
+                        <!--test of review-->
+                        <div class="pl-3 pr-2 pt-2 row">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Sed a metus sit amet dui aliquet hendrerit nec at ligula. 
+                        Morbi tristique lacinia ligula vel fringilla. Proin placerat id nisl quis commodo. 
+                        Pellentesque scelerisque tortor eu lobortis venenatis. Curabitur a auctor felis.
+                        </div>
+                    </div>
+
+                    <!-- ====== DUPLICATES DELETE AFTER HERE ======= -->
+
+                    <div class="pt-4 pb-4 col-sm-12 border">
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail">
+                            </div>
+                            <div class="col">
+                                Username
+                            </div> 
+                        </div>
+
+                        <div class="pl-3 pr-2 pt-2 row">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Sed a metus sit amet dui aliquet hendrerit nec at ligula. 
+                        Morbi tristique lacinia ligula vel fringilla. Proin placerat id nisl quis commodo. 
+                        Pellentesque scelerisque tortor eu lobortis venenatis. Curabitur a auctor felis.
+                        </div>
+                    </div>
+                    <div class="pt-4 pb-4 col-sm-12 border">
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail">
+                            </div>
+                            <div class="col">
+                                Username
+                            </div> 
+                        </div>
+
+                        <div class="pl-3 pr-2 pt-2 row">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Sed a metus sit amet dui aliquet hendrerit nec at ligula. 
+                        Morbi tristique lacinia ligula vel fringilla. Proin placerat id nisl quis commodo. 
+                        Pellentesque scelerisque tortor eu lobortis venenatis. Curabitur a auctor felis.
+                        </div>
+                    </div>
+                    <div class="pt-4 pb-4 col-sm-12 border">
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail">
+                            </div>
+                            <div class="col">
+                                Username
+                            </div> 
+                        </div>
+
+                        <div class="pl-3 pr-2 pt-2 row">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Sed a metus sit amet dui aliquet hendrerit nec at ligula. 
+                        Morbi tristique lacinia ligula vel fringilla. Proin placerat id nisl quis commodo. 
+                        Pellentesque scelerisque tortor eu lobortis venenatis. Curabitur a auctor felis.
+                        </div>
+                    </div>
+                    <div class="pt-4 pb-4 col-sm-12 border">
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail">
+                            </div>
+                            <div class="col">
+                                Username
+                            </div> 
+                        </div>
+
+                        <div class="pl-3 pr-2 pt-2 row">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Sed a metus sit amet dui aliquet hendrerit nec at ligula. 
+                        Morbi tristique lacinia ligula vel fringilla. Proin placerat id nisl quis commodo. 
+                        Pellentesque scelerisque tortor eu lobortis venenatis. Curabitur a auctor felis.
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        function clickHelp() {  //whenever the help button is clicked
+            document.getElementById("report_button").style.display="block"; //make the help elements visible
+            document.getElementById("contact_button").style.display="block";
+            document.getElementById("faq_button").style.display="block";
+            document.getElementById("esc_button").style.display="block";
+            document.getElementById("item_page").style.filter = "blur(5px)";    //blur the background
+            document.getElementById("nav_bar").style.filter = "blur(5px)";
+            document.getElementById("item_ad").style.filter = "blur(5px)";
+            document.getElementById('seller_button').disabled=true; //disable the background elements
+            document.getElementById('cart_button').disabled=true;
+            document.getElementById('item_option1').disabled=true;
+            document.getElementById('item_option2').disabled=true;
+            document.getElementById('item_option3').disabled=true;
+            document.getElementById('cart_link').href="#";
+            document.getElementById('home_link').href="#";
+            document.getElementById('shop_link').href="#";
+            document.getElementById('item_link').href="#";
+            document.getElementById('account_link').href="#";
+            document.getElementById('logout_link').href="#";
+            document.getElementById('login_link').href="#";
+        }
+
+        function clickReport() {    //when the report button is clicked
+            document.getElementById("report_button").style.display="none"; //remove the display of the extra help buttons
+            document.getElementById("contact_button").style.display="none";
+            document.getElementById("faq_button").style.display="none";
+            document.getElementById("esc_button").style.display="none";
+            document.getElementById("faq_sheet").style.display="none"; //remove any additional sheets ftom being displayed
+            document.getElementById("report_form").style.display="block"; //display the help form
+            document.getElementById("contact_form").style.display="none";
+        }
+
+        function clickContact() {   //when the contact this seller button is clicked if we make this into a form
+            document.getElementById("report_button").style.display="none";
+            document.getElementById("contact_button").style.display="none";
+            document.getElementById("faq_button").style.display="none";
+            document.getElementById("esc_button").style.display="none";
+            document.getElementById("report_form").style.display="none";
+            document.getElementById("contact_form").style.display="block";
+            document.getElementById("faq_sheet").style.display="none";
+        }
+
+        function clickFAQ() { //when the faq button is clicked
+            document.getElementById("report_button").style.display="none"; //remove extra elements
+            document.getElementById("contact_button").style.display="none";
+            document.getElementById("faq_button").style.display="none";
+            document.getElementById("esc_button").style.display="none";
+            document.getElementById("faq_sheet").style.display="block"; //display the faq sheet
+            document.getElementById("report_form").style.display="none";
+            document.getElementById("contact_form").style.display="none";
+        }
+
+        function offHelp() { //when any of the escape buttons are clicked
+            document.getElementById("report_button").style.display="none"; //remove all of the extra elements on the screen
+            document.getElementById("contact_button").style.display="none";
+            document.getElementById("faq_button").style.display="none";
+            document.getElementById("esc_button").style.display="none";
+            document.getElementById("item_page").style.filter = "none";
+            document.getElementById("nav_bar").style.filter = "none";
+            document.getElementById("item_ad").style.filter = "none";
+            document.getElementById("report_form").style.display="none";    //remove the blur
+            document.getElementById("faq_sheet").style.display="none";
+            document.getElementById('seller_button').disabled=false; //enable the screen's elements again
+            document.getElementById('cart_button').disabled=false;
+            document.getElementById('item_option1').disabled=false;
+            document.getElementById('item_option2').disabled=false;
+            document.getElementById('item_option3').disabled=false;
+            document.getElementById('cart_link').href="{{url_for('cart')}}";
+            document.getElementById('home_link').href="{{url_for('home')}}";
+            document.getElementById('shop_link').href="{{url_for('shop')}}";
+            document.getElementById('item_link').href="{{url_for('item')}}";
+            document.getElementById('account_link').href="{{url_for('account')}}";
+            document.getElementById('logout_link').href="{{url_for('logout')}}";
+            document.getElementById('login_link').href="{{url_for('login')}}";
+        }
+    </script>
+    
+    <script>
+        {
+            document.getElementById("help_tag").style.display="none"; //hide all of the extra forms for the page
+            document.getElementById("report_button").style.display="none";
+            document.getElementById("report_tag").style.display="none";
+            document.getElementById("contact_button").style.display="none"; 
+            document.getElementById("contact_tag").style.display="none";
+            document.getElementById("faq_button").style.display="none";
+            document.getElementById("faq_tag").style.display="none";
+            document.getElementById("esc_button").style.display="none";
+            document.getElementById("esc_tag").style.display="none";
+            document.getElementById("report_form").style.display="none";
+            document.getElementById("faq_sheet").style.display="none";
+        }
+    </script>
+{% endblock content %}
