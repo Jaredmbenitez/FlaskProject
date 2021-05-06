@@ -94,7 +94,9 @@ def home():
 def about():
     return render_template('about.html', title="About")
 
-@app.route("/itemUpdate")  # debug for new item page      --------------------------
+
+# debug for new item page      --------------------------
+@app.route("/itemUpdate")
 def itemUpdate():
     return render_template('itemUpdate.html', title="itemUpdate")
 
@@ -210,7 +212,7 @@ def itemDynamic(id):
                 session["logged_in"] = True
                 flash('You are now logged in as a guest user', 'success')
 
-                return render_template('dynamicitem.html', title="item", form=reportForm, userObject=getUserObjectByPhotoID(id), photoObject=getDecodedImageObjectByPhotoId(id), contactForm=contactForm, options=options, length=length)
+                return render_template('itemUpdate', title="item", form=reportForm, userObject=getUserObjectByPhotoID(id), photoObject=getDecodedImageObjectByPhotoId(id), contactForm=contactForm, options=options, length=length)
                 # Add to cart after
             addItemToCart(id)
             flash(f"You have added this item to your cart!", "success")
@@ -245,7 +247,7 @@ def itemDynamic(id):
     userObject = getUserInfoByUsername(photoObject.posted_by)
 
     # return render_template('item.html', title="item", form=reportForm, data=data)
-    return render_template('dynamicitem.html', title="item", form=reportForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
+    return render_template('itemUpdate.html', title="item", form=reportForm, userObject=userObject, photoObject=photoObject, contactForm=contactForm, options=options, length=length)
 
 
 # Shop Page        --------------------------

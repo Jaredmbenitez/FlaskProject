@@ -20,7 +20,7 @@
             <!--photo-->
             <div class="col">
                 <div class="flex-container item_picture">
-                    <img src="{{url_for('static',filename  = 'images/flower.jpg')}}" class="img-fluid mx-auto d-block" alt="Responsive image">
+                    <img src="data:;base64,{{photoObject.image}}"  class="img-fluid mx-auto d-block" alt="Responsive image">
                 </div>
             </div>
 
@@ -31,19 +31,25 @@
                     <!--Title-->
                     <div class="row">
                             <span style="font-size:1.8em;">
-                              "Title of Piece"
+                              {{photoObject.title}}
                             </span>
                     </div>
 
                     <!--Author-->
                     <div class="pt-3 row">
                         <div class="col-3">
-                            <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail">
+                            <div class = "pp_container" > 
+                            {% if userObject.profile_picture%}
+                                <img src="{{url_for('static',filename='images/profile_pictures/' + userObject.profile_picture)}}" class="img-thumbnail">
+                                {%else%}
+                                <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail" >
+                                {% endif %}
+                            </div>
                         </div>
                         <div class="col">
                             Uploaded by:<br>
                             <span style="font-size:1.2em">
-                                Xx_UserName420-69_xX
+                                {{photoObject.posted_by}}
                             </span>
                         </div>
                     </div>
@@ -52,32 +58,35 @@
 
                 <!--Pricing-->
                 <div class="col-4">
-                    <span style="font-size:1.8em;">
-                        Pricing Options
-                    </span>
-                        <div class="form-check item_option">
-                            <input id="item_option1" class="form-check-input-lg" type="radio" name="options" id="digital" value="option1" checked>
-                            <label class="form-check-label" for="digital">
-                            Digital ($49.99)
+                    <form method="POST" action="" name="pricing_options_form" id="pricing_options_form">
+                        <h3> Pricing Options:  </h3>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{photoObject.print_price}}" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Standard Print: $ {{photoObject.print_price}}
                             </label>
                         </div>
-                        <div class="form-check item_option">
-                            <input id="item_option2" class="form-check-input-lg" type="radio" name="options" id="digital_and_copyright" value="option2">
-                            <label class="form-check-label" for="digital_and_copyright">
-                                Digital and Copyright ($129.99)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{photoObject.price}}" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Digital: $ {{photoObject.price}}
                             </label>
                         </div>
-                        <div class="form-check item_option">
-                            <input id="item_option3" class="form-check-input-lg" type="radio" name="options" id="print" value="option3">
-                            <label class="form-check-label" for="print">
-                                Print ($59.99)
-                            </label>
+                        <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{photoObject.copyright_price}}" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Digital w/ Copyright: ${{photoObject.copyright_price}}
+                                </label>  
+                            
                         </div>
+                            
+                        
+                    </form>
                 </div>
 
                 <!--Add to cart button-->
                 <div class="pr-5 col-3">
-                    <button class="btn btn-primary btn-block active" id="cart_button" role="button" aria-disabled="true">Add to Cart</button>
+                    <button class="btn btn-outline-info" type="submit" name="submit" form="pricing_options_form" style="margin-left:2vh;"> Add to Cart </button>
                 </div>
             </div>
             
@@ -87,12 +96,7 @@
                     About this piece:
                 </span>
                 <br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Sed a metus sit amet dui aliquet hendrerit nec at ligula. 
-                Morbi tristique lacinia ligula vel fringilla. Proin placerat id nisl quis commodo. 
-                Pellentesque scelerisque tortor eu lobortis venenatis. Curabitur a auctor felis. 
-                Phasellus at tincidunt dui, scelerisque sodales massa. Duis laoreet massa in turpis maximus suscipit sit amet non lacus. 
-                Phasellus eu lacus nisl. Aenean pellentesque vehicula fringilla. Nulla laoreet orci rutrum ligula fringilla porta.
+               {{ photoObject.photo_description}}
 
             </div>
         </div>
