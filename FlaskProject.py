@@ -94,6 +94,10 @@ def home():
 def about():
     return render_template('about.html', title="About")
 
+@app.route("/itemUpdate")  # debug for new item page      --------------------------
+def itemUpdate():
+    return render_template('itemUpdate.html', title="itemUpdate")
+
 
 @app.route("/account")  # Account Page  --------------------------
 def account():

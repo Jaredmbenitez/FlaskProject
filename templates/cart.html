@@ -18,28 +18,22 @@
                                 <img class="img-thumbnail img-fluid cart-pic" src="data:;base64,{{item.image}}" alt="" data-id="{{item.photo_id}}">
                             </div>
                         </a>
-                        
-                        
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="{{item.photo_id}}" name = "remove-item" id="remove-item" class="remove-item">
-                                <label class="form-check-label" for="">
+                                <label class="form-check-label" for="remove-item">
                                   Remove item from cart.
                                 </label>
-                            
-                        
-                        
-                    </div>
+                            </div>
                     
-                    
+                    {{data_ID}}
                     </div>
                     <div class="container">
                         <div class="row">
                           <div class="col">
                             <h4 class="my-0">{{item.title}}</h4>
-                            <!-- place holder test title, remove once photos actually have titles-->
+
                             <h6>by {{item.posted_by}}</h6>
                             <br>
-                            <!-- place holder description, remove once photos have descriptions -->
                             <small class="text-muted">{{item.photo_description}}</small>
                           </div>
                           <div class="col-6">
@@ -51,32 +45,26 @@
                                 Print - <small class="text-muted">This item can be reproduced with attribution in for-profit in print media</small>
                             </div>
                             </div>
+                            <div class="col-1">
+                                <span class="text-muted">${{item.price}}</span>
+                            </div>
                             <div class="col-2">
-                                <form name="remove-ind-item-form" method="POST" action = "">
-                                <button type="submit" name="remove-ind-item-button" class="btn btn-outline-danger" class="remove-item-button" value="{{item.photo_id}}">
+                                <button type="button" class="btn btn-outline-danger">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                     </svg>
                                     Remove
                                 </button>
-                                
-                            </form>
                             </div>
-                            <div class="col-1">
-                                <span class="text-muted">${{item.price}}</span>
-                            </div>
-                            
                         </div>
-                    </div>
-                    
-                    
+                    </div>  
                 </li>
 
 
             {% endfor %}
             {% if cartData|length > 0%}
-            <button class="btn btn-danger remove-cart-items" type="submit" form="#remove-item-form" > Remove selected items </button>
+            <button class="btn btn-danger" type="submit" form="#remove-item-form"> Remove selected items </button>
             {%else%}
             <p> You have no items in your cart.</p>
             {% endif %}
@@ -95,7 +83,7 @@
         <style>div.priceBox {border-style: solid;}</style>
         <div class="col-3">
             <h3>Price</h3> 
-            <ul class="list-group mb-3">
+            <ul class="pt-2 list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                     <h4 class="my-0">Subtotal:</h4>
