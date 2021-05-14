@@ -9,7 +9,7 @@ class Transaction(db.Model):
 
     # Each column is an attribute of our User Object.
     transaction_id = db.Column(db.Integer, primary_key=True)
-    sold_by = db.Column(db.Integer)
-    bought_by = db.Column(db.Integer)
+    sold_by = db.Column(db.String(255))
+    bought_by = db.Column(db.String(255))
     photo_id = db.Column(db.String(255))
     time_of_transaction = db.Column(db.String(255))

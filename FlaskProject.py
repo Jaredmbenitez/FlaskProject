@@ -115,7 +115,11 @@ def accountDynamic(username):
     userObj = getUserInfoByUsername(username)
     allPhotoObjects = getPhotoObjectsByUsername(username)
     userReviews = getUserReviews(username)
-
+    FiveStars = getXStarReviews(username, 5)
+    OneStar = getXStarReviews(username, 4)
+    TwoStars = getXStarReviews(username, 3)
+    ThreeStars = getXStarReviews(username, 2)
+    FourStars = getXStarReviews(username, 1)
     contactForm = ContactSellerForm()
 
     if request.method == "POST":
@@ -153,9 +157,9 @@ def accountDynamic(username):
 
     if "username" in session:
         user = session["username"]
-        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews=userReviews)
+        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews=userReviews, FiveStars=FiveStars, FourStars=FourStars, ThreeStars=ThreeStars, TwoStars=TwoStars, OneStar=OneStar)
 
-    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews=userReviews)
+    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews=userReviews, FiveStars=FiveStars, FourStars=FourStars, ThreeStars=ThreeStars, TwoStars=TwoStars, OneStar=OneStar)
 
 
 # Item Page        --------------------------
@@ -451,7 +455,8 @@ def checkout():
 
     if request.method == "POST":
         sendPurchaseConfirmationEmail(session["email"], itemsList=itemsList)
-        flash(f'Checkout Success!', 'success')
+        val = addToTransactions(itemsList)
+        flash(f'Checkout Success! {val}', 'success')
         return redirect(url_for('home'))
 
     return render_template('checkout.html', title="Checkout", cartData=itemsList, subTotal=subTotal)

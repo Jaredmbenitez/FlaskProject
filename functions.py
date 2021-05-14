@@ -306,3 +306,18 @@ def getUserReviews(username):
         var = User.query.filter_by(username=review["review_posted_by"]).first()
         review["profile_picture"] = var.profile_picture
     return userReviews
+
+
+def getXStarReviews(username, starVal):
+    db = Database()
+    sql = f"SELECT * FROM `user_reviews` WHERE user_name = '{username}' AND review_value = '{starVal}' "
+    return db.query(sql)
+
+
+def addToTransactions(itemsList):
+    username = session['username']
+    db = Database()
+    for item in itemsList:
+        sql = f"INSERT INTO transactions (sold_by,bought_by,photo_id) VALUES ('{item.posted_by}','{username}', '{item.photo_id}')"
+        result = db.insert(sql)
+    return result
