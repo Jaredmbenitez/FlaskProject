@@ -3,7 +3,7 @@
 
 <div class="flex-container adminPage">
     <div class="row adminrow">
-        <div class="col-5 admincol">
+        <div class="col-5 admincol"> <!--Contains the request form for the transaction records-->
             <div class="flex-container request_form" id="request_form">
                 <form method="POST" action="">
                     {{ requestForm.hidden_tag() }}
@@ -13,9 +13,9 @@
                 </form>
             </div>
         </div>
-        <div class="col-5 admincol">
+        <div class="col-5 admincol"> <!--Contains the forms to create and remove promo code-->
             <div class="flex-container create_promo_form" id="create_promo_form">
-                <form method="POST" action="">
+                <form method="POST" action=""> <!--Create Promo Code-->
                     {{ createPromoForm.hidden_tag() }}
                     <fieldset class="form-group create_promo_fields">
                         <div class="form-group">
@@ -52,7 +52,7 @@
                 </form>
             </div>
             <div class="flex-container remove_promo_form" id="remove_promo_form">
-                <form method="POST" action="">
+                <form method="POST" action=""> <!--Remove Promo Code-->
                     {{ removePromoForm.hidden_tag() }}
                     <fieldset class="form-group create_promo_fields">
                         <div class="form-group">
