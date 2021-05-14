@@ -33,7 +33,7 @@ from models.Review import Review
 from encrypt import *
 import secrets
 import pymysql
-from classes.forms import RegistrationForm, LoginForm, ReportForm, FullAddToCartForm, DigitalAddToCartForm, CopyrightAddToCartForm, PrintAddToCartForm, DigitalAndCopyrightAddToCartForm, DigitalAndPrintAddToCartForm, CopyrightAndPrintAddToCartForm, ContactSellerForm
+from classes.forms import RegistrationForm, LoginForm, ReportForm, FullAddToCartForm, DigitalAddToCartForm, CopyrightAddToCartForm, PrintAddToCartForm, DigitalAndCopyrightAddToCartForm, DigitalAndPrintAddToCartForm, CopyrightAndPrintAddToCartForm, ContactSellerForm, RequestTransactionLog, CreatePromo, RemovePromo
 from flask import Flask, render_template, url_for, flash, request, redirect, session
 from werkzeug.utils import secure_filename
 from classes.database import Database
@@ -147,6 +147,31 @@ def accountDynamic(username):
         return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm)
 
     return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm)
+
+
+@app.route("/admin", methods=['GET', 'POST'])  # Dynamic Admin Page  --------------------------
+def adminDynamic():
+    
+    if session:
+        userObj = getUserInfoByUsername(session["username"])
+        if userObj.role == "Admin":
+            requestForm = RequestTransactionLog()
+            createPromoForm = CreatePromo()
+            removePromoForm = RemovePromo()
+            #if request.method == "POST":
+            #    if requestForm.validate_on_submit():
+
+                #elif createPromoForm.validate_on_submit():
+
+                #elif removePromoForm.validate_on_submit():
+            return render_template('dynamicAdmin.html', title="Admin", userObj=userObj, requestForm=requestForm, createPromoForm=createPromoForm, removePromoForm=removePromoForm)
+        else:
+            return redirect(url_for("home"))
+
+    else:
+        return redirect(url_for("home"))
+
+
 
 
 # Item Page        --------------------------
