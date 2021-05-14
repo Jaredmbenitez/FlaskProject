@@ -333,9 +333,10 @@ def cart():
             result = deleteItemFromCart([ID])
             if result == 0:
                 flash('Item Removed from cart!', 'success')
-            return redirect(url_for('cart'))
-        else:
-            flash("Error Removing item from cart", 'danger')
+                return redirect(url_for('cart'))
+            else:
+                flash("Error Removing item from cart", 'danger')
+                return redirect(url_for('cart'))
 
         data_ID = request.form.getlist("remove-item")
         result = deleteItemFromCart(data_ID)
