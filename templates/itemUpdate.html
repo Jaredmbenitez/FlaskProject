@@ -44,7 +44,7 @@
                         <div class="col-3">
                             <div class = "pp_container" > 
                             {% if userObject.profile_picture%}
-                                <img src="{{url_for('static',filename='images/profile_pictures/' + userObject.profile_picture)}}" class="img-thumbnail">
+                                <a href="{{url_for('accountDynamic', username=photoObject.posted_by)}}"><img src="{{url_for('static',filename='images/profile_pictures/' + userObject.profile_picture)}}" class="img-thumbnail"></a>
                                 {%else%}
                                 <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail" >
                                 {% endif %}
@@ -53,7 +53,7 @@
                         <div class="col">
                             Uploaded by:<br>
                             <span style="font-size:1.2em">
-                                {{photoObject.posted_by}}
+                               <a href="{{url_for('accountDynamic', username=photoObject.posted_by)}}">{{photoObject.posted_by}} </a> 
                             </span>
                         </div>
                     </div>
@@ -91,7 +91,9 @@
                 <!--Add to cart button-->
                 <div class="pr-5 col-3">
                     <button class="btn btn-outline-info" type="submit" name="submit" form="pricing_options_form" style="margin-left:2vh;"> Add to Cart </button>
+                    <button class="btn btn-outline-warning" type="button" name=""  onclick="clickReport()" form="pricing_options_form" style="margin-left:2vh; margin-top:2vh;"> Report </button>
                 </div>
+                
             </div>
             
             <!--Description-->
@@ -207,28 +209,105 @@
         </div>
     </div>
 </div>
+<div class="flex-container report_form" id="report_form"> <!--updated report form-->
+    <input type="button" class="report_cancel material-icons md-24" id="report_cancel" onclick="offHelp();" value="highlight_off"/>
+    <input type="button" id="esc_button" class="esc_button material-icons md-24 icon" onclick="offHelp();" onmouseenter="document.getElementById('esc_tag').style.display='block';" onmouseleave="document.getElementById('esc_tag').style.display='none';" value="highlight_off" />
+    <div class="flex-container esc_tag" id="esc_tag">Exit Help</div>
+    <input type="button" id="report_button" class="report_button material-icons md-24 icon" onclick="clickReport();" onmouseenter="document.getElementById('report_tag').style.display='block';" onmouseleave="document.getElementById('report_tag').style.display='none';" value="report_problem" />
+    <div class="flex-container report_tag" id="report_tag">Report</div>
+    <input type="button" id="contact_button" class="contact_button material-icons md-24 icon" onclick="location.href='{{url_for('account')}}';" onmouseenter="document.getElementById('contact_tag').style.display='block';" onmouseleave="document.getElementById('contact_tag').style.display='none';" value="contact_page" />
+    <div class="flex-container contact_tag" id="contact_tag">Contact This Seller</div>
+    <input type="button" id="faq_button" class="faq_button material-icons md-24 icon" onclick="clickFAQ();" onmouseenter="document.getElementById('faq_tag').style.display='block';" onmouseleave="document.getElementById('faq_tag').style.display='none';" value="help_center" />
+    <div class="flex-container faq_tag" id="faq_tag">FAQ</div>
+    <!--<h1 class="center">Report Form</h1>-->
+    <form method="POST" action=""> <!--posts the form info to this page-->
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Report Form</legend>
+            <div class="form-group"> <!--reason form element-->
+                {{ form.reason.label(class="form-contol-label") }} <br>
+                {{ form.reason(class="form-contol form-control-lg") }}
+            </div>
+            <div class="form-group"> <!--extra info form element-->
+                {{ form.extra_info.label(class="form-contol-label") }}<br>
 
+                {% if form.extra_info.errors %} <!--for error handling-->
+                {{ form.extra_info(class="form-contol form-control-lg is-invalid extra_info") }}
+                    <div class="invalid-feedback">
+                        {% for errors in form.extra_info.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.extra_info(class="form-contol form-control-lg extra_info") }}
+                {% endif %}
+
+            </div>
+        </fieldset>
+        <div class="form-group"><!--submit button-->
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+        <!--
+        <label for="reason">Select a reason for this report: </label><br>
+        <select name="reason" id="reason">
+            <option selected hidden value="">Select Reason</option>
+            <option value="wrongTags">Wrong Tags</option>
+            <option value="nsfw">NSFW (not labeled)</option>
+            <option value="copyright">Copyright</option>
+            <option value="other">Other</option>
+          </select> <br>
+        <label for="extra_info">Enter any additional info: </label><br>
+        <textarea id="extra_info" class="extra_info" name="extra_info" rows="5" cols="66"></textarea>
+        <input type="button" class="report_submit" id="report_submit" onclick="offHelp();" value="submit"/>
+        -->
+    </form>
+</div>
+<input type="button" class="help_button material-icons md-48 icon" onclick="clickHelp();" onmouseenter="document.getElementById('help_tag').style.display='block';" onmouseleave="document.getElementById('help_tag').style.display='none';" value="help_outline" />
+    <div class="flex-container help_tag" id="help_tag">Help</div>
+    
+
+
+    <div class="flex-container faq_sheet" id="faq_sheet">
+        <input type="button" class="faq_cancel material-icons md-24" id="faq_cancel" onclick="offHelp();" value="highlight_off"/>
+        <h1 class="center faq_head">Frequently Asked Questions</h1>
+        <div class="flex-container faqs">
+            faq1:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq2:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq3:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq4:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq5:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq6:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            faq7:<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+            &nbsp;text<br>
+        </div> 
+    </div>
     <script>
         function clickHelp() {  //whenever the help button is clicked
             document.getElementById("report_button").style.display="block"; //make the help elements visible
             document.getElementById("contact_button").style.display="block";
             document.getElementById("faq_button").style.display="block";
             document.getElementById("esc_button").style.display="block";
-            document.getElementById("item_page").style.filter = "blur(5px)";    //blur the background
-            document.getElementById("nav_bar").style.filter = "blur(5px)";
-            document.getElementById("item_ad").style.filter = "blur(5px)";
-            document.getElementById('seller_button').disabled=true; //disable the background elements
-            document.getElementById('cart_button').disabled=true;
-            document.getElementById('item_option1').disabled=true;
-            document.getElementById('item_option2').disabled=true;
-            document.getElementById('item_option3').disabled=true;
-            document.getElementById('cart_link').href="#";
-            document.getElementById('home_link').href="#";
-            document.getElementById('shop_link').href="#";
-            document.getElementById('item_link').href="#";
-            document.getElementById('account_link').href="#";
-            document.getElementById('logout_link').href="#";
-            document.getElementById('login_link').href="#";
+            
         }
 
         function clickReport() {    //when the report button is clicked
@@ -300,5 +379,6 @@
             document.getElementById("report_form").style.display="none";
             document.getElementById("faq_sheet").style.display="none";
         }
+        $('.help_button').hide();
     </script>
 {% endblock content %}
