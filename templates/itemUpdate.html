@@ -1,13 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<style>
-      
+<style>   
     .vertical-scrollable> .row {
         top: 5%;
         bottom: 10%;
         position: absolute;
         overflow-y: scroll; 
+    }
+
+    .img-max {
+        max-height: 500px;
+        height:100%;
     }
  </style> 
 
@@ -20,7 +24,7 @@
             <!--photo-->
             <div class="col">
                 <div class="flex-container item_picture">
-                    <img src="data:;base64,{{photoObject.image}}"  class="img-fluid mx-auto d-block" alt="Responsive image">
+                    <img src="data:;base64,{{photoObject.image}}"  class="img-max mx-auto d-block" alt="Responsive image">
                 </div>
             </div>
 
