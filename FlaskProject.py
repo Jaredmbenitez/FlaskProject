@@ -121,6 +121,7 @@ def accountDynamic(username):
     ThreeStars = getXStarReviews(username, 2)
     FourStars = getXStarReviews(username, 1)
     contactForm = ContactSellerForm()
+    reportForm = ReportForm()
 
     if request.method == "POST":
         if contactForm.validate_on_submit():
@@ -157,9 +158,9 @@ def accountDynamic(username):
 
     if "username" in session:
         user = session["username"]
-        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews=userReviews, FiveStars=FiveStars, FourStars=FourStars, ThreeStars=ThreeStars, TwoStars=TwoStars, OneStar=OneStar)
+        return render_template('dynamicaccount.html', title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews=userReviews, FiveStars=FiveStars, FourStars=FourStars, ThreeStars=ThreeStars, TwoStars=TwoStars, OneStar=OneStar, form=ReportForm)
 
-    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews=userReviews, FiveStars=FiveStars, FourStars=FourStars, ThreeStars=ThreeStars, TwoStars=TwoStars, OneStar=OneStar)
+    return render_template('dynamicaccount.html',  title="Account", userObj=userObj, allPhotoObjects=allPhotoObjects, contactForm=contactForm, userReviews=userReviews, FiveStars=FiveStars, FourStars=FourStars, ThreeStars=ThreeStars, TwoStars=TwoStars, OneStar=OneStar, form=ReportForm)
 
 
 # Dynamic Admin Page  --------------------------
@@ -232,6 +233,24 @@ def itemDynamic(id):
     reportForm = ReportForm()
     if request.method == "POST":  # When a form gets submitted
         if 'submit' in request.form:
+            if reportForm.validate_on_submit():  # Check for form's validity
+                reason = request.form.get('reason')  # Store data from the form
+                extra_info = request.form.get('extra_info')
+                userObject = getUserObjectByPhotoID(id)
+                userId = userObject.id
+
+                addReport(reason, extra_info, userId)
+                # data = [reason, extra_info] # was used for early stage testing
+                # Put the data into a new Report object
+                # newReport = Report(report_tags=reason,
+                #                    report_description=extra_info,
+                #                    reported_user_id=userId)
+                # db.session.add(newReport)  # add to the database and commit
+                # db.session.commit()
+                # tell the user the report was submitted
+                flash('Report Submitted', 'success')
+                return redirect(url_for('itemDynamic', id=id))
+
             if not "logged_in" in session:
                 # create guest user and log them in, post back to same item page.
                 GuestUser = createGuestUser()
@@ -244,23 +263,6 @@ def itemDynamic(id):
                 # Add to cart after
             addItemToCart(id)
             flash(f"You have added this item to your cart!", "success")
-
-        if reportForm.validate_on_submit():  # Check for form's validity
-            reason = request.form.get('reason')  # Store data from the form
-            extra_info = request.form.get('extra_info')
-            userObject = getUserObjectByPhotoID(id)
-            userId = userObject.id
-
-            addReport(reason, extra_info, userId)
-            # data = [reason, extra_info] # was used for early stage testing
-            # Put the data into a new Report object
-            # newReport = Report(report_tags=reason,
-            #                    report_description=extra_info,
-            #                    reported_user_id=userId)
-            # db.session.add(newReport)  # add to the database and commit
-            # db.session.commit()
-            # tell the user the report was submitted
-            flash('Report Submitted', 'success')
 
         elif contactForm.validate_on_submit():
             email = request.form.get("email")
@@ -435,7 +437,7 @@ def register():
     if registerForm.validate_on_submit():
         # Create new user object from form information
         newUser = User(username=registerForm.username.data,
-                       password=encrypt_password(registerForm.password.data), role="User", email=registerForm.email.data, num_sales=0, num_purchases=0)
+                       password=encrypt_password(registerForm.password.data), role="User", email=registerForm.email.data, num_sales=0, num_purchases=0, seller_rating=0)
         # Add and commit the object to our database
 
         db.session.add(newUser)
