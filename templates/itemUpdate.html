@@ -44,7 +44,7 @@
                         <div class="col-3">
                             <div class = "pp_container" > 
                             {% if userObject.profile_picture%}
-                                <a href="{{url_for('accountDynamic', username=photoObject.posted_by)}}"><img src="{{url_for('static',filename='images/profile_pictures/' + userObject.profile_picture)}}" class="img-thumbnail"></a>
+                                <a><img src="{{url_for('static',filename='images/profile_pictures/' + userObject.profile_picture)}}" class="img-thumbnail"> </a>
                                 {%else%}
                                 <img src="{{url_for('static',filename  = 'images/profile.jpg')}}" alt="profile" class="img-thumbnail" >
                                 {% endif %}
@@ -379,6 +379,5 @@
             document.getElementById("report_form").style.display="none";
             document.getElementById("faq_sheet").style.display="none";
         }
-        $('.help_button').hide();
     </script>
 {% endblock content %}

@@ -382,6 +382,7 @@
 }
 
 .report_form{
+  background-color: white;
   position: fixed;
   height:50vh;
   width: 40vw;
@@ -410,6 +411,7 @@
 }
 
 .faq_sheet{
+  background-color: white;
   position: fixed;
   height:75vh;
   width: 40vw;
