@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, RadioField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, RadioField, DecimalField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 import email_validator
 
@@ -133,3 +133,28 @@ class ContactSellerForm(FlaskForm):
                             Length(min=1, max=512)])
 
     submit = SubmitField('Send Message')
+
+class RequestTransactionLog(FlaskForm):
+    
+    submit = SubmitField('Request Transaction Log')
+
+class CreatePromo(FlaskForm):
+    
+    promoCode = StringField('Promo Code (must be between 2 and 20 characters):', validators=[
+        DataRequired(),             # Required
+        Length(min=2, max=20)       # Between 2 and 20 Characters)
+    ])
+
+    discount = DecimalField('Discount Amount (% off):', places=None, rounding=None, use_locale=False, number_format=None)
+
+    submit = SubmitField('Create Promo Code')
+
+class RemovePromo(FlaskForm):
+
+    promoCode = StringField('Promo Code (must be between 2 and 20 characters):', validators=[
+        DataRequired(),             # Required
+        Length(min=2, max=20)       # Between 2 and 20 Characters)
+    ])
+
+    submit = SubmitField('Remove Promo Code')
+

@@ -80,8 +80,9 @@ def createGuestUser():
     password = "asdfasdf"
     email = username + " @yahoo.com"
     role = "GuestUser"
+    rating = 0
     GuestUser = User(username=username,
-                     password=encrypt_password(password), email=email, role=role, num_sales=0, num_purchases=0)
+                     password=encrypt_password(password), email=email, role=role, num_sales=0, seller_rating=0, num_purchases=0)
     db.session.add(GuestUser)
     db.session.commit()
     return GuestUser

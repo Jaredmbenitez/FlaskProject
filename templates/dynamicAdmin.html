@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="flex-container adminPage" style="margin-top:10vh;">
+    <h1 class="text-center" > Admin Access: </h1>
+    <div class="row adminrow">
+        <div class="col-5 admincol admin-left-col"> <!--Contains the request form for the transaction records-->
+            <div class="flex-container request_form" id="request_form">
+                <form method="POST" action="">
+                    {{ requestForm.hidden_tag() }}
+                    <div class="form-group request_submit" ><!--submit button-->
+                        {{ requestForm.submit(class="btn btn-outline-info") }}
+                    </div>
+                    <div class = "col-10">
+                        <p>
+                            * By Requesting a log of transactions, I hereby acknowledge that fradulent activity has occured, or another issue has arisen that involves the viewing of our private log.<br>
+                            An email request will be sent to the owners of Precious.com, to be reviewed. <br>
+                            If the claim is approved, you shall be given temporary access to a log a transactions relevant to the issue at hand. <br>
+                        </p>
+                    </div>
+                </form>
+                    <i class="fas fa-lock"></i>
+            </div>
+        </div>
+        <div class="col-5 admincol"> <!--Contains the forms to create and remove promo code-->
+            <div class="flex-container create_promo_form" id="create_promo_form">
+                <form method="POST" action=""> <!--Create Promo Code-->
+                    {{ createPromoForm.hidden_tag() }}
+                    <fieldset class="form-group create_promo_fields">
+                        <div class="form-group">
+                            {{ createPromoForm.promoCode.label(class="form-control-label") }} <br>
+                            {% if createPromoForm.promoCode.errors %} <!-- Error Messages -->
+                                {{ createPromoForm.promoCode(class="form-control form-control-lg is-invalid")}} 
+                                <div class="invalid-feedback"> 
+                                    {% for error in createPromoForm.promoCode.errors %}
+                                        <span> {{error}} </span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ createPromoForm.promoCode(class="form-control form-control-lg")}}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ createPromoForm.discount.label(class="form-control-label") }} <br>
+                            {% if createPromoForm.discount.errors %} <!-- Error Messages -->
+                                {{ createPromoForm.discount(class="form-control form-control-lg is-invalid")}} 
+                                <div class="invalid-feedback"> 
+                                    {% for error in createPromoForm.discount.errors %}
+                                        <span> {{error}} </span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ createPromoForm.discount(class="form-control form-control-lg")}}
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                    <div class="form-group create_submit"><!--submit button-->
+                        {{ createPromoForm.submit(class="btn btn-outline-info") }}
+                        
+                    </div>
+                </form>
+            </div>
+            <div class="flex-container remove_promo_form" id="remove_promo_form">
+                <form method="POST" action=""> <!--Remove Promo Code-->
+                    {{ removePromoForm.hidden_tag() }}
+                    <fieldset class="form-group create_promo_fields">
+                        <div class="form-group">
+                            {{ removePromoForm.promoCode.label(class="form-control-label") }} <br>
+                            {% if removePromoForm.promoCode.errors %} <!-- Error Messages -->
+                                {{ removePromoForm.promoCode(class="form-control form-control-lg is-invalid")}} 
+                                <div class="invalid-feedback"> 
+                                    {% for error in removePromoForm.promoCode.errors %}
+                                        <span> {{error}} </span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ removePromoForm.promoCode(class="form-control form-control-lg")}}
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                    <div class="form-group remove_submit"><!--submit button-->
+                        {{ removePromoForm.submit(class="btn btn-outline-info") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+{% endblock content %}
