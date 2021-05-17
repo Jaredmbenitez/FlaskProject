@@ -18,13 +18,7 @@
                                 <img class="img-thumbnail img-fluid cart-pic" src="data:;base64,{{item.image}}" alt="" data-id="{{item.photo_id}}">
                             </div>
                         </a>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="{{item.photo_id}}" name = "remove-item" id="remove-item" class="remove-item">
-                                <label class="form-check-label" >
-                                  Remove item from cart.
-                                </label>
-                            </div>
-                    
+
                     {{data_ID}}
                     </div>
                     <div class="container">
@@ -34,7 +28,11 @@
 
                             <h6>by {{item.posted_by}}</h6>
                             <br>
-                            <small class="text-muted">{{item.photo_description}}</small>
+                            {% if item.photo_description %}
+                                <small class="text-muted">{{item.photo_description}}</small>
+                            {% else %}
+                                <small class="text-muted">No item description</small>
+                            {% endif %}
                           </div>
                           <div class="col-6">
                             Copyright
@@ -66,12 +64,12 @@
 
             {% endfor %}
             {% if cartData|length > 0%}
-            <button class="btn btn-danger" type="submit" form="#remove-item-form"> Remove selected items </button>
             {%else%}
             <p> You have no items in your cart.</p>
             {% endif %}
         </form>
             
+            <!-- Promo code section
             <li class="list-group-item d-flex justify-content-between bg-light">
                 <div class="text-success">
                 <h4 class="my-0">Promo code</h4>
@@ -80,6 +78,8 @@
                 <span class="text-success">-$5</span>
             </li>
             </ul>
+
+            -->
         </div>
 
         <style>div.priceBox {border-style: solid;}</style>
