@@ -385,9 +385,12 @@ def cart():
         subTotal = subTotal + itemInfo.price
         fees += itemInfo.price * 0.02
 
-    fees = round(fees, 2)
     tax = (subTotal * 0.075)
     grandTotal = subTotal + fees + tax
+
+    fees = round(fees, 2)
+    tax = round(tax, 2)
+    grandTotal = round(grandTotal, 2)
 
     return render_template('cart.html', title="Cart", cartData=itemsList, subTotal=subTotal, tax=tax, fees=fees, grandTotal=grandTotal, ID=ID)
 # adding stuff to cart branch=
