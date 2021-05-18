@@ -299,6 +299,7 @@ def shopFiltered(tag):
     newList = []
     for obj in imageList:
         tagsString = str(obj.tags)
+        obj.price = float(obj.price)
         if str(tag).lower() in tagsString:
             newList.append(obj)
 
